@@ -7,6 +7,9 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
+import javax.servlet.ServletContext;
+import java.util.*;
+
 /**
  * 处理TextWebSocketFrame
  *
@@ -15,8 +18,11 @@ import io.netty.util.concurrent.GlobalEventExecutor;
  */
 public class TextWebSocketFrameHandler extends
 		SimpleChannelInboundHandler<TextWebSocketFrame> {
-
+	private ServletContext servletContext;
 	public static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+	public TextWebSocketFrameHandler( ServletContext servletContext){
+		this.servletContext=servletContext;
+	}
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx,
 								TextWebSocketFrame msg) throws Exception { // (1)
@@ -32,7 +38,10 @@ public class TextWebSocketFrameHandler extends
 	@Override
 	public void handlerAdded(ChannelHandlerContext ctx) throws Exception {  // (2)
 		Channel incoming = ctx.channel();
-		// Broadcast a message to multiple Channels
+		Map websocketMap=new HashMap();
+		websocketMap= (Map) servletContext.getAttribute("websocketMap");
+		websocketMap.put(incoming.remoteAddress().toString(),incoming);
+		servletContext.setAttribute("websocketMap",websocketMap);
 		channels.writeAndFlush(new TextWebSocketFrame("[SERVER] - " + incoming.remoteAddress() + " 加入"));
 		channels.add(incoming);
 		System.out.println("Client:"+incoming.remoteAddress() +"加入");
@@ -40,7 +49,10 @@ public class TextWebSocketFrameHandler extends
 	@Override
 	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {  // (3)
 		Channel incoming = ctx.channel();
-		// Broadcast a message to multiple Channels
+		Map websocketMap=new HashMap();
+		websocketMap= (Map) servletContext.getAttribute("websocketMap");
+		websocketMap.remove(incoming.remoteAddress().toString());
+		servletContext.setAttribute("websocketMap",websocketMap);
 		channels.writeAndFlush(new TextWebSocketFrame("[SERVER] - " + incoming.remoteAddress() + " 离开"));
 		System.out.println("Client:"+incoming.remoteAddress() +"离开");
 		// A closed Channel is automatically removed from ChannelGroup,

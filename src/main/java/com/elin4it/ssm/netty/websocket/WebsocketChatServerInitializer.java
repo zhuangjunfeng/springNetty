@@ -8,6 +8,8 @@ import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
+import javax.servlet.ServletContext;
+
 /**
  * 服务端 ChannelInitializer
  *
@@ -16,7 +18,10 @@ import io.netty.handler.stream.ChunkedWriteHandler;
  */
 public class WebsocketChatServerInitializer extends
 		ChannelInitializer<SocketChannel> {	//1
-
+private ServletContext servletContext;
+	public WebsocketChatServerInitializer( ServletContext servletContext){
+		this.servletContext=servletContext;
+	}
 	@Override
 	public void initChannel(SocketChannel ch) throws Exception {//2
 		ChannelPipeline pipeline = ch.pipeline();
@@ -26,7 +31,7 @@ public class WebsocketChatServerInitializer extends
 		pipeline.addLast(new ChunkedWriteHandler());
 		pipeline.addLast(new HttpRequestHandler("/ws"));
 		pipeline.addLast(new WebSocketServerProtocolHandler("/ws"));
-		pipeline.addLast(new TextWebSocketFrameHandler());
+		pipeline.addLast(new TextWebSocketFrameHandler(servletContext));
 
 	}
 }

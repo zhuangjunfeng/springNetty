@@ -88,13 +88,13 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
         ctx.writeAndFlush(response);
     }
 
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
-            throws Exception {
-        Channel incoming = ctx.channel();
-        System.out.println("Client:"+incoming.remoteAddress()+"异常");
+	@Override
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
+			throws Exception {
+    	Channel incoming = ctx.channel();
+		System.out.println("Client:"+incoming.remoteAddress()+"异常");
         // 当出现异常就关闭连接
         cause.printStackTrace();
         ctx.close();
-    }
+	}
 }

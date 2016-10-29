@@ -12,8 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * 内容管理平台服务启动监听器
@@ -32,8 +31,10 @@ public class InitDataListener  implements InitializingBean,ServletContextAware{
         System.out.println("-------------------系统初始化字典数据結束--------------");
         // NettyServer  nettyServer = new NettyServer();
         // nettyServer.start(port,dispatcherServlet);
-
-
+        Map clientMap=new HashMap();
+        Map websocketMap=new HashMap();
+        servletContext.setAttribute("clientMap",clientMap);
+        servletContext.setAttribute("websocketMap",websocketMap);
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("config/netty.properties");
         Properties p = new Properties();
         try{
@@ -41,12 +42,9 @@ public class InitDataListener  implements InitializingBean,ServletContextAware{
         } catch (IOException e1){
             e1.printStackTrace();
         }
-        try {
-            new WebsocketChatServer(Integer.parseInt(p.getProperty("websocket.port"))).run();
-            new ProtocolServer(Integer.parseInt(p.getProperty("client.port"))).run();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+          WebsocketChatServer websocketChatServer=  new WebsocketChatServer(Integer.parseInt(p.getProperty("websocket.port")),servletContext);
+          ProtocolServer protocolServer= new ProtocolServer(Integer.parseInt(p.getProperty("client.port")),servletContext);
+        websocketChatServer.start();
+        protocolServer.start();
     }
 }
