@@ -1,4 +1,7 @@
 package com.elin4it.ssm.netty.websocket;
+
+import com.elin4it.ssm.netty.client.ProtocolHeader;
+import com.elin4it.ssm.netty.client.ProtocolMsg;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -8,7 +11,9 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
 import javax.servlet.ServletContext;
-import java.util.*;
+import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 处理TextWebSocketFrame
@@ -27,6 +32,31 @@ public class TextWebSocketFrameHandler extends
 	protected void channelRead0(ChannelHandlerContext ctx,
 								TextWebSocketFrame msg) throws Exception { // (1)
 		Channel incoming = ctx.channel();
+
+		Map<String,Channel> clientMap=new HashMap<String,Channel>();
+		clientMap= (Map<String,Channel>) servletContext.getAttribute("clientMap");
+
+		for(Map.Entry<String,Channel> entry:clientMap.entrySet()){
+			ProtocolMsg protocolMsg = new ProtocolMsg();
+			ProtocolHeader protocolHeader = new ProtocolHeader();
+			protocolHeader.setMagic((byte) 0x01);
+			protocolHeader.setMsgType((byte) 0x01);
+			protocolHeader.setReserve((short) 0);
+			protocolHeader.setSn((short) 0);
+			String body = msg.text();
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < 2; i++) {
+				sb.append(body);
+			}
+			byte[] bodyBytes = sb.toString().getBytes(
+					Charset.forName("utf-8"));
+			int bodySize = bodyBytes.length;
+			protocolHeader.setLen(bodySize);
+			protocolMsg.setProtocolHeader(protocolHeader);
+			protocolMsg.setBody(sb.toString());
+			entry.getValue().writeAndFlush(protocolMsg);
+		}
+
 		for (Channel channel : channels) {
 			if (channel != incoming){
 				channel.writeAndFlush(new TextWebSocketFrame("[" + incoming.remoteAddress() + "]" + msg.text()));

@@ -3,6 +3,7 @@ package com.elin4it.ssm.netty.client;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
 import javax.servlet.ServletContext;
 import java.util.HashMap;
@@ -27,8 +28,16 @@ public class ProtocolServerHandler extends SimpleChannelInboundHandler<Object> {
 
         if (obj instanceof ProtocolMsg) {
             ProtocolMsg msg = (ProtocolMsg) obj;
+            Map<String,Channel> websocketMap=new HashMap<String,Channel>();
+
+            websocketMap= (Map<String,Channel>) servletContext.getAttribute("websocketMap");
+
+            for(Map.Entry<String,Channel> entry:websocketMap.entrySet()){
+                entry.getValue().writeAndFlush(new TextWebSocketFrame(msg.getBody()));
+            }
+
             System.out.println("Client->Server:" + incoming.remoteAddress() + msg.getBody());
-            incoming.write(obj);
+//            incoming.write(obj);
         }
     }
     @Override
