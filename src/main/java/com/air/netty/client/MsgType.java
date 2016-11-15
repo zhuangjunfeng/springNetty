@@ -3,11 +3,6 @@
  */
 package com.air.netty.client;
 
-/**
- * 说明：消息类型
- *
- * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月5日 
- */
 public enum MsgType {
 	EMGW_LOGIN_REQ((byte) 0x00),
 	EMGW_LOGIN_RES((byte) 0x01);

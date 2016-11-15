@@ -17,12 +17,7 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * 处理TextWebSocketFrame
- *
- * @author waylau.com
- * 2015年3月26日
- */
+
 public class TextWebSocketFrameHandler extends
 		SimpleChannelInboundHandler<TextWebSocketFrame> {
 	private ServletContext servletContext;

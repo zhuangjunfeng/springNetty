@@ -23,11 +23,7 @@ import java.io.RandomAccessFile;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-/**
- * 处理 Http 请求
- * @author waylau.com
- * @date 2015-3-26 
- */
+
 public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequest> { //1
     private final String wsUri;
     private static final File INDEX;

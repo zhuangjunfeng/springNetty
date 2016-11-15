@@ -9,11 +9,6 @@ import io.netty.handler.codec.MessageToByteEncoder;
 
 import java.nio.charset.Charset;
 
-/**
- * 说明：编码器
- *
- * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月10日
- */
 public class ProtocolEncoder extends MessageToByteEncoder<ProtocolMsg> {
 
 	/**

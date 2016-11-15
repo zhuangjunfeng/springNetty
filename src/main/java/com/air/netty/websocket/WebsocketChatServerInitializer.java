@@ -10,12 +10,7 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 
 import javax.servlet.ServletContext;
 
-/**
- * 服务端 ChannelInitializer
- *
- * @author waylau.com
- * @date 2015-3-13
- */
+
 public class WebsocketChatServerInitializer extends
 		ChannelInitializer<SocketChannel> {	//1
 private ServletContext servletContext;

@@ -9,11 +9,6 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 import javax.servlet.ServletContext;
 
-/**
- * Websocket 聊天服务器-服务端
- * @author waylau.com
- * @date 2015-3-7
- */
 public class WebsocketChatServer extends Thread {
     private ServletContext servletContext;
     private int port;
