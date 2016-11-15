@@ -22,10 +22,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="springNetty" />
         <module name="ssm" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="springNetty" target="1.5" />
       <module name="ssm" target="1.5" />
     </bytecodeTargetLevel>
   </component>
