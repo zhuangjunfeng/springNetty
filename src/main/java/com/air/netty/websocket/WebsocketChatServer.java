@@ -6,10 +6,13 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletContext;
 
 public class WebsocketChatServer extends Thread {
+
+    private static Logger logger = Logger.getLogger(WebsocketChatServer.class);
     private ServletContext servletContext;
     private int port;
 
@@ -29,7 +32,7 @@ public class WebsocketChatServer extends Thread {
                     .option(ChannelOption.SO_BACKLOG, 128)          // (5)
                     .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
 
-            System.out.println("WebsocketChatServer 启动了" + port);
+            logger.info("WebsocketChatServer 启动了" + port);
 
             // 绑定端口，开始接收进来的连接
             try {
@@ -41,8 +44,7 @@ public class WebsocketChatServer extends Thread {
         } finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
-
-            System.out.println("WebsocketChatServer 关闭了");
+            logger.info("WebsocketChatServer 关闭了");
         }
 
     }

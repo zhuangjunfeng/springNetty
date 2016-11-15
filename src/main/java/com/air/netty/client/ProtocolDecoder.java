@@ -27,22 +27,6 @@ public class ProtocolDecoder extends LengthFieldBasedFrameDecoder {
 				lengthAdjustment, initialBytesToStrip);
 	}
 
-	/**
-	 * @param maxFrameLength
-	 * @param lengthFieldOffset
-	 * @param lengthFieldLength
-	 * @param lengthAdjustment
-	 * @param initialBytesToStrip
-	 * @param failFast
-	 */
-	public ProtocolDecoder(int maxFrameLength, int lengthFieldOffset,
-						   int lengthFieldLength, int lengthAdjustment,
-						   int initialBytesToStrip, boolean failFast) {
-		super(maxFrameLength, lengthFieldOffset, lengthFieldLength,
-				lengthAdjustment, initialBytesToStrip, failFast);
-		// TODO Auto-generated constructor stub
-	}
-
 
 	@Override
 	protected ProtocolMsg decode(ChannelHandlerContext ctx, ByteBuf in2) throws Exception {

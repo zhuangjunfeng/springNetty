@@ -18,31 +18,6 @@ public class ProtocolEncoder extends MessageToByteEncoder<ProtocolMsg> {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @param outboundMessageType
-	 */
-	public ProtocolEncoder(Class<? extends ProtocolMsg> outboundMessageType) {
-		super(outboundMessageType);
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param preferDirect
-	 */
-	public ProtocolEncoder(boolean preferDirect) {
-		super(preferDirect);
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param outboundMessageType
-	 * @param preferDirect
-	 */
-	public ProtocolEncoder(Class<? extends ProtocolMsg> outboundMessageType,
-						   boolean preferDirect) {
-		super(outboundMessageType, preferDirect);
-		// TODO Auto-generated constructor stub
-	}
 
 	/* (non-Javadoc)
 	 * @see io.netty.handler.codec.MessageToByteEncoder#encode(io.netty.channel.ChannelHandlerContext, java.lang.Object, io.netty.buffer.ByteBuf)

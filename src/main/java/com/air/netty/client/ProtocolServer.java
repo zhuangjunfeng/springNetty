@@ -11,6 +11,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletContext;
 
@@ -18,6 +19,7 @@ import javax.servlet.ServletContext;
  * 说明：自定义协议服务端
  */
 public class ProtocolServer extends Thread {
+    private static Logger logger = Logger.getLogger(ProtocolServer.class);
 
     private int port;
     private ServletContext servletContext;
@@ -36,12 +38,12 @@ public class ProtocolServer extends Thread {
     }
 
     public void run() {
-        EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
+        EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
-            ServerBootstrap b = new ServerBootstrap(); // (2)
+            ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
-                    .channel(NioServerSocketChannel.class) // (3)
+                    .channel(NioServerSocketChannel.class)
                     .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
@@ -53,21 +55,21 @@ public class ProtocolServer extends Thread {
                             ch.pipeline().addLast(new ProtocolServerHandler(servletContext));
                         }
                     })
-                    .option(ChannelOption.SO_BACKLOG, 128)          // (5)
-                    .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
+                    .option(ChannelOption.SO_BACKLOG, 128)
+                    .childOption(ChannelOption.SO_KEEPALIVE, true);
 
             // 绑定端口，开始接收进来的连接
             try {
                 ChannelFuture    f = b.bind(port).sync();
-                System.out.println("Server start listen at " + port);
-                f.channel().closeFuture().sync();// (7)
+                logger.info("clientServer 启动了" + port);
+                f.channel().closeFuture().sync();
             }catch (Exception e){
                 e.printStackTrace();
             }
         } finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
-            System.out.println("Server shutdown listen ");
+            logger.info("clientServer 关闭了");
         }
     }
 

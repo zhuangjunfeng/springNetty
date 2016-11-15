@@ -2,8 +2,6 @@ package com.air.listener;
 
 import com.air.netty.client.ProtocolServer;
 import com.air.netty.websocket.WebsocketChatServer;
-import com.air.pojo.Dictionary;
-import com.air.service.DictionaryService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.ServletContextAware;
@@ -21,16 +19,9 @@ import java.util.*;
  */
 @Controller
 public class InitDataListener  implements InitializingBean,ServletContextAware{
-    @Resource
-    private DictionaryService dictionaryService;
+
     public void  afterPropertiesSet() throws Exception{}
     public void setServletContext(ServletContext servletContext){
-        System.out.println("-------------------系统初始化字典数据開始--------------");
-        List<Dictionary> list=dictionaryService.findDictionary();
-        servletContext.setAttribute("dicList",list);
-        System.out.println("-------------------系统初始化字典数据結束--------------");
-        // NettyServer  nettyServer = new NettyServer();
-        // nettyServer.start(port,dispatcherServlet);
         Map clientMap=new HashMap();
         Map websocketMap=new HashMap();
         servletContext.setAttribute("clientMap",clientMap);
