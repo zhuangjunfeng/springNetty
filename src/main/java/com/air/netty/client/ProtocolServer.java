@@ -47,6 +47,7 @@ public class ProtocolServer extends Thread {
                     .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
+
                             ch.pipeline().addLast("decoder",
                                     new ProtocolDecoder(MAX_FRAME_LENGTH,
                                             LENGTH_FIELD_OFFSET, LENGTH_FIELD_LENGTH,
