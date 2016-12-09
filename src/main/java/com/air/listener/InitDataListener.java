@@ -1,12 +1,11 @@
 package com.air.listener;
 
-import com.air.netty.client.ProtocolServer;
+import com.air.netty.client.ModbusServer;
 import com.air.netty.websocket.WebsocketChatServer;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.ServletContextAware;
 
-import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,8 +33,9 @@ public class InitDataListener  implements InitializingBean,ServletContextAware{
             e1.printStackTrace();
         }
           WebsocketChatServer websocketChatServer=  new WebsocketChatServer(Integer.parseInt(p.getProperty("websocket.port")),servletContext);
-          ProtocolServer protocolServer= new ProtocolServer(Integer.parseInt(p.getProperty("client.port")),servletContext);
-        websocketChatServer.start();
-        protocolServer.start();
+          ModbusServer modbusServer= new ModbusServer(Integer.parseInt(p.getProperty("client.port")),servletContext);
+
+          websocketChatServer.start();
+          modbusServer.start();
     }
 }

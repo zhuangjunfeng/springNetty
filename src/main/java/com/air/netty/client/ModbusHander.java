@@ -10,34 +10,40 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 说明：处理器
- */
-public class ProtocolServerHandler extends SimpleChannelInboundHandler<Object> {
+ * @Description
+ * @Author semstouch
+ * @Date 2016/12/9
+ **/
+public class ModbusHander extends SimpleChannelInboundHandler<Object> {
+
     private ServletContext servletContext;
 
-    public ProtocolServerHandler(ServletContext servletContext) {
+    public ModbusHander(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
+
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object obj)
             throws Exception {
         Channel incoming = ctx.channel();
 
-        if (obj instanceof ProtocolMsg) {
-            ProtocolMsg msg = (ProtocolMsg) obj;
+        if(obj instanceof Modbus) {
+            Modbus msg = (Modbus)obj;
+
             Map<String,Channel> websocketMap=new HashMap<String,Channel>();
 
             websocketMap= (Map<String,Channel>) servletContext.getAttribute("websocketMap");
 
             for(Map.Entry<String,Channel> entry:websocketMap.entrySet()){
-                entry.getValue().writeAndFlush(new TextWebSocketFrame(msg.getBody()));
+                entry.getValue().writeAndFlush(new TextWebSocketFrame(msg.getDATA()));
             }
 
-            System.out.println("Client->Server:" + incoming.remoteAddress() + msg.getBody());
-//            incoming.write(obj);
+            System.out.println("Client->Server:"+incoming.remoteAddress()+"  Data:"+msg.getDATA());
+            incoming.write(obj);
         }
     }
+
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {  // (2)
         Channel incoming = ctx.channel();
