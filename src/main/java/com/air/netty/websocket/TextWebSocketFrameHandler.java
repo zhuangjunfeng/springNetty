@@ -44,7 +44,7 @@ public class TextWebSocketFrameHandler extends
 		servletContext.setAttribute("websocketMap",websocketMap);
 		channels.writeAndFlush(new TextWebSocketFrame("[SERVER] - " + incoming.remoteAddress() + " 加入"));
 		channels.add(incoming);
-		System.out.println("Client:"+incoming.remoteAddress() +"加入");
+//		System.out.println("Client:"+incoming.remoteAddress() +"加入");
 	}
 	@Override
 	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {  // (3)
@@ -54,25 +54,25 @@ public class TextWebSocketFrameHandler extends
 		websocketMap.remove(incoming.remoteAddress().toString());
 		servletContext.setAttribute("websocketMap",websocketMap);
 		channels.writeAndFlush(new TextWebSocketFrame("[SERVER] - " + incoming.remoteAddress() + " 离开"));
-		System.out.println("Client:"+incoming.remoteAddress() +"离开");
+//		System.out.println("Client:"+incoming.remoteAddress() +"离开");
 		// A closed Channel is automatically removed from ChannelGroup,
 		// so there is no need to do "channels.remove(ctx.channel());"
 	}
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception { // (5)
 		Channel incoming = ctx.channel();
-		System.out.println("Client:"+incoming.remoteAddress()+"在线");
+//		System.out.println("Client:"+incoming.remoteAddress()+"在线");
 	}
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception { // (6)
 		Channel incoming = ctx.channel();
-		System.out.println("Client:"+incoming.remoteAddress()+"掉线");
+//		System.out.println("Client:"+incoming.remoteAddress()+"掉线");
 	}
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)	// (7)
 			throws Exception {
 		Channel incoming = ctx.channel();
-		System.out.println("Client:"+incoming.remoteAddress()+"异常");
+//		System.out.println("Client:"+incoming.remoteAddress()+"异常");
 		// 当出现异常就关闭连接
 		cause.printStackTrace();
 		ctx.close();
