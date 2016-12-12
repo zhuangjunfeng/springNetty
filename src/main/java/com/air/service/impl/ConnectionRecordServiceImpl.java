@@ -1,4 +1,4 @@
-package com.air.service.imp;
+package com.air.service.impl;
 
 import com.air.mapper.ConnectionRecordMapper;
 import com.air.pojo.ConnectionRecord;
@@ -11,7 +11,7 @@ import javax.annotation.Resource;
  * Created by Administrator on 2016/12/11.
  */
 @Service
-public class ConnectionRecordServiceImp implements ConnectionRecordService{
+public class ConnectionRecordServiceImpl implements ConnectionRecordService{
     @Resource
     private ConnectionRecordMapper connectionRecordMapper;
     public void saveRecord(ConnectionRecord connectionRecord){

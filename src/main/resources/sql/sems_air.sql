@@ -1,19 +1,36 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : wamp
-Source Server Version : 50617
+Source Server         : zjf
+Source Server Version : 50520
 Source Host           : localhost:3306
 Source Database       : sems_air
 
 Target Server Type    : MYSQL
-Target Server Version : 50617
+Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2016-11-15 13:21:15
+Date: 2016-12-12 09:21:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for air_connection_record
+-- ----------------------------
+DROP TABLE IF EXISTS `air_connection_record`;
+CREATE TABLE `air_connection_record` (
+  `record_id` int(100) NOT NULL AUTO_INCREMENT,
+  `record_ip` varchar(255) DEFAULT NULL,
+  `record_port` varchar(255) DEFAULT NULL,
+  `record_agreement` varchar(270) DEFAULT NULL,
+  `record_creat_time` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`record_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of air_connection_record
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for air_device

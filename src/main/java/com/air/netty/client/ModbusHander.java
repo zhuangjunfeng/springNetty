@@ -1,7 +1,7 @@
 package com.air.netty.client;
 
 import com.air.pojo.ConnectionRecord;
-import com.air.service.ConnectionRecordService;
+import com.air.service.impl.ConnectionRecordServiceImpl;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -26,7 +26,7 @@ public class ModbusHander extends SimpleChannelInboundHandler<Object> {
     ConnectionRecord connectionRecord;
     String agreement,incomingIp,incomingPort;
     @Resource
-    private ConnectionRecordService connectionRecordService;
+    private ConnectionRecordServiceImpl connectionRecordService;
     private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     public ModbusHander(ServletContext servletContext) {
         this.servletContext = servletContext;
