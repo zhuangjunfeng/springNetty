@@ -23,7 +23,6 @@ import java.util.regex.Pattern;
 public class ModbusHander extends SimpleChannelInboundHandler<Object> {
 
     private ServletContext servletContext;
-    ConnectionRecord connectionRecord;
     String agreement,incomingIp,incomingPort;
     @Resource
     private ConnectionRecordServiceImpl connectionRecordService;
@@ -69,6 +68,7 @@ public class ModbusHander extends SimpleChannelInboundHandler<Object> {
                 incomingIp=m.group(1);
                 incomingPort=m.group(2);
             }
+            ConnectionRecord connectionRecord = new ConnectionRecord();
             connectionRecord.setRecord_ip(incomingIp);
             connectionRecord.setRecord_port(incomingPort);
             connectionRecord.setRecord_agreement(agreement);
@@ -99,5 +99,13 @@ public class ModbusHander extends SimpleChannelInboundHandler<Object> {
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         ctx.flush();
+    }
+
+    public ConnectionRecordServiceImpl getConnectionRecordService() {
+        return connectionRecordService;
+    }
+
+    public void setConnectionRecordService(ConnectionRecordServiceImpl connectionRecordService) {
+        this.connectionRecordService = connectionRecordService;
     }
 }
