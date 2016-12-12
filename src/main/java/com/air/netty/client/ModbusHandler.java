@@ -1,15 +1,16 @@
 package com.air.netty.client;
 
 import com.air.pojo.ConnectionRecord;
-import com.air.service.impl.ConnectionRecordServiceImpl;
+import com.air.service.ConnectionRecordService;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -20,22 +21,21 @@ import java.util.regex.Pattern;
  * @Author semstouch
  * @Date 2016/12/9
  **/
-public class ModbusHander extends SimpleChannelInboundHandler<Object> {
+@Component
+@ChannelHandler.Sharable
+public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
 
     private ServletContext servletContext;
-    String agreement,incomingIp,incomingPort;
     @Resource
-    private ConnectionRecordServiceImpl connectionRecordService;
-    private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-    public ModbusHander(ServletContext servletContext) {
-        this.servletContext = servletContext;
-    }
-
+    private ConnectionRecordService connectionRecordService;
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object obj)
             throws Exception {
         Channel incoming = ctx.channel();
+        String agreement = "";
+        String incomingIp = "";
+        String incomingPort = "";
         if(obj instanceof Modbus) {
             Modbus msg = (Modbus)obj;
 
@@ -56,8 +56,6 @@ public class ModbusHander extends SimpleChannelInboundHandler<Object> {
                     +msg.getCODE()+msg.getLEN()
                     +msg.getDATA()+msg.getCRC()
                     +msg.getFOOTER();
-//            connectionRecord.setRecord_creat_time(df.format(new Date()));
-//            connectionRecord.setRecord_ip(incoming.localAddress().toString());
             String address=incoming.remoteAddress().toString();
             System.out.println(address);
 
@@ -73,6 +71,8 @@ public class ModbusHander extends SimpleChannelInboundHandler<Object> {
             connectionRecord.setRecord_port(incomingPort);
             connectionRecord.setRecord_agreement(agreement);
             connectionRecordService.saveRecord(connectionRecord);
+
+
 //            System.out.println("Client->Server:" + incoming.remoteAddress() + msg.getBody());
 //            incoming.write(obj);
 
@@ -101,11 +101,11 @@ public class ModbusHander extends SimpleChannelInboundHandler<Object> {
         ctx.flush();
     }
 
-    public ConnectionRecordServiceImpl getConnectionRecordService() {
-        return connectionRecordService;
+    public ServletContext getServletContext() {
+        return servletContext;
     }
 
-    public void setConnectionRecordService(ConnectionRecordServiceImpl connectionRecordService) {
-        this.connectionRecordService = connectionRecordService;
+    public void setServletContext(ServletContext servletContext) {
+        this.servletContext = servletContext;
     }
 }

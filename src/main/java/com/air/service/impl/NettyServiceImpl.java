@@ -1,5 +1,9 @@
-package com.air.netty.client;
+package com.air.service.impl;
 
+import com.air.netty.client.ModbusDecoder;
+import com.air.netty.client.ModbusEncoder;
+import com.air.netty.client.ModbusHandler;
+import com.air.service.NettyService;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -9,20 +13,22 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletContext;
 
 /**
  * @Description
  * @Author semstouch
- * @Date 2016/12/9
+ * @Date 2016/12/12
  **/
-public class ModbusServer extends Thread {
+@Component
+public class NettyServiceImpl  implements NettyService{
+    private static Logger logger = Logger.getLogger(NettyServiceImpl.class);
+    @Autowired
+    private ModbusHandler modbusHandler;
 
-    private static Logger logger = Logger.getLogger(ModbusServer.class);
-
-    private int port;
-    private ServletContext servletContext;
 
     private static final int MAX_FRAME_LENGTH = 270;
     private static final int LENGTH_FIELD_LENGTH = 1;
@@ -30,15 +36,10 @@ public class ModbusServer extends Thread {
     private static final int LENGTH_ADJUSTMENT = 2;
     private static final int INITIAL_BYTES_TO_STRIP = 0;
 
-    /**
-     *
-     */
-    public ModbusServer(int port,ServletContext servletContext) {
-        this.port = port;
-        this.servletContext=servletContext;
-    }
 
-    public void run(){
+    @Override
+    public void start(int port, ServletContext servletContext) {
+        modbusHandler.setServletContext(servletContext);
         EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -51,19 +52,19 @@ public class ModbusServer extends Thread {
                             ch.pipeline().addLast("decoder",
                                     new ModbusDecoder(MAX_FRAME_LENGTH, LENGTH_FIELD_OFFSET,LENGTH_FIELD_LENGTH,LENGTH_ADJUSTMENT, INITIAL_BYTES_TO_STRIP));
                             ch.pipeline().addLast("encoder", new ModbusEncoder());
-                            ch.pipeline().addLast(new ModbusHander(servletContext));
+                            ch.pipeline().addLast(modbusHandler);
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)          // (5)
                     .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
 
-            // ç»‘å®šç«¯å£ï¼Œå¼€å§‹æ¥æ”¶è¿›æ¥çš„è¿æ¥
+            // °ó¶¨¶Ë¿Ú£¬¿ªÊ¼½ÓÊÕ½øÀ´µÄÁ¬½Ó
             ChannelFuture f = b.bind(port).sync(); // (7)
 
             System.out.println("Server start listen at " + port );
 
-            // ç­‰å¾…æœåŠ¡å™¨  socket å…³é—­ ã€‚
-            // åœ¨è¿™ä¸ªä¾‹å­ä¸­ï¼Œè¿™ä¸ä¼šå‘ç”Ÿï¼Œä½†ä½ å¯ä»¥ä¼˜é›…åœ°å…³é—­ä½ çš„æœåŠ¡å™¨ã€‚
+            // µÈ´ı·şÎñÆ÷  socket ¹Ø±Õ ¡£
+            // ÔÚÕâ¸öÀı×ÓÖĞ£¬Õâ²»»á·¢Éú£¬µ«Äã¿ÉÒÔÓÅÑÅµØ¹Ø±ÕÄãµÄ·şÎñÆ÷¡£
             f.channel().closeFuture().sync();
 
 
@@ -73,5 +74,8 @@ public class ModbusServer extends Thread {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
         }
+
     }
+
+
 }
