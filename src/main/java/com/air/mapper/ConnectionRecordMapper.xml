@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.air.mapper.ConnectionRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.air.pojo.ConnectionRecord" >
+    <id column="record_id" property="record_id" jdbcType="INTEGER" />
+    <result column="record_ip" property="record_ip" jdbcType="VARCHAR" />
+    <result column="record_port" property="record_port" jdbcType="VARCHAR" />
+    <result column="record_agreement" property="record_agreement" jdbcType="VARCHAR" />
+    <result column="record_creat_time" property="record_creat_time" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    record_id, record_ip, record_port, record_agreement, record_creat_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from air_connection_record
+    where record_id = #{record_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from air_connection_record
+    where record_id = #{record_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.air.pojo.ConnectionRecord" >
+    insert into air_connection_record (record_id, record_ip, record_port, 
+      record_agreement, record_creat_time)
+    values (#{record_id,jdbcType=INTEGER}, #{record_ip,jdbcType=VARCHAR}, #{record_port,jdbcType=VARCHAR}, 
+      #{record_agreement,jdbcType=VARCHAR}, #{record_creat_time,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.air.pojo.ConnectionRecord" >
+    insert into air_connection_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="record_id != null" >
+        record_id,
+      </if>
+      <if test="record_ip != null" >
+        record_ip,
+      </if>
+      <if test="record_port != null" >
+        record_port,
+      </if>
+      <if test="record_agreement != null" >
+        record_agreement,
+      </if>
+      <if test="record_creat_time != null" >
+        record_creat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="record_id != null" >
+        #{record_id,jdbcType=INTEGER},
+      </if>
+      <if test="record_ip != null" >
+        #{record_ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record_port != null" >
+        #{record_port,jdbcType=VARCHAR},
+      </if>
+      <if test="record_agreement != null" >
+        #{record_agreement,jdbcType=VARCHAR},
+      </if>
+      <if test="record_creat_time != null" >
+        #{record_creat_time,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.air.pojo.ConnectionRecord" >
+    update air_connection_record
+    <set >
+      <if test="record_ip != null" >
+        record_ip = #{record_ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record_port != null" >
+        record_port = #{record_port,jdbcType=VARCHAR},
+      </if>
+      <if test="record_agreement != null" >
+        record_agreement = #{record_agreement,jdbcType=VARCHAR},
+      </if>
+      <if test="record_creat_time != null" >
+        record_creat_time = #{record_creat_time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where record_id = #{record_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.air.pojo.ConnectionRecord" >
+    update air_connection_record
+    set record_ip = #{record_ip,jdbcType=VARCHAR},
+      record_port = #{record_port,jdbcType=VARCHAR},
+      record_agreement = #{record_agreement,jdbcType=VARCHAR},
+      record_creat_time = #{record_creat_time,jdbcType=VARCHAR}
+    where record_id = #{record_id,jdbcType=INTEGER}
+  </update>
+</mapper>
