@@ -2,9 +2,8 @@ package com.air.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.apache.log4j.Logger;
 
-public class StringUtil {
+public class StringUtils {
 
     /**
      * 查找2个字符串之间的字符串 SubString方法
@@ -166,6 +165,53 @@ public class StringUtil {
             str = "" + Integer.toHexString(num);
         }
         return str;
+    }
+
+    /**
+     * 获取CRC校验码
+     * @param data 数据域
+     * @return CRC结果byte
+     */
+    public  static  byte getCRC(byte[] data)
+    {
+        byte sumc = 0;
+        for (int i = 0, c = data.length; i < c; i++) {
+            sumc += data[i];
+        }
+        return sumc;
+    }
+
+    /**
+     * byte转String
+     * @param src  byte
+     * @return 大写字符串
+     */
+    public static String byteToHexString(byte src){
+        StringBuilder stringBuilder = new StringBuilder("");
+        int v = src & 0xFF;
+        String hv = Integer.toHexString(v);
+        if (hv.length() < 2) {
+            stringBuilder.append(0);
+        }
+        stringBuilder.append(hv);
+        return stringBuilder.toString().toUpperCase();
+    }
+
+    /**
+     * CRC校验
+     * @param data 数据域
+     * @param CRC  CRC字符串
+     * @return true（验证成功） false(验证失败)
+     */
+    public static  boolean checkCRC(String data,String CRC){
+        byte[] outByte = StringUtils.hexStringToBytes(data);
+        byte crc = StringUtils.getCRC(outByte);
+        String crcStr = StringUtils.byteToHexString(crc);
+        if (crcStr.equals(CRC))
+        {
+            return true;
+        }
+        return false;
     }
 
 }

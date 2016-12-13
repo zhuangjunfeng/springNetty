@@ -12,7 +12,7 @@ import javax.servlet.ServletContext;
 @Service
 public interface NettyService{
     /**
-     * Æô¶¯·şÎñÆ÷
+     * å¯åŠ¨æœåŠ¡å™¨
      */
     public void start(int port, ServletContext servletContext);
 

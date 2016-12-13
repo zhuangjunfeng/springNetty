@@ -13,7 +13,7 @@ import javax.servlet.ServletContext;
 @Service
 public interface WebSocketService {
     /**
-     * Æô¶¯·şÎñÆ÷
+     * å¯åŠ¨æœåŠ¡å™¨
      */
     public void start(int port, ServletContext servletContext);
 

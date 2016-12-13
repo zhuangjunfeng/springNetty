@@ -58,21 +58,20 @@ public class NettyServiceImpl  implements NettyService{
                     .option(ChannelOption.SO_BACKLOG, 128)          // (5)
                     .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
 
-            // °ó¶¨¶Ë¿Ú£¬¿ªÊ¼½ÓÊÕ½øÀ´µÄÁ¬½Ó
+            // ç»‘å®šç«¯å£ï¼Œå¼€å§‹æ¥æ”¶è¿›æ¥çš„è¿æ¥
             ChannelFuture f = b.bind(port).sync(); // (7)
 
-            System.out.println("Server start listen at " + port );
+            logger.info("modbus å¯åŠ¨äº†:" + port);
 
-            // µÈ´ı·şÎñÆ÷  socket ¹Ø±Õ ¡£
-            // ÔÚÕâ¸öÀı×ÓÖĞ£¬Õâ²»»á·¢Éú£¬µ«Äã¿ÉÒÔÓÅÑÅµØ¹Ø±ÕÄãµÄ·şÎñÆ÷¡£
             f.channel().closeFuture().sync();
 
 
         } catch (Exception e){
-            logger.error("error:"+e);
+            logger.error("modbus error:"+e);
         }finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
+            logger.info("modbus:å…³é—­äº†");
         }
 
     }

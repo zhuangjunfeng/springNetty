@@ -59,19 +59,17 @@ public class WebSocketServiceImpl  implements WebSocketService{
                     .option(ChannelOption.SO_BACKLOG, 128)          // (5)
                     .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
 
-            logger.info("websocket ∆Ù∂Ø¡À" + port);
+            logger.info("websocket ÂêØÂä®‰∫Ü" + port);
 
-            // ∞Û∂®∂Àø⁄£¨ø™ ºΩ” ’Ω¯¿¥µƒ¡¨Ω”
-            try {
+
                 ChannelFuture f = b.bind(port).sync(); // (7)
                 f.channel().closeFuture().sync();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            logger.error("websocket error:"+e);
         } finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
-            logger.info("websocket πÿ±’¡À");
+            logger.info("websocket ÂÖ≥Èó≠‰∫Ü");
         }
     }
 

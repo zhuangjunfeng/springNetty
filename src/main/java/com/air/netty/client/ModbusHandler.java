@@ -2,11 +2,11 @@ package com.air.netty.client;
 
 import com.air.pojo.ConnectionRecord;
 import com.air.service.ConnectionRecordService;
+import com.air.util.StringUtils;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -33,45 +33,54 @@ public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
     protected void channelRead0(ChannelHandlerContext ctx, Object obj)
             throws Exception {
         Channel incoming = ctx.channel();
-        String agreement = "";
         String incomingIp = "";
         String incomingPort = "";
         if(obj instanceof Modbus) {
+
             Modbus msg = (Modbus)obj;
 
-            Map<String,Channel> websocketMap=new HashMap<String,Channel>();
+            StringBuffer  data = new StringBuffer();
+            data.append(msg.getHEADER_BEGIN());
+            data.append(msg.getUID());
+            data.append(msg.getHEADER_END());
+            data.append(msg.getCODE());
+            data.append(msg.getLEN());
+            data.append(msg.getDATA());
 
-            websocketMap= (Map<String,Channel>) servletContext.getAttribute("websocketMap");
+            //CRC校验
+            if(StringUtils.checkCRC(data.toString(), msg.getCRC())){
+                String agreement=msg.getHEADER_BEGIN()
+                        +msg.getUID()
+                        +msg.getHEADER_END()
+                        +msg.getCODE()+msg.getLEN()
+                        +msg.getDATA()+msg.getCRC()
+                        +msg.getFOOTER();
 
-            for(Map.Entry<String,Channel> entry:websocketMap.entrySet()){
-                entry.getValue().writeAndFlush(new TextWebSocketFrame(msg.getDATA()));
+                String address=incoming.remoteAddress().toString();
+                String regex="/(.*?):(.*)";
+                Pattern p= Pattern.compile(regex);
+                Matcher m=p.matcher(address);
+                while(m.find()){
+                    incomingIp=m.group(1);
+                    incomingPort=m.group(2);
+                }
+                ConnectionRecord connectionRecord = new ConnectionRecord();
+                connectionRecord.setRecord_ip(incomingIp);
+                connectionRecord.setRecord_port(incomingPort);
+                connectionRecord.setRecord_agreement(agreement);
+                connectionRecordService.saveRecord(connectionRecord);
             }
 
 
-            System.out.println("Client->Server:"+incoming.remoteAddress()+"  Data:"+msg.getDATA());
-            incoming.write(obj);
-            agreement=msg.getHEADER_BEGIN()
-                    +msg.getUID()
-                    +msg.getHEADER_END()
-                    +msg.getCODE()+msg.getLEN()
-                    +msg.getDATA()+msg.getCRC()
-                    +msg.getFOOTER();
-            String address=incoming.remoteAddress().toString();
-            System.out.println(address);
 
-            String regex="/(.*?):(.*)";
-            Pattern p= Pattern.compile(regex);
-            Matcher m=p.matcher(address);
-            while(m.find()){
-                incomingIp=m.group(1);
-                incomingPort=m.group(2);
-            }
-            ConnectionRecord connectionRecord = new ConnectionRecord();
-            connectionRecord.setRecord_ip(incomingIp);
-            connectionRecord.setRecord_port(incomingPort);
-            connectionRecord.setRecord_agreement(agreement);
-            connectionRecordService.saveRecord(connectionRecord);
 
+
+//            Map<String,Channel> websocketMap = new HashMap<String,Channel>();
+//            websocketMap= (Map<String,Channel>) servletContext.getAttribute("websocketMap");
+//
+//            for(Map.Entry<String,Channel> entry:websocketMap.entrySet()){
+//                entry.getValue().writeAndFlush(new TextWebSocketFrame(msg.getDATA()));
+//            }
 
 //            System.out.println("Client->Server:" + incoming.remoteAddress() + msg.getBody());
 //            incoming.write(obj);
