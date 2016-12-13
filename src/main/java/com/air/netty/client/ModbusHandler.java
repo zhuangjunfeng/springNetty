@@ -7,6 +7,7 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -26,6 +27,7 @@ import java.util.regex.Pattern;
 @Component
 @ChannelHandler.Sharable
 public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
+    private static Logger logger = Logger.getLogger(ModbusHandler.class);
 
     private ServletContext servletContext;
     @Resource
@@ -38,9 +40,7 @@ public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
         String incomingIp = "";
         String incomingPort = "";
         if(obj instanceof Modbus) {
-
             Modbus msg = (Modbus)obj;
-
             StringBuffer  data = new StringBuffer();
             data.append(msg.getHEADER_BEGIN());
             data.append(msg.getUID());
@@ -66,18 +66,14 @@ public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
                     incomingIp=m.group(1);
                     incomingPort=m.group(2);
                 }
+                ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+                ac.getBean(msg.getCODE()).getClass().getConstructor(Modbus.class,Channel.class,ServletContext.class).newInstance(msg,incoming,servletContext);
+
                 ConnectionRecord connectionRecord = new ConnectionRecord();
                 connectionRecord.setRecord_ip(incomingIp);
                 connectionRecord.setRecord_port(incomingPort);
                 connectionRecord.setRecord_agreement(agreement);
                 connectionRecordService.saveRecord(connectionRecord);
-
-
-                ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(servletContext);
-                ac.getBean("");
-
-
-
 
             }
 
