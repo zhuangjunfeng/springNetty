@@ -9,24 +9,22 @@ import javax.servlet.ServletContext;
 /**
  * Created by Administrator on 2016/12/13.
  */
-@Component("8F")
-public class QueryParamsActor {
+@Component("85")
+public class QueryTimeTaskActor {
     private Modbus modbus;
     private Channel channel;
     private ServletContext servletContext;
 
-    public QueryParamsActor(){}
+    public QueryTimeTaskActor(){}
 
-    public QueryParamsActor(Modbus modbus,Channel incoming,ServletContext servletContext){
+    public QueryTimeTaskActor(Modbus modbus,Channel incoming,ServletContext servletContext){
         this.modbus=modbus;
         this.channel=incoming;
         this.servletContext=servletContext;
-        this.queryParams();
+        this.queryTimeTask();
     }
 
-    public void queryParams(){
-        modbus.setCODE("8F");
-        modbus.setDATA("");
-        channel.write(modbus);
+    public void queryTimeTask(){
+
     }
 }

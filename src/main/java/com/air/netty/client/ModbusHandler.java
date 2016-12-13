@@ -76,21 +76,6 @@ public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
                 connectionRecordService.saveRecord(connectionRecord);
 
             }
-
-
-
-
-
-//            Map<String,Channel> websocketMap = new HashMap<String,Channel>();
-//            websocketMap= (Map<String,Channel>) servletContext.getAttribute("websocketMap");
-//
-//            for(Map.Entry<String,Channel> entry:websocketMap.entrySet()){
-//                entry.getValue().writeAndFlush(new TextWebSocketFrame(msg.getDATA()));
-//            }
-
-//            System.out.println("Client->Server:" + incoming.remoteAddress() + msg.getBody());
-//            incoming.write(obj);
-
         }
     }
 
