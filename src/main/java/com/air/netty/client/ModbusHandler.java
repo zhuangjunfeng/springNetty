@@ -7,7 +7,9 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
@@ -69,6 +71,14 @@ public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
                 connectionRecord.setRecord_port(incomingPort);
                 connectionRecord.setRecord_agreement(agreement);
                 connectionRecordService.saveRecord(connectionRecord);
+
+
+                ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+                ac.getBean("");
+
+
+
+
             }
 
 
