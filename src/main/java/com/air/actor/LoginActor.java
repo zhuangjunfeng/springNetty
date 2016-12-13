@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.ServletContext;
 
 /**
- * @Description  �ն˵�¼
+ * @Description  终端登录
  * @Author semstouch
  * @Date 2016/12/13
  **/
