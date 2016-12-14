@@ -1,6 +1,6 @@
-package com.air.actor;
+package com.air.netty.client.actor;
 
-import com.air.netty.client.Modbus;
+import com.air.netty.client.protocol.Modbus;
 import io.netty.channel.Channel;
 import org.springframework.stereotype.Component;
 

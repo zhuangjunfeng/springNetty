@@ -1,4 +1,4 @@
-package com.air.netty.client;
+package com.air.netty.client.protocol;
 
 /**
  * @Description 协议对象类

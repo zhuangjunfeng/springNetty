@@ -1,8 +1,8 @@
 package com.air.service.impl;
 
-import com.air.netty.client.ModbusDecoder;
-import com.air.netty.client.ModbusEncoder;
-import com.air.netty.client.ModbusHandler;
+import com.air.netty.client.protocol.ModbusDecoder;
+import com.air.netty.client.protocol.ModbusEncoder;
+import com.air.netty.client.protocol.ModbusHandler;
 import com.air.service.NettyService;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;

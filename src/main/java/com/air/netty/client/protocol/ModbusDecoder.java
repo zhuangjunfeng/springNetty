@@ -1,4 +1,4 @@
-package com.air.netty.client;
+package com.air.netty.client.protocol;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

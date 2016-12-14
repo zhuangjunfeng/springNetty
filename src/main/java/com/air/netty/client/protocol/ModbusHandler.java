@@ -1,4 +1,4 @@
-package com.air.netty.client;
+package com.air.netty.client.protocol;
 
 import com.air.pojo.ConnectionRecord;
 import com.air.service.ConnectionRecordService;
