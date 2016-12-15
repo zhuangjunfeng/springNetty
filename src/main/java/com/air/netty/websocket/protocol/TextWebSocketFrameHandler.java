@@ -38,17 +38,11 @@ public class TextWebSocketFrameHandler extends
 	@Override
 	public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
 		Channel incoming = ctx.channel();
-		websocketMap= (Map) servletContext.getAttribute("websocketMap");
-		websocketMap.put("000000000001",incoming);
-		servletContext.setAttribute("websocketMap",websocketMap);
 		channels.add(incoming);
 	}
 	@Override
 	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
 		Channel incoming = ctx.channel();
-		websocketMap= (Map) servletContext.getAttribute("websocketMap");
-		websocketMap.remove(incoming.remoteAddress().toString());
-		servletContext.setAttribute("websocketMap",websocketMap);
 
 	}
 	@Override

@@ -2,6 +2,7 @@ package com.air.netty.websocket.actor;
 
 import com.air.netty.websocket.protocol.WebSocketMsg;
 import io.netty.channel.Channel;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.springframework.stereotype.Controller;
 
 import javax.servlet.ServletContext;
@@ -31,6 +32,7 @@ public class WebLoginActor {
     public void login(){
         webSocketClient=(Map) servletContext.getAttribute("websocketMap");
         webSocketClient.put(webSocketMsg.getData(),channel);
+        channel.writeAndFlush(new TextWebSocketFrame("监听设备："+webSocketMsg.getData()));
     }
     public WebSocketMsg getWebSocketMsg() {
         return webSocketMsg;
