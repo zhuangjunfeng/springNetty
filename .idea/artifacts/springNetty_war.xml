@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="war" name="springNetty:war">
     <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="spring mvc.war">
+    <root id="archive" name="springNetty.war">
       <element id="artifact" artifact-name="springNetty:war exploded" />
     </root>
   </artifact>

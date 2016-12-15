@@ -1,4 +1,4 @@
-package com.air.netty.websocket;
+package com.air.netty.websocket.protocol;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
@@ -8,10 +8,12 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import org.json.JSONObject;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletContext;
-import java.util.HashMap;
 import java.util.Map;
 
 @Component
@@ -26,10 +28,12 @@ public class TextWebSocketFrameHandler extends
 	protected void channelRead0(ChannelHandlerContext ctx,
 								TextWebSocketFrame msg) throws Exception {
 		Channel incoming = ctx.channel();
-
-
-
-
+		WebSocketMsg webSocketMsg = new WebSocketMsg();
+		JSONObject jsonObject = new JSONObject(msg.text());
+		webSocketMsg.setCmd(jsonObject.get("cmd").toString());
+		webSocketMsg.setData(jsonObject.get("data").toString());
+		ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+		ac.getBean(webSocketMsg.getCmd()).getClass().getConstructor(WebSocketMsg.class,Channel.class,ServletContext.class).newInstance(webSocketMsg,incoming,servletContext);
 	}
 	@Override
 	public void handlerAdded(ChannelHandlerContext ctx) throws Exception {

@@ -1,6 +1,6 @@
 package com.air.service.impl;
 
-import com.air.netty.websocket.TextWebSocketFrameHandler;
+import com.air.netty.websocket.protocol.TextWebSocketFrameHandler;
 import com.air.service.WebSocketService;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;

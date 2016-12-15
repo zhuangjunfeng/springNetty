@@ -22,12 +22,18 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="springNetty" />
         <module name="ssm" />
+      </profile>
+      <profile default="false" name="Annotation profile for springNetty" enabled="true">
+        <sourceOutputDir name="target\generated-sources\annotations" />
+        <sourceTestOutputDir name="target\generated-test-sources\test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="springNetty" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="springNetty" target="1.5" />
+      <module name="springNetty" target="1.8" />
       <module name="ssm" target="1.5" />
     </bytecodeTargetLevel>
   </component>
