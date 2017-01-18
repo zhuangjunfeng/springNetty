@@ -19,6 +19,7 @@ public class LoginActor {
     private Channel channel;
     private ServletContext servletContext;
     private Map webSocketClient;
+    private Map clientSocket;
 
     public LoginActor(){}
 
@@ -33,7 +34,10 @@ public class LoginActor {
     public void login(){
         modbus.setCODE("80");
         modbus.setDATA("F001");
-        channel.write(modbus);
+        channel.writeAndFlush(modbus);
+        clientSocket=(Map) servletContext.getAttribute("clientMap");
+        clientSocket.put(modbus.getUID(),channel);
+
     }
 
     public void sendWeb(){
@@ -50,5 +54,13 @@ public class LoginActor {
 
     public void setWebSocketClient(Map webSocketClient) {
         this.webSocketClient = webSocketClient;
+    }
+
+    public Map getClientSocket() {
+        return clientSocket;
+    }
+
+    public void setClientSocket(Map clientSocket) {
+        this.clientSocket = clientSocket;
     }
 }
