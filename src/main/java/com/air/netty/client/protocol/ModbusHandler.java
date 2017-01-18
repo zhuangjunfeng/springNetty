@@ -82,18 +82,31 @@ public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {  // (2)
         Channel incoming = ctx.channel();
-        Map clientMap=new HashMap();
-        clientMap= (Map) servletContext.getAttribute("clientMap");
-        clientMap.put(incoming.remoteAddress().toString(),incoming);
-        servletContext.setAttribute("clientMap",clientMap);
     }
 
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {  // (3)
         Channel incoming = ctx.channel();
-        Map clientMap=new HashMap();
-        clientMap= (Map) servletContext.getAttribute("clientMap");
-        clientMap.remove(incoming.remoteAddress().toString());
-        servletContext.setAttribute("clientMap",clientMap);
+
+        Map ipUIDMap=new HashMap();
+        ipUIDMap= (Map) servletContext.getAttribute("ipUIDMap");
+        if(ipUIDMap!=null){
+            String UID=ipUIDMap.get(incoming.remoteAddress().toString()).toString();
+            logger.info("设备"+UID+"连接断开····");
+            if (!UID.equals("")) {
+                Map clientMap = new HashMap();
+                clientMap = (Map) servletContext.getAttribute("clientMap");
+                if(clientMap!=null){
+                    clientMap.remove(UID);
+                    servletContext.setAttribute("clientMap",clientMap);
+                }
+                ipUIDMap.remove(incoming.remoteAddress().toString());
+                servletContext.setAttribute("ipUIDMap",ipUIDMap);
+                logger.info("设备"+UID+"连接断开成功");
+            }
+        }
+
+
+
     }
 
     @Override

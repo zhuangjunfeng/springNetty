@@ -34,6 +34,7 @@ public class SendDataActor {
         this.webSocketMsg=webSocketMsg;
         this.channel=incoming;
         this.servletContext=servletContext;
+        modbus = new Modbus();
         this.sendMsg();
     }
 
@@ -49,6 +50,7 @@ public class SendDataActor {
 
                 Channel incoming = (Channel)clientSocket.get(uid);
                 if(incoming!=null) {
+
                     modbus.setUID(uid);
                     modbus.setCODE(maps.get("code").toString());
                     modbus.setDATA(maps.get("data").toString());

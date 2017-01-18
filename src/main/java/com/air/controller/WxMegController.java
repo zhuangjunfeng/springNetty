@@ -25,4 +25,7 @@ public class WxMegController {
         logger.info("微信验证"+echostr);
         return echostr;
     }
+
+
+
 }
