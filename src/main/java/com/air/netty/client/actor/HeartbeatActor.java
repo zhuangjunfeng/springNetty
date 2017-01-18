@@ -27,6 +27,6 @@ public class HeartbeatActor {
     public void heartbeat(){
         modbus.setCODE("80");
         modbus.setDATA("F101");
-        channel.write(modbus);
+        channel.writeAndFlush(modbus);
     }
 }
