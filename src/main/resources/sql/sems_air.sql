@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : zjf
-Source Server Version : 50520
+Source Server         : wamp
+Source Server Version : 50612
 Source Host           : localhost:3306
 Source Database       : sems_air
 
 Target Server Type    : MYSQL
-Target Server Version : 50520
+Target Server Version : 50612
 File Encoding         : 65001
 
-Date: 2016-12-12 09:21:58
+Date: 2017-01-19 19:46:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,11 +26,7 @@ CREATE TABLE `air_connection_record` (
   `record_agreement` varchar(270) DEFAULT NULL,
   `record_creat_time` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`record_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of air_connection_record
--- ----------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for air_device
@@ -44,10 +40,6 @@ CREATE TABLE `air_device` (
   `update_time` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of air_device
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for air_user
@@ -68,7 +60,3 @@ CREATE TABLE `air_user` (
   `update_time` varchar(255) DEFAULT '' COMMENT '更新时间',
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of air_user
--- ----------------------------

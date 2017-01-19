@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.air.mapper.AirDeviceMapper" >
+  <resultMap id="BaseResultMap" type="com.air.pojo.AirDevice" >
+    <id column="device_id" property="device_id" jdbcType="INTEGER" />
+    <result column="device_name" property="device_name" jdbcType="VARCHAR" />
+    <result column="device_uid" property="device_uid" jdbcType="VARCHAR" />
+    <result column="create_time" property="create_time" jdbcType="VARCHAR" />
+    <result column="update_time" property="update_time" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    device_id, device_name, device_uid, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from air_device
+    where device_id = #{device_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from air_device
+    where device_id = #{device_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.air.pojo.AirDevice" >
+    insert into air_device (device_id, device_name, device_uid, 
+      create_time, update_time)
+    values (#{device_id,jdbcType=INTEGER}, #{device_name,jdbcType=VARCHAR}, #{device_uid,jdbcType=VARCHAR}, 
+      #{create_time,jdbcType=VARCHAR}, #{update_time,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.air.pojo.AirDevice" >
+    insert into air_device
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="device_id != null" >
+        device_id,
+      </if>
+      <if test="device_name != null" >
+        device_name,
+      </if>
+      <if test="device_uid != null" >
+        device_uid,
+      </if>
+      <if test="create_time != null" >
+        create_time,
+      </if>
+      <if test="update_time != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="device_id != null" >
+        #{device_id,jdbcType=INTEGER},
+      </if>
+      <if test="device_name != null" >
+        #{device_name,jdbcType=VARCHAR},
+      </if>
+      <if test="device_uid != null" >
+        #{device_uid,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null" >
+        #{create_time,jdbcType=VARCHAR},
+      </if>
+      <if test="update_time != null" >
+        #{update_time,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.air.pojo.AirDevice" >
+    update air_device
+    <set >
+      <if test="device_name != null" >
+        device_name = #{device_name,jdbcType=VARCHAR},
+      </if>
+      <if test="device_uid != null" >
+        device_uid = #{device_uid,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null" >
+        create_time = #{create_time,jdbcType=VARCHAR},
+      </if>
+      <if test="update_time != null" >
+        update_time = #{update_time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where device_id = #{device_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.air.pojo.AirDevice" >
+    update air_device
+    set device_name = #{device_name,jdbcType=VARCHAR},
+      device_uid = #{device_uid,jdbcType=VARCHAR},
+      create_time = #{create_time,jdbcType=VARCHAR},
+      update_time = #{update_time,jdbcType=VARCHAR}
+    where device_id = #{device_id,jdbcType=INTEGER}
+  </update>
+</mapper>
