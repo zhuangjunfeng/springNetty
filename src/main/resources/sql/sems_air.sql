@@ -39,7 +39,7 @@ CREATE TABLE `air_device` (
   `create_time` varchar(255) DEFAULT NULL,
   `update_time` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for air_user
@@ -59,4 +59,4 @@ CREATE TABLE `air_user` (
   `create_time` varchar(255) DEFAULT '' COMMENT '创建时间',
   `update_time` varchar(255) DEFAULT '' COMMENT '更新时间',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
