@@ -20,9 +20,9 @@ public class ModbusEncoder extends MessageToByteEncoder<Modbus> {
         }
 
         StringBuffer data = new StringBuffer();
-        data.append(msg.getHEADER_BEGIN());
+        data.append("68");
         data.append(msg.getUID());
-        data.append(msg.getHEADER_END());
+        data.append("68");
         data.append(msg.getCODE());
         data.append(StringUtils.getHexString2(msg.getDATA().length()/2));
         data.append(msg.getDATA());
@@ -30,7 +30,7 @@ public class ModbusEncoder extends MessageToByteEncoder<Modbus> {
         byte crc = StringUtils.getCRC(dataByte);
         String crcStr = StringUtils.byteToHexString(crc);
         data.append(crcStr);
-        data.append(msg.getFOOTER());
+        data.append("16");
         out.writeBytes(StringUtils.hexStringToBytes(data.toString()));
     }
 }

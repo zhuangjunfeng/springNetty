@@ -23,7 +23,7 @@ public class TextWebSocketFrameHandler extends
 	private ServletContext servletContext;
 	private Map websocketMap;
 	private Map clientMap;
-	public static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+	public ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx,
 								TextWebSocketFrame msg) throws Exception {
