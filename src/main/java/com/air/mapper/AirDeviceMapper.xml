@@ -17,6 +17,13 @@
     from air_device
     where device_id = #{device_id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectAllAirDevice" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM air_device
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from air_device
     where device_id = #{device_id,jdbcType=INTEGER}

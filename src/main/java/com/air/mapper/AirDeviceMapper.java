@@ -2,6 +2,8 @@ package com.air.mapper;
 
 import com.air.pojo.AirDevice;
 
+import java.util.List;
+
 public interface AirDeviceMapper {
     int deleteByPrimaryKey(Integer device_id);
 
@@ -14,4 +16,7 @@ public interface AirDeviceMapper {
     int updateByPrimaryKeySelective(AirDevice record);
 
     int updateByPrimaryKey(AirDevice record);
+
+    List<AirDevice> selectAllAirDevice();
+
 }

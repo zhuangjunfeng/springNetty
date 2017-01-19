@@ -78,6 +78,19 @@
           send("sendDataActor",data);
         }
       });
+
+      $.ajax({
+        type:"GET",
+        dataType:"json",
+        url:"/rest/device/find",
+        data:{_method:"GET"},
+        success:function(data) {
+          var typeList=data.data;
+          $.each(typeList,function(i,n) {
+
+          })
+        }
+      });
   });
 
 
@@ -94,6 +107,7 @@
     <label>数据域：</label><input type="text" name="data"  style="width: 300px"><p>
     <input type="button" value="发送数据" id="sendDataBtn">
     <input type="button" onclick="javascript:document.getElementById('responseText').value=''" value="清空聊天记录">
+
 </form>
 <br>
 <br>
