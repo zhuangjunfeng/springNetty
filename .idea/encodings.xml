@@ -3,21 +3,12 @@
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/air/mapper/AirUserMapper.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/air/mapper/ConnectionRecordMapper.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/air/netty/client/actor/HeartbeatActor.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/air/netty/client/actor/LoginActor.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/air/netty/client/actor/QueryParamsActor.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/air/netty/client/actor/QueryRtuActor.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/air/netty/client/actor/QueryTimeActor.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/air/netty/client/actor/QueryTimeTaskActor.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/air/netty/client/actor/ReciveActor.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/air/netty/client/protocol/ModbusEncoder.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/air/netty/client/protocol/ModbusHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/air/netty/websocket/protocol/WebSocketMsg.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/air/pojo/AirUser.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/air/pojo/ConnectionRecord.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/air/service/ConnectionRecordService.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/air/service/NettyService.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/air/service/WebSocketService.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/air/service/impl/ConnectionRecordServiceImpl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/air/service/impl/NettyServiceImpl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/air/service/impl/WebSocketServiceImpl.java" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
