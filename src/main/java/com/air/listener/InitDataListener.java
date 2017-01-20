@@ -2,6 +2,7 @@ package com.air.listener;
 
 import com.air.service.NettyService;
 import com.air.service.WebSocketService;
+import io.netty.channel.Channel;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
@@ -25,8 +26,12 @@ public class InitDataListener  implements InitializingBean,ServletContextAware{
     private WebSocketService webSocketService;
     public void  afterPropertiesSet() throws Exception{}
     public void setServletContext(ServletContext servletContext){
-        Map clientMap=new HashMap();
-        Map websocketMap=new HashMap();
+        Map<String,Channel> clientMap=new HashMap();
+        Map<String,Channel> websocketMap=new HashMap();
+        Map<String,String> ipUIDMap=new HashMap();
+        Map<String,String> wsUIDMap = new HashMap();
+        servletContext.setAttribute("ipUIDMap",ipUIDMap);
+        servletContext.setAttribute("wsUIDMap",wsUIDMap);
         servletContext.setAttribute("clientMap",clientMap);
         servletContext.setAttribute("websocketMap",websocketMap);
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("config/netty.properties");

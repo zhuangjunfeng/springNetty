@@ -8,18 +8,22 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletContext;
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
 @ChannelHandler.Sharable
 public class TextWebSocketFrameHandler extends
 		SimpleChannelInboundHandler<TextWebSocketFrame> {
+	private static Logger logger = Logger.getLogger(TextWebSocketFrameHandler.class);
+
 	private ServletContext servletContext;
 	private Map websocketMap;
 	private Map clientMap;
@@ -43,7 +47,19 @@ public class TextWebSocketFrameHandler extends
 	@Override
 	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
 		Channel incoming = ctx.channel();
+		String ip =incoming.remoteAddress().toString();
 
+		Map<String,String> wsUIDMap = new HashMap();
+		Map<String,Channel> websocketMap = new HashMap();
+		logger.info(ip+"-ws客户端离开了");
+		websocketMap=(Map) servletContext.getAttribute("websocketMap");
+		wsUIDMap=(Map) servletContext.getAttribute("wsUIDMap");
+		//清除ip-UID关系
+		wsUIDMap.remove(ip);
+		//清除ip-channel关系
+		websocketMap.remove(ip);
+		servletContext.setAttribute("websocketMap",websocketMap);
+		servletContext.setAttribute("wsUIDMap",wsUIDMap);
 	}
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {

@@ -22,9 +22,10 @@ public class LoginActor {
     private  Modbus modbus;
     private Channel channel;
     private ServletContext servletContext;
-    private Map webSocketClient;
-    private Map clientSocket;
-    private Map ipUIDMap;
+    private Map<String,Channel> webSocketClient;
+    private Map<String,Channel> clientSocket;
+    private Map<String,String> ipUIDMap;
+    private Map<String,String> wsUIDMap;
 
     public LoginActor(){}
 
@@ -44,12 +45,10 @@ public class LoginActor {
 
 
         //UID-channel关系缓存
-
         clientSocket=(Map) servletContext.getAttribute("clientMap");
         if(clientSocket==null) {
             clientSocket=new HashMap();
             clientSocket.put(uid, channel);
-
         }else {
             clientSocket.put(uid, channel);
         }
@@ -57,13 +56,13 @@ public class LoginActor {
 
 
         //UID-IP关系缓存
-
         ipUIDMap= (Map) servletContext.getAttribute("ipUIDMap");
+        String ip = channel.remoteAddress().toString();
         if(ipUIDMap==null){
             ipUIDMap=new HashMap();
-            ipUIDMap.put(channel.remoteAddress().toString(),uid);
+            ipUIDMap.put(ip,uid);
         }else {
-            ipUIDMap.put(channel.remoteAddress().toString(),uid);
+            ipUIDMap.put(ip, uid);
         }
 
         servletContext.setAttribute("ipUIDMap",ipUIDMap);
@@ -75,33 +74,50 @@ public class LoginActor {
 
     public void sendWeb(){
         webSocketClient=(Map) servletContext.getAttribute("websocketMap");
-        Channel incoming = (Channel)webSocketClient.get(modbus.getUID());
-        if(incoming!=null) {
-            incoming.writeAndFlush(new TextWebSocketFrame(new Date().toString()+"-终端" + modbus.getUID() + "上线"));
+        wsUIDMap=(Map) servletContext.getAttribute("wsUIDMap");
+        String UID = modbus.getUID();
+
+        //遍历wsUIDMap获取所有监听UID的ws通道
+        for(Map.Entry<String,String> entry:wsUIDMap.entrySet()){
+            if(entry.getValue().equals(UID)){
+                Channel incoming = (Channel)webSocketClient.get(entry.getKey());
+                if(incoming!=null) {
+                    incoming.writeAndFlush(new TextWebSocketFrame(new Date().toString()+"-终端" + modbus.getUID() + "上线"));
+                }
+            }
         }
+
     }
 
-    public Map getWebSocketClient() {
-        return webSocketClient;
-    }
-
-    public void setWebSocketClient(Map webSocketClient) {
-        this.webSocketClient = webSocketClient;
-    }
-
-    public Map getClientSocket() {
-        return clientSocket;
-    }
-
-    public void setClientSocket(Map clientSocket) {
-        this.clientSocket = clientSocket;
-    }
-
-    public Map getIpUIDMap() {
+    public Map<String, String> getIpUIDMap() {
         return ipUIDMap;
     }
 
-    public void setIpUIDMap(Map ipUIDMap) {
+    public void setIpUIDMap(Map<String, String> ipUIDMap) {
         this.ipUIDMap = ipUIDMap;
+    }
+
+    public Map<String, Channel> getWebSocketClient() {
+        return webSocketClient;
+    }
+
+    public void setWebSocketClient(Map<String, Channel> webSocketClient) {
+        this.webSocketClient = webSocketClient;
+    }
+
+    public Map<String, Channel> getClientSocket() {
+        return clientSocket;
+    }
+
+    public void setClientSocket(Map<String, Channel> clientSocket) {
+        this.clientSocket = clientSocket;
+    }
+
+    public Map<String, String> getWsUIDMap() {
+        return wsUIDMap;
+    }
+
+    public void setWsUIDMap(Map<String, String> wsUIDMap) {
+        this.wsUIDMap = wsUIDMap;
     }
 }

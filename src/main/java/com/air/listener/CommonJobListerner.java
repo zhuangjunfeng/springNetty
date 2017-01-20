@@ -11,6 +11,8 @@ import java.util.Date;
  */
 @Component
 public class CommonJobListerner {
+	
+
     @Scheduled(cron = "0 0/1 * * * ? ")//每隔1秒隔行一次
     public void run(){
 

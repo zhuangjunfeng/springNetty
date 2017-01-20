@@ -17,7 +17,9 @@ public class ReciveActor {
     private Modbus modbus;
     private Channel channel;
     private ServletContext servletContext;
-    private Map webSocketClient;
+    private Map<String,Channel> webSocketClient;
+    private Map<String,Channel> clientSocket;
+    private Map<String,String> wsUIDMap;
 
     public ReciveActor(){}
 
@@ -31,17 +33,41 @@ public class ReciveActor {
 
     public void sendWeb(){
         webSocketClient=(Map) servletContext.getAttribute("websocketMap");
-        Channel incoming = (Channel)webSocketClient.get(modbus.getUID());
-        if(incoming!=null) {
-            incoming.writeAndFlush(new TextWebSocketFrame(new Date().toString()+"-收到终端" + modbus.getUID() + "的数据："+modbus.getDATA()));
+        wsUIDMap=(Map) servletContext.getAttribute("wsUIDMap");
+        String UID = modbus.getUID();
+
+        //遍历wsUIDMap获取所有监听UID的ws通道
+        for(Map.Entry<String,String> entry:wsUIDMap.entrySet()){
+            if(entry.getValue().equals(UID)){
+                Channel incoming = (Channel)webSocketClient.get(entry.getKey());
+                if(incoming!=null) {
+                    incoming.writeAndFlush(new TextWebSocketFrame(new Date().toString()+"-收到终端" + modbus.getUID() + "的数据："+modbus.getDATA()));
+                }
+            }
         }
     }
 
-    public Map getWebSocketClient() {
+    public Map<String, String> getWsUIDMap() {
+        return wsUIDMap;
+    }
+
+    public void setWsUIDMap(Map<String, String> wsUIDMap) {
+        this.wsUIDMap = wsUIDMap;
+    }
+
+    public Map<String, Channel> getClientSocket() {
+        return clientSocket;
+    }
+
+    public void setClientSocket(Map<String, Channel> clientSocket) {
+        this.clientSocket = clientSocket;
+    }
+
+    public Map<String, Channel> getWebSocketClient() {
         return webSocketClient;
     }
 
-    public void setWebSocketClient(Map webSocketClient) {
+    public void setWebSocketClient(Map<String, Channel> webSocketClient) {
         this.webSocketClient = webSocketClient;
     }
 }
