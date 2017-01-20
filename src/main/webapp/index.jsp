@@ -78,19 +78,6 @@
           send("sendDataActor",data);
         }
       });
-
-      $.ajax({
-        type:"GET",
-        dataType:"json",
-        url:"/rest/device/find",
-        data:{_method:"GET"},
-        success:function(data) {
-          var typeList=data.data;
-          $.each(typeList,function(i,n) {
-
-          })
-        }
-      });
   });
 
 
