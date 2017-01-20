@@ -30,6 +30,21 @@
           <overwrite>true</overwrite>
         </configuration>
       </plugin>
+
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>findbugs-maven-plugin</artifactId>
+          <version>3.0.1</version>
+          <configuration>
+            <!-- <configLocation>${basedir}/springside-findbugs.xml</configLocation> -->
+            <threshold>High</threshold>
+            <effort>Default</effort>
+            <findbugsXmlOutput>true</findbugsXmlOutput>
+            <!-- findbugs xml输出路径-->
+            <findbugsXmlOutputDirectory>target/site</findbugsXmlOutputDirectory>
+          </configuration>
+        </plugin>
+
     </plugins>
 
     <resources>

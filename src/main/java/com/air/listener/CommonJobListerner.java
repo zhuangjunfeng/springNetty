@@ -13,6 +13,6 @@ import java.util.Date;
 public class CommonJobListerner {
     @Scheduled(cron = "0 0/1 * * * ? ")//每隔1秒隔行一次
     public void run(){
-        System.out.println("Hello MyJob  "+  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ").format(new Date()));
+
     }
 }
