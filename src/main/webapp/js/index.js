@@ -28,7 +28,9 @@ $(function() {
     $(document).on("pageInit", "#device-add", function(e, id, page) {
         $('#add-form')[0].reset();
     });
-
+    /**
+     * 添加设备
+     */
     function add() {
         $.ajax({
             type: "POST",
@@ -44,6 +46,9 @@ $(function() {
         })
     }
 
+    /**
+     * 查询全部设备
+     */
     function query() {
         $.ajax({
             type: "GET",
