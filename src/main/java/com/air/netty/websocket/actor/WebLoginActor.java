@@ -44,6 +44,7 @@ public class WebLoginActor {
         //缓存IP-WS关系
         webSocketClient.put(wsIP,channel);
         servletContext.setAttribute("websocketMap", webSocketClient);
+        logger.info("监听设备："+webSocketMsg.getData());
         channel.writeAndFlush(new TextWebSocketFrame("监听设备："+webSocketMsg.getData()));
     }
 

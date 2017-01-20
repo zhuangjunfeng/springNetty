@@ -94,7 +94,6 @@
     <label>数据域：</label><input type="text" name="data"  style="width: 300px"><p>
     <input type="button" value="发送数据" id="sendDataBtn">
     <input type="button" onclick="javascript:document.getElementById('responseText').value=''" value="清空消息">
-
 </form>
 <br>
 <br>

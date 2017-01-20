@@ -1,4 +1,21 @@
 var socket;
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+
 
 function initWebSocket(){
     if (!window.WebSocket) {
@@ -7,7 +24,7 @@ function initWebSocket(){
     if (window.WebSocket) {
         socket = new WebSocket("ws://air.semsplus.com:5888/ws");
         socket.onmessage = function(event) {
-
+            $.toast(event.data);
         };
         socket.onopen = function(event) {
 
@@ -17,6 +34,18 @@ function initWebSocket(){
         };
     } else {
         $.alert('您的手机暂不支持!');
+    }
+}
+
+function sendWS(cmd,data){
+    if (!window.WebSocket) {
+        return;
+    }
+    if (socket.readyState == WebSocket.OPEN) {
+        var msgJson = { "cmd": cmd, "data": message };
+        socket.send(JSON.stringify(msgJson));
+    } else {
+        $.toast("网络不给力...");
     }
 }
 
@@ -51,10 +80,11 @@ function query() {
             var typeList = data.data.list;
             var listHtml = "";
             $.each(typeList, function(i, n) {
+                sendWS("webLoginActor",n.device_uid);
                 listHtml += "<div class='list-block media-list'><ul><li><a href='#device-info' class='item-link item-content'>" +
                     "<div class='item-media'>" +
                     "<img src='img/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg' style='width: 4rem;'></div>" + "<div class='item-inner'> <div class='item-title-row'><div class='item-title'>" + n.device_name +
-                    "</div><div class='item-after'>不在线</div></div><div class='item-subtitle'>当前环境</div><div class='item-text'>PM超标甲醛超标</div> </div> </a> </li> </ul> </div>"
+                    "</div><div class='item-after'>不在线</div></div><div class='item-subtitle'></div><div class='item-text'>PM超标甲醛超标</div> </div> </a> </li> </ul> </div>"
             })
 
             $("#devices").html(listHtml);
@@ -64,6 +94,9 @@ function query() {
 
 $(function() {
     initWebSocket();
+
+
+
     $(".bar-tab a").click(function() {
         $.router.load("#" + $(this).attr("menu-data"));
     })
