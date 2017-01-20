@@ -29,7 +29,7 @@ public class CommonJobListerner implements ApplicationContextAware,ServletContex
         this.applicationContext=applicationContext;
     }
 
-    @Scheduled(cron = "0 0/1 * * * ? ")//每隔1秒隔行一次
+    @Scheduled(cron = "0/5 * * * * ? ")//每隔5秒
     public void run(){
         Map<String,Channel> websocketMap=(Map)servletContext.getAttribute("websocketMap");
         Map<String,Channel> clientMap=(Map)servletContext.getAttribute("clientMap");
