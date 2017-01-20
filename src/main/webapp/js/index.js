@@ -42,7 +42,7 @@ function sendWS(cmd,data){
         return;
     }
     if (socket.readyState == WebSocket.OPEN) {
-        var msgJson = { "cmd": cmd, "data": message };
+        var msgJson = { "cmd": cmd, "data": data };
         socket.send(JSON.stringify(msgJson));
     } else {
         $.toast("网络不给力...");
@@ -94,8 +94,6 @@ function query() {
 
 $(function() {
     initWebSocket();
-
-
 
     $(".bar-tab a").click(function() {
         $.router.load("#" + $(this).attr("menu-data"));
