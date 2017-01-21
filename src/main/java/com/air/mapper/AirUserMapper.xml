@@ -25,6 +25,20 @@
     from air_user
     where user_id = #{user_id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByOpenId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from air_user
+    where open_id = #{open_id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAllAirUser" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM air_user
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from air_user
     where user_id = #{user_id,jdbcType=INTEGER}
