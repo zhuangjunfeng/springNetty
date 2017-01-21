@@ -26,7 +26,7 @@
     where user_id = #{user_id,jdbcType=INTEGER}
   </select>
 
-  <select id="selectByOpenId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
     from air_user
