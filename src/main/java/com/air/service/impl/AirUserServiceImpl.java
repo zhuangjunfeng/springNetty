@@ -22,7 +22,7 @@ public class AirUserServiceImpl implements AirUserService {
 
     @Override
     public boolean addAirUser(AirUser airUser) {
-        if(airUserMapper.selectByOpenId(airUser.getOpen_id())!=null) {
+        if(airUserMapper.selectByOpenId(airUser.getOpenid())!=null) {
             return airUserMapper.insert(airUser) == 1 ? true : false;
         }else {
             return true;

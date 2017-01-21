@@ -74,6 +74,7 @@ public class WxUtil {
 				return (T) respBody;
 			} else {
 				ObjectMapper mapper = new ObjectMapper();
+
 				T result = mapper.readValue(respBody, resultClass);
 				return result;
 			}

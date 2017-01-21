@@ -1,5 +1,9 @@
 package com.air.util;
 
+import com.air.pojo.AirUser;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -11,15 +15,16 @@ import java.util.Objects;
  **/
 public class MapTest {
     public static void main(String[] args) {
-        Map wsUIDMap = new HashMap();
-        wsUIDMap.put("111","1223");
-        wsUIDMap.put("112","1224");
+        try {
+            String json = "{\"aaa\":\"address\",\"nickname\":\"haha\",\"sex\":1,\"province\":\"email\"}";
+            ObjectMapper mapper = new ObjectMapper();
+            AirUser airUser = new AirUser();
+             airUser = mapper.readValue(json, AirUser.class);
+            airUser.getSex();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-        Map rs= wsUIDMap;
-        rs.remove(null);
-
-
-        System.out.print(wsUIDMap.get("111"));
 
 
 

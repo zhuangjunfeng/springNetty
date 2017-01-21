@@ -1,5 +1,8 @@
 package com.air.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AirUser {
     private Integer user_id;
 
