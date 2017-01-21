@@ -19,6 +19,7 @@ import org.springframework.http.HttpMethod;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.Map;
 
@@ -65,7 +66,7 @@ public class WxUtil {
 
 			HttpResponse response = client.execute(request);
 			HttpEntity entity = response.getEntity();
-			String respBody = EntityUtils.toString(entity);
+			String respBody = EntityUtils.toString(entity,"UTF-8");
 			if (entity != null) {
 				EntityUtils.consume(entity);
 			}
