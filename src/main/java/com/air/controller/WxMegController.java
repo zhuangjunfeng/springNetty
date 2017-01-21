@@ -24,6 +24,7 @@ public class WxMegController {
     public ModelAndView loginSys(HttpServletRequest request){
         String code = request.getParameter("code");
         logger.info("获取微信code"+code);
+
         ModelAndView mv = new ModelAndView();
         mv.setViewName("index");
         return mv;

@@ -69,6 +69,9 @@
   </build>
   <properties>
     <spring.version>4.1.1.RELEASE</spring.version>
+    <commons-io.version>2.4</commons-io.version>
+    <httpclient.version>4.3.1</httpclient.version>
+    <commons-lang3.version>3.1</commons-lang3.version>
   </properties>
   <dependencies>
     <dependency>
@@ -233,6 +236,21 @@
       <artifactId>log4j</artifactId>
       <version>1.2.9</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>${httpclient.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpmime</artifactId>
+      <version>${httpclient.version}</version>
+    </dependency>
 
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${commons-lang3.version}</version>
+    </dependency>
   </dependencies>
 </project>

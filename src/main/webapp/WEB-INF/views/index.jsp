@@ -50,9 +50,9 @@
   <div class="page" id="device-info">
     <header class="bar bar-nav">
       <a class="icon icon-left pull-left pull-left back" href="#device-list"></a>
-      <h1 class="title">我的小毛驴</h1>
+      <h1 class="title" id="device-info-title"></h1>
     </header>
-    <div class="content d-info">
+    <div class="content d-info" id="device-info-uid">
       <div class="row d-bg">
         <span class="a-text">优</span>
         <span class="m-text">手动运行</span>
@@ -83,13 +83,13 @@
       </div>
       <div class="row d-btns">
         <div class="col-25">
-          <span class="icon">开</span>
+          <span class="icon" id="openFan">开</span>
         </div>
         <div class="col-25">
-          <span class="icon">AUTO</span>
+          <span class="icon" id="closeFan">关</span>
         </div>
         <div class="col-25">
-          <span class="icon">风速</span>
+          <span class="icon">调速</span>
         </div>
         <div class="col-25">
           <span class="icon">离子</span>

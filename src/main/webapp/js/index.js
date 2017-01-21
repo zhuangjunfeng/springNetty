@@ -68,6 +68,22 @@ function add() {
 }
 
 /**
+ * 开启风扇
+ */
+function openFan(uid){
+    var  data= {"senduid":uid,"code":"f5","data":"015000"}
+    sendWS("sendDataActor",data);
+}
+
+/**
+ * 关闭风扇
+ */
+function closeFan(uid){
+    var  data= {"senduid":uid,"code":"f5","data":"010100"}
+    sendWS("sendDataActor",data);
+}
+
+/**
  * 查询全部设备
  */
 function query() {
@@ -81,13 +97,31 @@ function query() {
             var listHtml = "";
             $.each(typeList, function(i, n) {
                 sendWS("webLoginActor",n.device_uid);
-                listHtml += "<div class='list-block media-list'><ul><li><a href='#device-info' class='item-link item-content'>" +
+                listHtml += "<div class='list-block media-list'><ul><li>" +
+                    "<a href='#' class='item-link item-content d-detail' data-uid='"+ n.device_uid+"' data-title='"+ n.device_name+"'>" +
                     "<div class='item-media'>" +
-                    "<img src='http://air.semsplus.com/img/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg' style='width: 4rem;'></div>" + "<div class='item-inner'> <div class='item-title-row'><div class='item-title'>" + n.device_name +
-                    "</div><div class='item-after'>不在线</div></div><div class='item-subtitle'></div><div class='item-text'>PM超标甲醛超标</div> </div> </a> </li> </ul> </div>"
+                    "<img src='http://air.semsplus.com/img/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg' style='width: 4rem;'>" +
+                    "</div>" +
+                    "<div class='item-inner'>" +
+                    " <div class='item-title-row'>" +
+                    "<div class='item-title'>" +
+                    n.device_name +
+                    "</div>" +
+                    "<div class='item-after'>不在线</div>" +
+                    "</div>" +
+                    "<div class='item-subtitle'></div>" +
+                    "<div class='item-text'></div> " +
+                    "</div> </a> </li> </ul> </div>"
             })
 
             $("#devices").html(listHtml);
+            $(".d-detail").click(function(){
+                var uid = $(this).attr("data-uid");
+                var title = $(this).attr("data-title");
+                $("#device-info-title").html(title);
+                $("#device-info-uid").attr("data-uid",uid);
+                $.router.load("#device-info");
+            });
         }
     });
 }
@@ -115,6 +149,15 @@ $(function() {
             }
 
         })
+
+    $("openFan").click(function(){
+       var uid= $("#device-info-uid").attr("data-uid");
+        openFan(uid);
+    });
+    $("closeFan").click(function(){
+        var uid= $("#device-info-uid").attr("data-uid");
+        closeFan(uid);
+    });
     //设备列表
     $(document).on("pageInit", "#device-list", function(e, id, page) {
         query();
@@ -122,6 +165,7 @@ $(function() {
     $(document).on("pageInit", "#device-add", function(e, id, page) {
         $('#add-form')[0].reset();
     });
+
 
     $.init();
 });
