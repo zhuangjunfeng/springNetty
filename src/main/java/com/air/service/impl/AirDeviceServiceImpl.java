@@ -29,12 +29,13 @@ public class AirDeviceServiceImpl implements AirDeviceService{
     public boolean addDevice(AirDevice airDevice,AirUser airUser) {
 
         AirUserDevice airUserDevice = new AirUserDevice();
-        int device_id =airDeviceMapper.insert(airDevice);
-        airUserDevice.setDevice_id(device_id);
-        airUserDevice.setOpenid(airUser.getOpenid());
-        airUserDeviceMapper.insert(airUserDevice);
+        if(airDeviceMapper.insert(airDevice)==1){
+            airUserDevice.setDevice_id(airDevice.getDevice_id());
+            airUserDevice.setOpenid(airUser.getOpenid());
+            return airUserDeviceMapper.insert(airUserDevice)==1?true:false;
 
-        return airUserDeviceMapper.insert(airUserDevice)==1?true:false;
+        }
+        return false;
     }
 
     @Override
