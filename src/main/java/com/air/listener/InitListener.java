@@ -1,5 +1,7 @@
 package com.air.listener;
 
+import com.air.pojo.AirWxInfo;
+import com.air.service.AirWxInfoService;
 import com.air.service.NettyService;
 import com.air.service.WebSocketService;
 import com.air.util.StringUtils;
@@ -33,9 +35,13 @@ public class InitListener implements InitializingBean,ServletContextAware{
     private NettyService nettyService;
    @Resource
     private WebSocketService webSocketService;
+    @Resource
+    private AirWxInfoService airWxInfoService;
     public void  afterPropertiesSet() throws Exception{}
     public void setServletContext(ServletContext servletContext){
-
+        AirWxInfo airWxInfo = new AirWxInfo();
+        airWxInfo = airWxInfoService.queryWxInfo();
+        servletContext.setAttribute("wxinfo",airWxInfo);
         Map<String,Channel> clientMap=new HashMap();
         Map<String,Channel> websocketMap=new HashMap();
         Map<String,String> ipUIDMap=new HashMap();
