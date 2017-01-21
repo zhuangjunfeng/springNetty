@@ -17,6 +17,6 @@ public interface AirDeviceMapper {
 
     int updateByPrimaryKey(AirDevice record);
 
-    List<AirDevice> selectAllAirDevice();
+    List<AirDevice> selectAllAirDevice(String openid);
 
 }

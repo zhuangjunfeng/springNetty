@@ -12,16 +12,20 @@
     device_id, device_name, device_uid, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from air_device
-    where device_id = #{device_id,jdbcType=INTEGER}
+  SELECT
+    air_device.device_id,device_name,device_uid,create_time,update_time
+  FROM
+    air_device,air_user_device
+  WHERE
+    air_device.device_id = air_user_device.device_id
+    and
+    air_user_device.openid = #{openid,jdbcType=VARCHAR}
   </select>
 
   <select id="selectAllAirDevice" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />
-    FROM air_device
+    FROM air_device,air_user_device w
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

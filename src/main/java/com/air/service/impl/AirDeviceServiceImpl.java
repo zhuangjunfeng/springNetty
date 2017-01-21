@@ -21,8 +21,9 @@ public class AirDeviceServiceImpl implements AirDeviceService{
     @Resource
     private AirUserDeviceMapper airUserDeviceMapper;
     @Override
-    public List queryDevice() {
-        return airDeviceMapper.selectAllAirDevice();
+    public List queryDevice(String openid) {
+
+        return airDeviceMapper.selectAllAirDevice(openid);
     }
 
     @Override

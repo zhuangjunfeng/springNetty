@@ -46,8 +46,10 @@ public class AirDeviceController {
 
         AirUser airUser = (AirUser)request.getSession().getAttribute("airUser");
 
-
-        List<AirDevice> list= airDeviceService.queryDevice();
+        if(airUser==null){
+            return result;
+        }
+        List<AirDevice> list= airDeviceService.queryDevice(airUser.getOpenid());
         Map airDeviceMap = new HashMap();
         airDeviceMap.put("list",list);
         result.setData(airDeviceMap);
