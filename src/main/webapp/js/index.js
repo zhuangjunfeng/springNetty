@@ -83,7 +83,7 @@ function query() {
                 sendWS("webLoginActor",n.device_uid);
                 listHtml += "<div class='list-block media-list'><ul><li><a href='#device-info' class='item-link item-content'>" +
                     "<div class='item-media'>" +
-                    "<img src='img/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg' style='width: 4rem;'></div>" + "<div class='item-inner'> <div class='item-title-row'><div class='item-title'>" + n.device_name +
+                    "<img src='http://air.semsplus.com/img/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg' style='width: 4rem;'></div>" + "<div class='item-inner'> <div class='item-title-row'><div class='item-title'>" + n.device_name +
                     "</div><div class='item-after'>不在线</div></div><div class='item-subtitle'></div><div class='item-text'>PM超标甲醛超标</div> </div> </a> </li> </ul> </div>"
             })
 
