@@ -32,10 +32,10 @@ public class WxMegController {
     public String  goWx(HttpServletRequest request){
         AirWxInfo airWxInfo = new AirWxInfo();
         airWxInfo = (AirWxInfo)request.getSession().getServletContext().getAttribute("wxinfo");
-        String wxUrl="https://open.weixin.qq.com/connect/oauth2/authorize?";
+        String wxUrl="http://open.weixin.qq.com/connect/oauth2/authorize?";
         String appidUrl="appid="+airWxInfo.getAppid()+"&";
         String redirect_uri="redirect_uri=https://air.semsplus.com/rest/wx/login&";
-        String typeUrl ="response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+        String typeUrl ="response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
         return "redirect:"+wxUrl+appidUrl+redirect_uri+typeUrl;
     }
 
