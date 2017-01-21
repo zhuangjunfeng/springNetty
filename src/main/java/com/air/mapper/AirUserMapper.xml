@@ -3,7 +3,7 @@
 <mapper namespace="com.air.mapper.AirUserMapper" >
   <resultMap id="BaseResultMap" type="com.air.pojo.AirUser" >
     <id column="user_id" property="user_id" jdbcType="INTEGER" />
-    <result column="open_id" property="open_id" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
     <result column="nickname" property="nickname" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="province" property="province" jdbcType="VARCHAR" />
@@ -16,7 +16,7 @@
     <result column="update_time" property="update_time" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    user_id, open_id, nickname, sex, province, city, country, headimgurl, privilege, 
+    user_id, openid, nickname, sex, province, city, country, headimgurl, privilege,
     unionid, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -30,7 +30,7 @@
     select
     <include refid="Base_Column_List" />
     from air_user
-    where open_id = #{open_id,jdbcType=VARCHAR}
+    where openid = #{openid,jdbcType=VARCHAR}
   </select>
 
   <select id="selectAllAirUser" resultMap="BaseResultMap">
@@ -44,12 +44,12 @@
     where user_id = #{user_id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.air.pojo.AirUser" >
-    insert into air_user (user_id, open_id, nickname, 
+    insert into air_user (user_id, openid, nickname,
       sex, province, city, 
       country, headimgurl, privilege, 
       unionid, create_time, update_time
       )
-    values (#{user_id,jdbcType=INTEGER}, #{open_id,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+    values (#{user_id,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR},
       #{sex,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{privilege,jdbcType=VARCHAR}, 
       #{unionid,jdbcType=VARCHAR}, #{create_time,jdbcType=VARCHAR}, #{update_time,jdbcType=VARCHAR}
@@ -61,8 +61,8 @@
       <if test="user_id != null" >
         user_id,
       </if>
-      <if test="open_id != null" >
-        open_id,
+      <if test="openid != null" >
+        openid,
       </if>
       <if test="nickname != null" >
         nickname,
@@ -99,8 +99,8 @@
       <if test="user_id != null" >
         #{user_id,jdbcType=INTEGER},
       </if>
-      <if test="open_id != null" >
-        #{open_id,jdbcType=VARCHAR},
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
       </if>
       <if test="nickname != null" >
         #{nickname,jdbcType=VARCHAR},
@@ -137,8 +137,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.air.pojo.AirUser" >
     update air_user
     <set >
-      <if test="open_id != null" >
-        open_id = #{open_id,jdbcType=VARCHAR},
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
       </if>
       <if test="nickname != null" >
         nickname = #{nickname,jdbcType=VARCHAR},
@@ -175,7 +175,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.air.pojo.AirUser" >
     update air_user
-    set open_id = #{open_id,jdbcType=VARCHAR},
+    set openid = #{openid,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
       province = #{province,jdbcType=VARCHAR},

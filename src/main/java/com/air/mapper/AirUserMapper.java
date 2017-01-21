@@ -15,7 +15,7 @@ public interface AirUserMapper {
 
     int updateByPrimaryKeySelective(AirUser record);
 
-    AirUser selectByOpenId(String open_id);
+    AirUser selectByOpenId(String openid);
 
     int updateByPrimaryKey(AirUser record);
 

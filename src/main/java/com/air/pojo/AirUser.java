@@ -3,7 +3,7 @@ package com.air.pojo;
 public class AirUser {
     private Integer user_id;
 
-    private String open_id;
+    private String openid;
 
     private String nickname;
 
@@ -33,12 +33,11 @@ public class AirUser {
         this.user_id = user_id;
     }
 
-    public String getOpen_id() {
-        return open_id;
+    public String getOpenid() {
+        return openid;
     }
-
-    public void setOpen_id(String open_id) {
-        this.open_id = open_id == null ? null : open_id.trim();
+    public void setOpenid(String openid) {
+        this.openid = openid == null ? null : openid.trim();
     }
 
     public String getNickname() {
