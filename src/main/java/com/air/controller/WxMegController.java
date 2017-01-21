@@ -1,7 +1,7 @@
 package com.air.controller;
 
 import com.air.constant.WxUrlType;
-import com.air.entity.AccessToken;
+import com.air.entity.AccessTokenEntity;
 import com.air.pojo.AirUser;
 import com.air.pojo.AirWxInfo;
 import com.air.service.AirUserService;
@@ -44,13 +44,13 @@ public class WxMegController {
         params.put("secret",airWxInfo.getSecret());
         params.put("code",code);
         params.put("grant_type","authorization_code");
-        AccessToken accessToken = new AccessToken();
-        accessToken=WxUtil.sendRequest(WxUrlType.accessTokenUrl, HttpMethod.GET,params,null, AccessToken.class);
-        logger.info("获取微信Tocken:"+accessToken);
+        AccessTokenEntity accessTokenEntity = new AccessTokenEntity();
+        accessTokenEntity =WxUtil.sendRequest(WxUrlType.accessTokenUrl, HttpMethod.GET,params,null, AccessTokenEntity.class);
+        logger.info("获取微信Tocken:"+ accessTokenEntity);
         AirUser airUser = new AirUser();
         Map<String,String> getUserInfoParams = new HashMap<String,String>();
-        getUserInfoParams.put("access_token",accessToken.getAccess_token());
-        getUserInfoParams.put("openid",accessToken.getOpenid());
+        getUserInfoParams.put("access_token", accessTokenEntity.getAccess_token());
+        getUserInfoParams.put("openid", accessTokenEntity.getOpenid());
         getUserInfoParams.put("lang","zh_CN");
         airUser = WxUtil.sendRequest(WxUrlType.userInfoUrl,HttpMethod.GET,getUserInfoParams,null,AirUser.class);
         logger.info("获取用户信息："+airUser);

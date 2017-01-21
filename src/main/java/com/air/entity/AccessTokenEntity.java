@@ -3,7 +3,7 @@ package com.air.entity;
 /**
  * Created by Administrator on 2017/1/21.
  */
-public class AccessToken {
+public class AccessTokenEntity {
     private String access_token;
     private int expires_in;
     private String refresh_token;

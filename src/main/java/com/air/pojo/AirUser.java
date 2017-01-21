@@ -1,6 +1,7 @@
 package com.air.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AirUser {
@@ -20,6 +21,7 @@ public class AirUser {
 
     private String headimgurl;
 
+    @JsonProperty("privilege")
     private String privilege;
 
     private String unionid;
