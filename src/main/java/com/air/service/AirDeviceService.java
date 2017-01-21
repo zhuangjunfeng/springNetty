@@ -1,6 +1,7 @@
 package com.air.service;
 
 import com.air.pojo.AirDevice;
+import com.air.pojo.AirUser;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 @Service
 public interface AirDeviceService {
     public List queryDevice();
-    public boolean addDevice(AirDevice airDevice);
+    public boolean addDevice(AirDevice airDevice,AirUser airUser);
     public boolean updateDevice(AirDevice airDevice);
     public boolean delDevice(AirDevice airDevice);
 }

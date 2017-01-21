@@ -36,9 +36,7 @@ public class WxMegController {
 
         AirWxInfo airWxInfo = new AirWxInfo();
         airWxInfo = (AirWxInfo)request.getSession().getServletContext().getAttribute("wxinfo");
-
         String code = request.getParameter("code");
-        logger.info("获取微信code："+code);
         Map<String,String> params = new HashMap<String,String>();
         params.put("appid",airWxInfo.getAppid());
         params.put("secret",airWxInfo.getSecret());
@@ -46,17 +44,16 @@ public class WxMegController {
         params.put("grant_type","authorization_code");
         AccessTokenEntity accessTokenEntity = new AccessTokenEntity();
         accessTokenEntity =WxUtil.sendRequest(WxUrlType.accessTokenUrl, HttpMethod.GET,params,null, AccessTokenEntity.class);
-        logger.info("获取微信Tocken:"+ accessTokenEntity);
         AirUser airUser = new AirUser();
         Map<String,String> getUserInfoParams = new HashMap<String,String>();
         getUserInfoParams.put("access_token", accessTokenEntity.getAccess_token());
         getUserInfoParams.put("openid", accessTokenEntity.getOpenid());
         getUserInfoParams.put("lang","zh_CN");
         airUser = WxUtil.sendRequest(WxUrlType.userInfoUrl,HttpMethod.GET,getUserInfoParams,null,AirUser.class);
-        logger.info("获取用户信息："+airUser);
         if(airUser!=null) {
             airUserService.addAirUser(airUser);
         }
+        request.getSession().setAttribute("airUser",airUser);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("index");
         return mv;

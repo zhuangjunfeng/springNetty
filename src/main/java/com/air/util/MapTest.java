@@ -1,6 +1,8 @@
 package com.air.util;
 
 
+import com.air.pojo.AirUser;
+
 /**
  * @Description
  * @Author semstouch
@@ -9,8 +11,10 @@ package com.air.util;
 public class MapTest {
     public static void main(String[] args) {
 
-
-
+        AirUser rs = new AirUser();
+        if(rs!=null){
+            System.out.print(1);
+        }
 
 
     }

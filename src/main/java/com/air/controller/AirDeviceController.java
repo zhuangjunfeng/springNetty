@@ -1,6 +1,7 @@
 package com.air.controller;
 
 import com.air.pojo.AirDevice;
+import com.air.pojo.AirUser;
 import com.air.service.AirDeviceService;
 import com.air.util.JSONResult;
 import org.springframework.stereotype.Controller;
@@ -26,11 +27,12 @@ public class AirDeviceController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public  JSONResult add(@ModelAttribute("airDevice") AirDevice airDevice){
-        JSONResult result=new JSONResult();;
-        if(airDeviceService.addDevice(airDevice)){
-            result.setMessage("success");
+    public  JSONResult add(@ModelAttribute("airDevice") AirDevice airDevice,HttpServletRequest request){
+        JSONResult result=new JSONResult();
+        AirUser airUser = (AirUser)request.getSession().getAttribute("airUser");
 
+        if(airDeviceService.addDevice(airDevice,airUser)){
+            result.setMessage("success");
         }else {
             result.setMessage("error");
         }
@@ -39,8 +41,12 @@ public class AirDeviceController {
 
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     @ResponseBody
-    public JSONResult find(){
+    public JSONResult find(HttpServletRequest request){
         JSONResult result=new JSONResult();
+
+        AirUser airUser = (AirUser)request.getSession().getAttribute("airUser");
+
+
         List<AirDevice> list= airDeviceService.queryDevice();
         Map airDeviceMap = new HashMap();
         airDeviceMap.put("list",list);
