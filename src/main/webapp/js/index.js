@@ -150,11 +150,11 @@ $(function() {
 
         })
 
-    $("openFan").click(function(){
+    $("#openFan").click(function(){
        var uid= $("#device-info-uid").attr("data-uid");
         openFan(uid);
     });
-    $("closeFan").click(function(){
+    $("#closeFan").click(function(){
         var uid= $("#device-info-uid").attr("data-uid");
         closeFan(uid);
     });
