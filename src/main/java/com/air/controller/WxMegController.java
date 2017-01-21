@@ -1,7 +1,10 @@
 package com.air.controller;
 
+import com.air.entity.AccessToken;
 import com.air.pojo.AirWxInfo;
+import com.air.util.WxUtil;
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016/12/15.
@@ -22,9 +27,22 @@ public class WxMegController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView loginSys(HttpServletRequest request){
+
+        AirWxInfo airWxInfo = new AirWxInfo();
+        airWxInfo = (AirWxInfo)request.getSession().getServletContext().getAttribute("wxinfo");
+
         String code = request.getParameter("code");
         logger.info("获取微信code"+code);
+        Map<String,String> params = new HashMap<String,String>();
+        params.put("appid",airWxInfo.getAppid());
+        params.put("secret",airWxInfo.getSecret());
+        params.put("code",code);
+        params.put("grant_type","authorization_code");
+        String url = "https://api.weixin.qq.com/sns/oauth2/access_token";
+        AccessToken accessToken = new AccessToken();
+        accessToken=WxUtil.sendRequest(url, HttpMethod.GET,params,null, AccessToken.class);
 
+        logger.info("获取openID:"+accessToken.getOpenid());
         ModelAndView mv = new ModelAndView();
         mv.setViewName("index");
         return mv;

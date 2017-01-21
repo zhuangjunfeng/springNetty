@@ -14,6 +14,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpMethod;
 
 import java.io.IOException;
@@ -27,6 +28,8 @@ import java.util.Map;
  * 
  */
 public class WxUtil {
+	private static Logger logger = Logger.getLogger(WxUtil.class);
+
 
 	private WxUtil() {
 	}
@@ -76,9 +79,9 @@ public class WxUtil {
 			}
 
 		} catch (IOException e) {
-
+			logger.error(e);
 		} catch (URISyntaxException e) {
-
+			logger.error(e);
 		}
 		return null;
 	}
