@@ -22,7 +22,7 @@ function initWebSocket(){
         window.WebSocket = window.MozWebSocket;
     }
     if (window.WebSocket) {
-        socket = new WebSocket("ws://air.semsplus.com:5888/ws");
+        socket = new WebSocket("ws://"+window.location.hostname+":5888/ws");
         socket.onmessage = function(event) {
             $.toast(event.data);
         };

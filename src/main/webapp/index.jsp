@@ -1,8 +1,11 @@
+<%@ page import="com.air.util.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
   String path = request.getContextPath();
   String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
   String wsPath = request.getServerName();
+  String id = StringUtils.getMD5(request.getSession().getId());
+
 %>
 <!DOCTYPE html>
 <html>
@@ -84,6 +87,7 @@
 
 </script>
 <form onsubmit="return false;" id="testForm">
+  <input type="hidden" name="tocken" value="<%=id%>"/>
   <span>设备UID：</span><input type="text" name="uid"/>
   <input type="button" value="监听" onclick="send('webLoginActor',this.form.uid.value)">
   <h3>设备监听日志：</h3>

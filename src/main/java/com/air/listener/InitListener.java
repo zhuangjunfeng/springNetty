@@ -2,15 +2,22 @@ package com.air.listener;
 
 import com.air.service.NettyService;
 import com.air.service.WebSocketService;
+import com.air.util.StringUtils;
 import io.netty.channel.Channel;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSessionBindingListener;
+import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.MessageDigest;
 import java.util.*;
 
 /**
@@ -19,13 +26,16 @@ import java.util.*;
  * Created by Administrator on 2016/9/2.
  */
 @Component
-public class InitDataListener  implements InitializingBean,ServletContextAware{
+public class InitListener implements InitializingBean,ServletContextAware{
+    private static Logger logger = Logger.getLogger(InitListener.class);
+
     @Resource
     private NettyService nettyService;
    @Resource
     private WebSocketService webSocketService;
     public void  afterPropertiesSet() throws Exception{}
     public void setServletContext(ServletContext servletContext){
+
         Map<String,Channel> clientMap=new HashMap();
         Map<String,Channel> websocketMap=new HashMap();
         Map<String,String> ipUIDMap=new HashMap();
@@ -41,8 +51,6 @@ public class InitDataListener  implements InitializingBean,ServletContextAware{
         } catch (IOException e1){
             e1.printStackTrace();
         }
-
-
         Thread client = new Thread(new Runnable(){
             public void run(){
                 nettyService.start(Integer.parseInt(p.getProperty("client.port")),servletContext);
@@ -54,11 +62,8 @@ public class InitDataListener  implements InitializingBean,ServletContextAware{
                 webSocketService.start(Integer.parseInt(p.getProperty("websocket.port")),servletContext);
             }});
         websocket.start();
-
-
-
-
-
-
     }
+
+
+
 }

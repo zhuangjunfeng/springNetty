@@ -17,7 +17,7 @@ import java.util.Map;
  * @Date 2016/12/13
  **/
 @Component("F0")
-public class LoginActor {
+public class LoginActor{
     private static Logger logger = Logger.getLogger(LoginActor.class);
     private  Modbus modbus;
     private Channel channel;

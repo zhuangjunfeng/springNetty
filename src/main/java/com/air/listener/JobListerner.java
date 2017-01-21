@@ -10,16 +10,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
 
 import javax.servlet.ServletContext;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 
 /**
  * Created by Administrator on 2016/12/15.
  */
 @Component
-public class CommonJobListerner implements ApplicationContextAware,ServletContextAware{
-    private static Logger logger = Logger.getLogger(CommonJobListerner.class);
+public class JobListerner implements ApplicationContextAware,ServletContextAware{
+    private static Logger logger = Logger.getLogger(JobListerner.class);
 
     private ApplicationContext applicationContext;
     private ServletContext servletContext;
@@ -31,6 +29,7 @@ public class CommonJobListerner implements ApplicationContextAware,ServletContex
 
     @Scheduled(cron = "0/5 * * * * ? ")//每隔5秒
     public void run(){
+
         Map<String,Channel> websocketMap=(Map)servletContext.getAttribute("websocketMap");
         Map<String,Channel> clientMap=(Map)servletContext.getAttribute("clientMap");
         logger.info("当前客户端在线人数为："+websocketMap.size());

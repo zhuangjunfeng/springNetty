@@ -1,5 +1,7 @@
 package com.air.util;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -214,4 +216,19 @@ public class StringUtils {
         return false;
     }
 
+    /**
+     * MD5加密
+     * @param str 明文
+     * @return 密文
+     */
+    public  static  String getMD5(String str){
+        try{
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(str.getBytes());
+            return  new BigInteger(1,md.digest()).toString(16);
+        }catch (Exception e){
+
+        }
+        return "";
+    }
 }
