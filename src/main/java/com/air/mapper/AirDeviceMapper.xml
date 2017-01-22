@@ -37,7 +37,7 @@
     insert into air_device (device_id, device_name, device_uid, 
       create_time, update_time)
     values (#{device_id,jdbcType=INTEGER}, #{device_name,jdbcType=VARCHAR}, #{device_uid,jdbcType=VARCHAR}, 
-      #{create_time,jdbcType=VARCHAR}, #{update_time,jdbcType=VARCHAR})
+      new(), #{update_time,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.air.pojo.AirDevice" >
     insert into air_device
