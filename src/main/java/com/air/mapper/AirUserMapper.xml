@@ -52,7 +52,7 @@
     values (#{user_id,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR},
       #{sex,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{privilege,jdbcType=VARCHAR}, 
-      #{unionid,jdbcType=VARCHAR}, #{create_time,jdbcType=VARCHAR}, #{update_time,jdbcType=VARCHAR}
+      #{unionid,jdbcType=VARCHAR}, now(), now()
       )
   </insert>
   <insert id="insertSelective" parameterType="com.air.pojo.AirUser" >

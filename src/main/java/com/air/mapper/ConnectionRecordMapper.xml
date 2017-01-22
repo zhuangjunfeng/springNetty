@@ -25,7 +25,7 @@
     insert into air_connection_record (record_id, record_ip, record_port, 
       record_agreement, record_creat_time)
     values (#{record_id,jdbcType=INTEGER}, #{record_ip,jdbcType=VARCHAR}, #{record_port,jdbcType=VARCHAR}, 
-      #{record_agreement,jdbcType=VARCHAR}, #{record_creat_time,jdbcType=VARCHAR})
+      #{record_agreement,jdbcType=VARCHAR}, now())
   </insert>
   <insert id="insertSelective" parameterType="com.air.pojo.ConnectionRecord" >
     insert into air_connection_record
