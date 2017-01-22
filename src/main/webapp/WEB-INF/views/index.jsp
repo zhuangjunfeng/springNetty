@@ -19,7 +19,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <link rel="stylesheet" href="<%=basePath %>css/sm.css">
   <link rel="stylesheet" href="<%=basePath %>/css/sm-extend.css">
-  <link rel="stylesheet" type="text/css" href="<%=basePath %>/css/global.css?170120002">
+  <link rel="stylesheet" type="text/css" href="<%=basePath %>/css/global.css?170122001">
 </head>
 
 <body>
