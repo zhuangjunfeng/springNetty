@@ -25,9 +25,10 @@ public class AirUserServiceImpl implements AirUserService {
         if(airUserMapper.selectByOpenId(airUser.getOpenid())==null) {
             return airUserMapper.insert(airUser) == 1 ? true : false;
         }else {
-            return true;
+            return airUserMapper.updateByPrimaryKeySelective(airUser)==1?true:false;
         }
     }
+    
 
     @Override
     public boolean updateAirUser(AirUser airUser) {
