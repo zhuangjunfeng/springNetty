@@ -10,7 +10,7 @@ import javax.servlet.ServletContext;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+import com.air.netty.websocket.protocol.WebSocketMsg;
 /**
  * @Description  终端登录
  * @Author semstouch
@@ -76,7 +76,9 @@ public class LoginActor{
         webSocketClient=(Map) servletContext.getAttribute("websocketMap");
         wsUIDMap=(Map) servletContext.getAttribute("wsUIDMap");
         String UID = modbus.getUID();
-
+        WebSocketMsg webSocketMsg = new WebSocketMsg();
+        webSocketMsg.setCmd("webLoginActor");
+        webSocketMsg.setData();
         //遍历wsUIDMap获取所有监听UID的ws通道
         for(Map.Entry<String,String> entry:wsUIDMap.entrySet()){
             if(entry.getValue().equals(UID)){
