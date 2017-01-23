@@ -27,7 +27,7 @@ function initWebSocket(){
             $.toast(event.data);
         };
         socket.onopen = function(event) {
-
+            query();
         };
         socket.onclose = function(event) {
             $.toast("网络不给力...");
@@ -160,7 +160,7 @@ $(function() {
     });
     //设备列表
     $(document).on("pageInit", "#device-list", function(e, id, page) {
-        query();
+        
     });
     $(document).on("pageInit", "#device-add", function(e, id, page) {
         $('#add-form')[0].reset();
