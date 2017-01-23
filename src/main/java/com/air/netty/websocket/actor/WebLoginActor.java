@@ -36,7 +36,7 @@ public class WebLoginActor {
     public void login(){
         webSocketClient=(Map) servletContext.getAttribute("websocketMap");
         wsUIDMap=(Map) servletContext.getAttribute("wsUIDMap");
-        String UID = webSocketMsg.getData();
+        String UID = webSocketMsg.getUid();
         String wsIP = channel.remoteAddress().toString();
         //缓存IP-UID关系
         wsUIDMap.put(wsIP,UID);
@@ -44,8 +44,8 @@ public class WebLoginActor {
         //缓存IP-WS关系
         webSocketClient.put(wsIP,channel);
         servletContext.setAttribute("websocketMap", webSocketClient);
-        logger.info("监听设备："+webSocketMsg.getData());
-        channel.writeAndFlush(new TextWebSocketFrame("监听设备："+webSocketMsg.getData()));
+        logger.info("监听设备："+webSocketMsg.getUid());
+        channel.writeAndFlush(new TextWebSocketFrame("监听设备："+webSocketMsg.getUid()));
     }
 
     public Map<String, String> getWsUIDMap() {

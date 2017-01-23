@@ -37,12 +37,12 @@ function initWebSocket(){
     }
 }
 
-function sendWS(cmd,data){
+function sendWS(cmd,uid,data,code){
     if (!window.WebSocket) {
         return;
     }
     if (socket.readyState == WebSocket.OPEN) {
-        var msgJson = { "cmd": cmd, "data": data };
+        var msgJson = { "cmd": cmd, "uid":uid,"data": data ,"code":code};
         socket.send(JSON.stringify(msgJson));
     } else {
         $.toast("网络不给力...");
@@ -71,16 +71,16 @@ function add() {
  * 开启风扇
  */
 function openFan(uid){
-    var  data= {"senduid":uid,"code":"f5","data":"015000"}
-    sendWS("sendDataActor",data);
+    var  data= "015000";
+    sendWS("sendDataActor",uid,data,"f5");
 }
 
 /**
  * 关闭风扇
  */
 function closeFan(uid){
-    var  data= {"senduid":uid,"code":"f5","data":"010100"}
-    sendWS("sendDataActor",data);
+    var  data= "010100";
+    sendWS("sendDataActor",uid,data,"f5");
 }
 
 /**
@@ -96,7 +96,7 @@ function query() {
             var typeList = data.data.list;
             var listHtml = "";
             $.each(typeList, function(i, n) {
-                sendWS("webLoginActor",n.device_uid);
+                sendWS("webLoginActor",n.device_uid,"","");
                 listHtml += "<div class='list-block media-list'><ul><li>" +
                     "<a href='#' class='item-link item-content d-detail' data-uid='"+ n.device_uid+"' data-title='"+ n.device_name+"'>" +
                     "<div class='item-media'>" +

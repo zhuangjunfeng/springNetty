@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -248,6 +249,21 @@ public class StringUtils {
             e.printStackTrace();
         }
         return "";
+    }
 
+    /**
+     * json字符串转换对象
+     * @param jsonStr json字符串
+     * @return 对象
+     */
+    public static  WebSocketMsg JsonToObject(String jsonStr){
+        WebSocketMsg webSocketMsg = new WebSocketMsg();
+        try{
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.readValue(webSocketMsg.getData(), WebSocketMsg.class);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -43,21 +43,17 @@ public class SendDataActor {
     }
 
     public void sendMsg(){
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            Map maps = objectMapper.readValue(webSocketMsg.getData(), Map.class);
-            String uid =maps.get("senduid").toString();
+            String uid =webSocketMsg.getUid();
             if(uid.equals("")){
-                channel.writeAndFlush(new TextWebSocketFrame("设备 UID 不能为空！！！"));
+                webSocketMsg.setData("设备 UID 不能为空！");
+                channel.writeAndFlush(new TextWebSocketFrame(StringUtils.ObjectToJson(webSocketMsg)));
             }else {
                 clientSocket=(Map) servletContext.getAttribute("clientMap");
-
                 Channel incoming = (Channel)clientSocket.get(uid);
                 if(incoming!=null) {
-
                     modbus.setUID(uid);
-                    modbus.setCODE(maps.get("code").toString());
-                    modbus.setDATA(maps.get("data").toString());
+                    modbus.setCODE(webSocketMsg.getCode());
+                    modbus.setDATA(webSocketMsg.getData());
                     incoming.writeAndFlush(modbus);
                     channel.writeAndFlush(new TextWebSocketFrame("发送命令"+modbus.getCODE()+"和数据"+modbus.getDATA()+"到设备：" + uid));
                 }else {
@@ -66,19 +62,7 @@ public class SendDataActor {
                     logger.info("发送ws信息："+rs);
                     channel.writeAndFlush(new TextWebSocketFrame(rs));
                 }
-
             }
-
-
-        }catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
     }
 
     public Map getClientSocket() {

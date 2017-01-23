@@ -1,6 +1,7 @@
 package com.air.util;
 
 
+import com.air.constant.CmdType;
 import com.air.pojo.AirUser;
 
 /**
@@ -11,10 +12,7 @@ import com.air.pojo.AirUser;
 public class MapTest {
     public static void main(String[] args) {
 
-        AirUser rs = new AirUser();
-        if(rs!=null){
-            System.out.print(1);
-        }
+        System.out.print(CmdType.getName(1));
 
 
     }

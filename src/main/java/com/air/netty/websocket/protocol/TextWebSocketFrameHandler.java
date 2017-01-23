@@ -1,5 +1,6 @@
 package com.air.netty.websocket.protocol;
 
+import com.air.util.StringUtils;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -33,9 +34,7 @@ public class TextWebSocketFrameHandler extends
 								TextWebSocketFrame msg) throws Exception {
 		Channel incoming = ctx.channel();
 		WebSocketMsg webSocketMsg = new WebSocketMsg();
-		JSONObject jsonObject = new JSONObject(msg.text());
-		webSocketMsg.setCmd(jsonObject.get("cmd").toString());
-		webSocketMsg.setData(jsonObject.get("data").toString());
+		webSocketMsg = StringUtils.JsonToObject(msg.text());
 		ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(servletContext);
 		ac.getBean(webSocketMsg.getCmd()).getClass().getConstructor(WebSocketMsg.class,Channel.class,ServletContext.class).newInstance(webSocketMsg,incoming,servletContext);
 	}

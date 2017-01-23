@@ -38,12 +38,12 @@
   var socket;
 
 
-  function send(cmd,message) {
+  function send(cmd,uid,code,data) {
     if (!window.WebSocket) {
       return;
     }
     if (socket.readyState == WebSocket.OPEN) {
-      var msgJson = { "cmd": cmd, "data": message };
+      var msgJson = { "cmd": cmd, "uid": uid,"code":code,"data":data};
       socket.send(JSON.stringify(msgJson));
     } else {
       alert("连接没有开启.");
@@ -74,11 +74,10 @@
       }
 
       $("#sendDataBtn").click(function(){
-        if($("#senduid").val()==""){
+        if($("#uid").val()==""){
           alert("请输入设备UID");
         }else{
-          var data =$("#testForm").serializeObject();
-          send("sendDataActor",data);
+          send("sendDataActor",$("#uid").val(),$("#code").val(),$("#data").val());
         }
       });
   });
@@ -88,12 +87,12 @@
 </script>
 <form onsubmit="return false;" id="testForm">
   <input type="hidden" name="tocken" value="<%=id%>"/>
-  <span>设备UID：</span><input type="text" name="uid"/>
-  <input type="button" value="监听" onclick="send('webLoginActor',this.form.uid.value)">
+  <span>设备UID：</span><input type="text" name="loginuid"/>
+  <input type="button" value="监听" onclick="send('webLoginActor',this.form.loginuid.value)">
   <h3>设备监听日志：</h3>
   <textarea id="responseText" style="width: 500px; height: 300px;"></textarea>
   <h3>指令发送：</h3>
-    <label>设备UID：</label><input type="text" name="senduid"  style="width: 300px" id="senduid"><p>
+    <label>设备UID：</label><input type="text" name="uid"  style="width: 300px" id="senduid"><p>
     <label>命令码：</label><input type="text" name="code"  style="width: 300px"><p>
     <label>数据域：</label><input type="text" name="data"  style="width: 300px"><p>
     <input type="button" value="发送数据" id="sendDataBtn">

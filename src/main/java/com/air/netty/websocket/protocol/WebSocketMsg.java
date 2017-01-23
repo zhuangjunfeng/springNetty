@@ -9,6 +9,7 @@ public class WebSocketMsg {
     private String cmd;
     private String uid;
     private String data;
+    private String code;
 
     public String getCmd() {
         return cmd;
@@ -32,5 +33,13 @@ public class WebSocketMsg {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
