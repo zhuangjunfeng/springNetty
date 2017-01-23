@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 
 import javax.servlet.ServletContext;
@@ -21,6 +22,8 @@ import java.util.Map;
  **/
 @Controller
 public class SendDataActor {
+    private static Logger logger = Logger.getLogger(SendDataActor.class);
+
     private WebSocketMsg webSocketMsg;
     private Channel channel;
     private ServletContext servletContext;
@@ -60,6 +63,7 @@ public class SendDataActor {
                 }else {
                     webSocketMsg.setData("设备不在线！");
                     String rs= StringUtils.ObjectToJson(webSocketMsg);
+                    logger.info("发送ws信息："+rs);
                     channel.writeAndFlush(new TextWebSocketFrame(rs));
                 }
 
