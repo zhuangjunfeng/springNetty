@@ -1,6 +1,8 @@
 package com.air.netty.client.actor;
 
 import com.air.netty.client.protocol.Modbus;
+import com.air.util.StringUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.apache.log4j.Logger;
@@ -78,13 +80,16 @@ public class LoginActor{
         String UID = modbus.getUID();
         WebSocketMsg webSocketMsg = new WebSocketMsg();
         webSocketMsg.setCmd("webLoginActor");
-        webSocketMsg.setData();
+        webSocketMsg.setUid(modbus.getUID());
+        webSocketMsg.setData(modbus.getDATA());
+        ObjectMapper objectMapper = new ObjectMapper();
         //遍历wsUIDMap获取所有监听UID的ws通道
         for(Map.Entry<String,String> entry:wsUIDMap.entrySet()){
             if(entry.getValue().equals(UID)){
                 Channel incoming = (Channel)webSocketClient.get(entry.getKey());
                 if(incoming!=null) {
-                    incoming.writeAndFlush(new TextWebSocketFrame(new Date().toString()+"-终端" + modbus.getUID() + "上线"));
+                    String rs= StringUtils.ObjectToJson(webSocketMsg);
+                    incoming.writeAndFlush(new TextWebSocketFrame(rs));
                 }
             }
         }

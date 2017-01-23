@@ -7,6 +7,7 @@ package com.air.netty.websocket.protocol;
  **/
 public class WebSocketMsg {
     private String cmd;
+    private String uid;
     private String data;
 
     public String getCmd() {
@@ -23,5 +24,13 @@ public class WebSocketMsg {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

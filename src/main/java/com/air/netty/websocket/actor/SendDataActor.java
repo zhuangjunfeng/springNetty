@@ -2,6 +2,7 @@ package com.air.netty.websocket.actor;
 
 import com.air.netty.client.protocol.Modbus;
 import com.air.netty.websocket.protocol.WebSocketMsg;
+import com.air.util.StringUtils;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -57,7 +58,9 @@ public class SendDataActor {
                     incoming.writeAndFlush(modbus);
                     channel.writeAndFlush(new TextWebSocketFrame("发送命令"+modbus.getCODE()+"和数据"+modbus.getDATA()+"到设备：" + uid));
                 }else {
-                    channel.writeAndFlush(new TextWebSocketFrame("发送失败：设备" + uid+"没有在线！！！"));
+                    webSocketMsg.setData("设备不在线！");
+                    String rs= StringUtils.ObjectToJson(webSocketMsg);
+                    channel.writeAndFlush(new TextWebSocketFrame(rs));
                 }
 
             }

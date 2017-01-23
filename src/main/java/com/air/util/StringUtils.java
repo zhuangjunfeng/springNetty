@@ -1,5 +1,8 @@
 package com.air.util;
 
+import com.air.netty.websocket.protocol.WebSocketMsg;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.regex.Matcher;
@@ -230,5 +233,22 @@ public class StringUtils {
 
         }
         return "";
+    }
+
+    /**
+     * 对象转换json字符串
+     * @param webSocketMsg  对象
+     * @return json字符串
+     */
+    public static  String ObjectToJson(WebSocketMsg webSocketMsg) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.writeValueAsString(webSocketMsg);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            return  "";
+        }
+
     }
 }
