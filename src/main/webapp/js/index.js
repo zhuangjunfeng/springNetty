@@ -43,7 +43,6 @@ function sendWS(cmd,uid,data,code){
     }
     if (socket.readyState == WebSocket.OPEN) {
         var msgJson = { "cmd": cmd, "uid":uid,"data": data ,"code":code};
-        $.toast(JSON.stringify(msgJson));
         socket.send(JSON.stringify(msgJson));
     } else {
         $.toast("网络不给力...");

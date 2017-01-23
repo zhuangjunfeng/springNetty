@@ -200,7 +200,7 @@
 <script type='text/javascript' src='<%=basePath %>/js/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='<%=basePath %>/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='<%=basePath %>/js/sm-extend.min.js' charset='utf-8'></script>
-<script type="text/javascript" src="<%=basePath %>/js/index.js?170123001"></script>
+<script type="text/javascript" src="<%=basePath %>/js/index.js?170123002"></script>
 </body>
 
 </html>
