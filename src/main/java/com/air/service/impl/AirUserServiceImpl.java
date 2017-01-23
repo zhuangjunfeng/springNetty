@@ -22,10 +22,11 @@ public class AirUserServiceImpl implements AirUserService {
 
     @Override
     public boolean addAirUser(AirUser airUser) {
-        if(airUserMapper.selectByOpenId(airUser.getOpenid())==null) {
+        AirUser old = airUserMapper.selectByOpenId(airUser.getOpenid());
+        if(old==null) {
             return airUserMapper.insert(airUser) == 1 ? true : false;
         }else {
-            return airUserMapper.updateByPrimaryKeySelective(airUser)==1?true:false;
+            return airUserMapper.updateByPrimaryKeySelective(old)==1?true:false;
         }
     }
     
