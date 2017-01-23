@@ -257,10 +257,9 @@ public class StringUtils {
      * @return 对象
      */
     public static  WebSocketMsg JsonToObject(String jsonStr){
-        WebSocketMsg webSocketMsg = new WebSocketMsg();
         try{
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(webSocketMsg.getData(), WebSocketMsg.class);
+            return objectMapper.readValue(jsonStr, WebSocketMsg.class);
         }catch (Exception e){
             e.printStackTrace();
         }
