@@ -246,9 +246,8 @@ public class StringUtils {
             return objectMapper.writeValueAsString(webSocketMsg);
         }catch (Exception e){
             e.printStackTrace();
-        }finally {
-            return  "";
         }
+        return "";
 
     }
 }
