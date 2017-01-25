@@ -7,6 +7,7 @@ import com.air.entity.WxRespCodeEntity;
 import com.air.netty.websocket.protocol.WebSocketMsg;
 import com.air.util.StringUtils;
 import com.air.util.WxUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.apache.http.entity.StringEntity;
@@ -77,13 +78,17 @@ public class WebLoginActor {
         params.put("touser","o3aw6v5x9S36WOS0viwzp80QvP5o");
         params.put("template_id","Ku3Kw7p5fGBsJknGoTfiAzaJpdWW9FU408wwfaUTJ0o");
         params.put("url","http://air.semsplus.com/rest/wx/go");
-        params.put("data",msgTemplateEntity);
-        String postData = StringUtils.MapToStr(params);
+
 
         Map<String,String> getParams = new HashMap<String,String>();
         getParams.put("access_token",accessToken.getAccess_token());
 
         try {
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            params.put("data",objectMapper.writeValueAsString(msgTemplateEntity));
+            String postData = StringUtils.MapToStr(params);
+
             WxRespCodeEntity wxRespCodeEntity = new WxRespCodeEntity();
             wxRespCodeEntity = WxUtil.sendRequest(WxUrlType.msgTemplateUrl, HttpMethod.POST, params, new StringEntity(postData), WxRespCodeEntity.class);
             logger.info("当前token为："+ accessToken.getAccess_token());
