@@ -9,68 +9,110 @@ import java.util.Map;
  * @Date 2017/1/25
  **/
 public class StautsMsgTemplateEntity {
-    private String first;
-    private String keynote1;
-    private String keynote2;
-    private String keynote3;
-    private String keynote4;
-    private String keynote5;
-    private String remark;
+    private Map<String, String> first;
+    private Map<String, String> keyword1;
+    private Map<String, String> keyword2;
+    private Map<String, String> keyword3;
+    private Map<String,String> keyword4;
+    private Map<String,String> keyword5;
+    private Map<String,String> remark;
 
-    public String getFirst() {
+    public Map<String, String> getFirst() {
         return first;
     }
 
-    public void setFirst(String first) {
+    public void setFirst(Map<String, String> first) {
         this.first = first;
     }
 
-    public String getKeynote1() {
-        return keynote1;
+    public void setFirstData(String value,String color) {
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("value",value);
+        map.put("color",color);
+        this.first = map;
     }
 
-    public void setKeynote1(String keynote1) {
-        this.keynote1 = keynote1;
+    public Map<String, String> getKeyword1() {
+        return keyword1;
     }
 
-    public String getKeynote2() {
-        return keynote2;
+    public void setKeyword1(Map<String, String> keyword1) {
+        this.keyword1 = keyword1;
+    }
+    public void setKeyword1Data(String value,String color) {
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("value",value);
+        map.put("color",color);
+        this.keyword1 = map;
     }
 
-    public void setKeynote2(String keynote2) {
-        this.keynote2 = keynote2;
+    public Map<String, String> getKeyword2() {
+        return keyword2;
     }
 
-    public String getKeynote3() {
-        return keynote3;
+    public void setKeyword2(Map<String, String> keyword2) {
+        this.keyword2 = keyword2;
+    }
+    public void setKeyword2Data(String value,String color) {
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("value",value);
+        map.put("color",color);
+        this.keyword2 = map;
     }
 
-    public void setKeynote3(String keynote3) {
-        this.keynote3 = keynote3;
+    public Map<String, String> getKeyword3() {
+        return keyword3;
     }
 
-    public String getKeynote4() {
-        return keynote4;
+    public void setKeyword3(Map<String, String> keyword3) {
+        this.keyword3 = keyword3;
+    }
+    public void setKeyword3Data(String value,String color) {
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("value",value);
+        map.put("color",color);
+        this.keyword3 = map;
+    }
+    public Map<String, String> getKeyword4() {
+        return keyword4;
     }
 
-    public void setKeynote4(String keynote4) {
-        this.keynote4 = keynote4;
+    public void setKeyword4(Map<String, String> keyword4) {
+        this.keyword4 = keyword4;
+    }
+    public void setKeyword4Data(String value,String color) {
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("value",value);
+        map.put("color",color);
+        this.keyword4 = map;
     }
 
-    public String getKeynote5() {
-        return keynote5;
+    public Map<String, String> getKeyword5() {
+        return keyword5;
     }
 
-    public void setKeynote5(String keynote5) {
-        this.keynote5 = keynote5;
+    public void setKeyword5(Map<String, String> keyword5) {
+        this.keyword5 = keyword5;
     }
-
-    public String getRemark() {
+    public void setKeyword5Data(String value,String color) {
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("value",value);
+        map.put("color",color);
+        this.keyword5 = map;
+    }
+    public Map<String, String> getRemark() {
         return remark;
     }
 
-    public void setRemark(String remark) {
+    public void setRemark(Map<String, String> remark) {
         this.remark = remark;
+    }
+
+    public void setRemarkData(String value,String color) {
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("value",value);
+        map.put("color",color);
+        this.remark = map;
     }
 }
 

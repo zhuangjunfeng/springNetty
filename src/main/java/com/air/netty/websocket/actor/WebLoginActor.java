@@ -66,13 +66,13 @@ public class WebLoginActor {
     public void sendWxMsg(){
         AccessTokenEntity accessToken = (AccessTokenEntity)servletContext.getAttribute("accessToken");
         StautsMsgTemplateEntity msgTemplateEntity= new StautsMsgTemplateEntity();
-        msgTemplateEntity.setFirst("请注意，你的设备已远程开启成功");
-        msgTemplateEntity.setKeynote1("办公室1号报警器");
-        msgTemplateEntity.setKeynote2("000000000000");
-        msgTemplateEntity.setKeynote3("在线");
-        msgTemplateEntity.setKeynote4("2017-02-25");
-        msgTemplateEntity.setKeynote5("启动状态");
-        msgTemplateEntity.setRemark("密切注意哦！");
+        msgTemplateEntity.setFirstData("请注意，你的设备已远程开启成功", "#173177");
+        msgTemplateEntity.setKeyword1Data("办公室1号报警器", "#173177");
+        msgTemplateEntity.setKeyword2Data("000000000000", "#173177");
+        msgTemplateEntity.setKeyword3Data("在线", "#173177");
+        msgTemplateEntity.setKeyword4Data("2017-02-25", "#173177");
+        msgTemplateEntity.setKeyword5Data("启动状态", "#173177");
+        msgTemplateEntity.setRemarkData("密切注意哦！", "#173177");
 
         Map params = new HashMap();
         params.put("touser","o3aw6v5x9S36WOS0viwzp80QvP5o");
@@ -83,14 +83,12 @@ public class WebLoginActor {
         Map<String,String> getParams = new HashMap<String,String>();
         getParams.put("access_token",accessToken.getAccess_token());
 
+        params.put("data",msgTemplateEntity);
+        String postData = StringUtils.MapToStr(params);
+
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            params.put("data",objectMapper.writeValueAsString(msgTemplateEntity));
-            String postData = StringUtils.MapToStr(params);
-
             WxRespCodeEntity wxRespCodeEntity = new WxRespCodeEntity();
-            wxRespCodeEntity = WxUtil.sendRequest(WxUrlType.msgTemplateUrl, HttpMethod.POST, getParams, new StringEntity(postData), WxRespCodeEntity.class);
+            wxRespCodeEntity = WxUtil.sendRequest(WxUrlType.msgTemplateUrl, HttpMethod.POST,getParams, new StringEntity(postData), WxRespCodeEntity.class);
             logger.info("当前token为："+ accessToken.getAccess_token());
             logger.info("发送模版信息结果："+ wxRespCodeEntity.getErrcode());
         }catch (Exception e){
