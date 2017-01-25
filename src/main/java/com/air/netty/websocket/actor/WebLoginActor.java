@@ -41,7 +41,6 @@ public class WebLoginActor {
         this.channel=incoming;
         this.servletContext=servletContext;
         this.login();
-        this.sendWxMsg();
     }
 
     public void login(){
@@ -59,43 +58,7 @@ public class WebLoginActor {
         channel.writeAndFlush(new TextWebSocketFrame("监听设备："+webSocketMsg.getUid()));
     }
 
-    /**
-     * 根据UID查询相关的openId发送设备上线提醒模版消息
-     * https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN
-     */
-    public void sendWxMsg(){
-        AccessTokenEntity accessToken = (AccessTokenEntity)servletContext.getAttribute("accessToken");
-        StautsMsgTemplateEntity msgTemplateEntity= new StautsMsgTemplateEntity();
-        msgTemplateEntity.setFirstData("请注意，你的设备已远程开启成功", "#173177");
-        msgTemplateEntity.setKeyword1Data("办公室1号报警器", "#173177");
-        msgTemplateEntity.setKeyword2Data("000000000000", "#173177");
-        msgTemplateEntity.setKeyword3Data("在线", "#173177");
-        msgTemplateEntity.setKeyword4Data("2017-02-25", "#173177");
-        msgTemplateEntity.setKeyword5Data("启动状态", "#173177");
-        msgTemplateEntity.setRemarkData("密切注意哦！", "#173177");
 
-        Map params = new HashMap();
-        params.put("touser","o3aw6v5x9S36WOS0viwzp80QvP5o");
-        params.put("template_id","Ku3Kw7p5fGBsJknGoTfiAzaJpdWW9FU408wwfaUTJ0o");
-        params.put("url","http://air.semsplus.com/rest/wx/go");
-
-
-        Map<String,String> getParams = new HashMap<String,String>();
-        getParams.put("access_token",accessToken.getAccess_token());
-
-        params.put("data",msgTemplateEntity);
-        String postData = StringUtils.MapToStr(params);
-
-        try {
-            WxRespCodeEntity wxRespCodeEntity = new WxRespCodeEntity();
-            wxRespCodeEntity = WxUtil.sendRequest(WxUrlType.msgTemplateUrl, HttpMethod.POST,getParams, new StringEntity(postData,"UTF-8"), WxRespCodeEntity.class);
-            logger.info("当前token为："+ accessToken.getAccess_token());
-            logger.info("发送模版信息结果："+ wxRespCodeEntity.getErrcode());
-        }catch (Exception e){
-            logger.error(e);
-        }
-
-    }
 
     public Map<String, String> getWsUIDMap() {
         return wsUIDMap;

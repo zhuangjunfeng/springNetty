@@ -2,19 +2,26 @@ package com.air.netty.client.actor;
 
 import com.air.constant.WxUrlType;
 import com.air.entity.AccessTokenEntity;
+import com.air.entity.StautsMsgTemplateEntity;
 import com.air.entity.WxRespCodeEntity;
 import com.air.netty.client.protocol.Modbus;
+import com.air.pojo.AirUserDevice;
+import com.air.service.AirDeviceService;
 import com.air.util.StringUtils;
 import com.air.util.WxUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import org.apache.http.entity.StringEntity;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletContext;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.air.netty.websocket.protocol.WebSocketMsg;
 /**
@@ -28,6 +35,8 @@ public class LoginActor{
     private  Modbus modbus;
     private Channel channel;
     private ServletContext servletContext;
+    @Resource
+    private AirDeviceService airDeviceService;
     private Map<String,Channel> webSocketClient;
     private Map<String,Channel> clientSocket;
     private Map<String,String> ipUIDMap;
@@ -41,6 +50,12 @@ public class LoginActor{
         this.servletContext=servletContext;
         this.login();
         this.sendWeb();
+
+        List<AirUserDevice> list=airDeviceService.queryDeviceOpenid(modbus.getUID());
+        for(AirUserDevice airUserDevice:list){
+            this.sendWxMsg(airUserDevice.getOpenid());
+        }
+
     }
 
     public void login(){
@@ -73,9 +88,6 @@ public class LoginActor{
 
         servletContext.setAttribute("ipUIDMap",ipUIDMap);
         logger.info(modbus.getUID()+"连接开启····");
-
-
-
     }
 
     public void sendWeb(){
@@ -104,13 +116,40 @@ public class LoginActor{
      * 根据UID查询相关的openId发送设备上线提醒模版消息
      * https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN
      */
-    public void sendWxMsg(){
+    public void sendWxMsg(String openid){
+
         AccessTokenEntity accessToken = (AccessTokenEntity)servletContext.getAttribute("accessToken");
-        Map<String,String> params = new HashMap<String,String>();
-        params.put("touser","o3aw6v5x9S36WOS0viwzp80QvP5o");
+        StautsMsgTemplateEntity msgTemplateEntity= new StautsMsgTemplateEntity();
+        msgTemplateEntity.setFirstData("请注意，你的设备已远程开启成功", "#173177");
+        msgTemplateEntity.setKeyword1Data("车载净化器", "#173177");
+        msgTemplateEntity.setKeyword2Data(modbus.getUID(), "#173177");
+        msgTemplateEntity.setKeyword3Data("在线", "#173177");
+        String date=(new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss")).format(new Date());
+        msgTemplateEntity.setKeyword4Data(date, "#173177");
+        msgTemplateEntity.setKeyword5Data("启动中", "#173177");
+        msgTemplateEntity.setRemarkData("点击详情查看车内空气质量哦！", "#173177");
+
+        Map params = new HashMap();
+        params.put("touser",openid);
         params.put("template_id","Ku3Kw7p5fGBsJknGoTfiAzaJpdWW9FU408wwfaUTJ0o");
         params.put("url","http://air.semsplus.com/rest/wx/go");
-        WxRespCodeEntity wxRespCodeEntity =WxUtil.sendRequest(WxUrlType.msgTemplateUrl+accessToken.getAccess_token(), HttpMethod.POST,params,null, WxRespCodeEntity.class);
+
+
+        Map<String,String> getParams = new HashMap<String,String>();
+        getParams.put("access_token",accessToken.getAccess_token());
+
+        params.put("data",msgTemplateEntity);
+        String postData = StringUtils.MapToStr(params);
+
+        try {
+            WxRespCodeEntity wxRespCodeEntity = new WxRespCodeEntity();
+            wxRespCodeEntity = WxUtil.sendRequest(WxUrlType.msgTemplateUrl, HttpMethod.POST,getParams, new StringEntity(postData,"UTF-8"), WxRespCodeEntity.class);
+            logger.info("当前token为："+ accessToken.getAccess_token());
+            logger.info("发送模版信息结果："+ wxRespCodeEntity.getErrcode());
+        }catch (Exception e){
+            logger.error(e);
+        }
+
     }
 
     public Map<String, String> getIpUIDMap() {

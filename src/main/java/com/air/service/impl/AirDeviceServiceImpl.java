@@ -27,6 +27,11 @@ public class AirDeviceServiceImpl implements AirDeviceService{
     }
 
     @Override
+    public List queryDeviceOpenid(String uid) {
+        return airUserDeviceMapper.selectAllAirUserDevice(uid);
+    }
+
+    @Override
     public boolean addDevice(AirDevice airDevice,AirUser airUser) {
 
         AirUserDevice airUserDevice = new AirUserDevice();

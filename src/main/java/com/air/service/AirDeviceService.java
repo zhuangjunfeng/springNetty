@@ -12,6 +12,8 @@ import java.util.List;
 @Service
 public interface AirDeviceService {
     public List queryDevice(String openid);
+    public List queryDeviceOpenid(String uid);
+
     public boolean addDevice(AirDevice airDevice,AirUser airUser);
     public boolean updateDevice(AirDevice airDevice);
     public boolean delDevice(AirDevice airDevice);
