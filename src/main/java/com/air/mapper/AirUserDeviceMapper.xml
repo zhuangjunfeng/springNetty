@@ -17,13 +17,13 @@
   </select>
 
   <select id="selectAllAirUserDevice" resultMap="BaseResultMap">
-SELECT
-air_user_device.device_id,openid,user_device_id
-FROM
-air_device,air_user_device
-WHERE
-air_device.device_uid=#{uid,jdbcType=VARCHAR}
-AND air_device.device_id=air_user_device.device_id
+    SELECT
+    air_user_device.device_id,openid,user_device_id
+    FROM
+    air_device,air_user_device
+    WHERE
+    air_device.device_uid=#{uid,jdbcType=VARCHAR}
+    AND air_device.device_id=air_user_device.device_id
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
