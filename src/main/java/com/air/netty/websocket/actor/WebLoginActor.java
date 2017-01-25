@@ -1,12 +1,18 @@
 package com.air.netty.websocket.actor;
 
+import com.air.constant.WxUrlType;
+import com.air.entity.AccessTokenEntity;
+import com.air.entity.WxRespCode;
 import com.air.netty.websocket.protocol.WebSocketMsg;
+import com.air.util.WxUtil;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 
 import javax.servlet.ServletContext;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -31,6 +37,7 @@ public class WebLoginActor {
         this.channel=incoming;
         this.servletContext=servletContext;
         this.login();
+        this.sendWxMsg();
     }
 
     public void login(){
@@ -46,6 +53,52 @@ public class WebLoginActor {
         servletContext.setAttribute("websocketMap", webSocketClient);
         logger.info("监听设备："+webSocketMsg.getUid());
         channel.writeAndFlush(new TextWebSocketFrame("监听设备："+webSocketMsg.getUid()));
+    }
+
+    /**
+     * 根据UID查询相关的openId发送设备上线提醒模版消息
+     * https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN
+     */
+    public void sendWxMsg(){
+        AccessTokenEntity accessToken = (AccessTokenEntity)servletContext.getAttribute("accessToken");
+        Map<String,String> params = new HashMap<String,String>();
+        params.put("touser","o3aw6v5x9S36WOS0viwzp80QvP5o");
+        params.put("template_id","Ku3Kw7p5fGBsJknGoTfiAzaJpdWW9FU408wwfaUTJ0o");
+        params.put("url","http://air.semsplus.com/rest/wx/go");
+        params.put("data","{" +
+                "\"first\":{"
+                +"\"value\":"+ "\"你的设备已远程操作成功\","
+                +"\"color\":"+ "\"#173177\""+
+                "}," +
+                "\"keynote1\":{"
+                +"\"value\":"+ "\"0000000\","
+                +"\"color\":"+ "\"#173177\""+
+                "}," +
+                "\"keynote2\":{"
+                +"\"value\":"+ "\"0000000\","
+                +"\"color\":"+ "\"#173177\""+
+                "}," +
+                "\"keynote3\":{"
+                +"\"value\":"+ "\"0000000\","
+                +"\"color\":"+ "\"#173177\""+
+                "}," +
+                "\"keynote4\":{"
+                +"\"value\":"+ "\"0000000\","
+                +"\"color\":"+ "\"#173177\""+
+                "}," +
+                "\"keynote5\":{"
+                +"\"value\":"+ "\"0000000\","
+                +"\"color\":"+ "\"#173177\""+
+                "}," +
+                "\"remark\":{"
+                +"\"value\":"+ "\"设备上线\","
+                +"\"color\":"+ "\"#173177\""+
+                "}" +
+
+                "}");
+        WxRespCode wxRespCode = new WxRespCode();
+         wxRespCode= WxUtil.sendRequest(WxUrlType.msgTemplateUrl + accessToken.getAccess_token(), HttpMethod.POST, params, null, WxRespCode.class);
+        logger.info("发送模版信息结果："+wxRespCode.getErrmsg());
     }
 
     public Map<String, String> getWsUIDMap() {
