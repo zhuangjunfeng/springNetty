@@ -254,13 +254,13 @@ public class StringUtils {
 
     /**
      * 对象转换json字符串
-     * @param stautsMsgTemplateEntity  对象
+     * @param map  对象
      * @return json字符串
      */
-    public static  String StautsMsgTemplateEntityToStr(StautsMsgTemplateEntity stautsMsgTemplateEntity){
+    public static  String MapToStr(Map map){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.writeValueAsString(stautsMsgTemplateEntity);
+            return objectMapper.writeValueAsString(map);
         }catch (Exception e){
             e.printStackTrace();
         }

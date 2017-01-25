@@ -64,10 +64,6 @@ public class WebLoginActor {
      */
     public void sendWxMsg(){
         AccessTokenEntity accessToken = (AccessTokenEntity)servletContext.getAttribute("accessToken");
-        Map<String,String> params = new HashMap<String,String>();
-        params.put("touser","o3aw6v5x9S36WOS0viwzp80QvP5o");
-        params.put("template_id","Ku3Kw7p5fGBsJknGoTfiAzaJpdWW9FU408wwfaUTJ0o");
-        params.put("url","http://air.semsplus.com/rest/wx/go");
         StautsMsgTemplateEntity msgTemplateEntity= new StautsMsgTemplateEntity();
         msgTemplateEntity.setFirstData("请注意，你的设备已远程开启成功","#173177");
         msgTemplateEntity.setKeynote1Data("办公室1号报警器","#173177");
@@ -76,10 +72,21 @@ public class WebLoginActor {
         msgTemplateEntity.setKeynote4Data("2017-02-25", "#173177");
         msgTemplateEntity.setKeynote5Data("启动状态","#173177");
         msgTemplateEntity.setRemarkData("密切注意哦！","#173177");
-        String data=StringUtils.StautsMsgTemplateEntityToStr(msgTemplateEntity);
+
+        Map params = new HashMap();
+        params.put("touser","o3aw6v5x9S36WOS0viwzp80QvP5o");
+        params.put("template_id","Ku3Kw7p5fGBsJknGoTfiAzaJpdWW9FU408wwfaUTJ0o");
+        params.put("url","http://air.semsplus.com/rest/wx/go");
+        params.put("data",msgTemplateEntity);
+        String postData = StringUtils.MapToStr(params);
+
+        Map<String,String> getParams = new HashMap<String,String>();
+        getParams.put("access_token",accessToken.getAccess_token());
+
         try {
             WxRespCodeEntity wxRespCodeEntity = new WxRespCodeEntity();
-            wxRespCodeEntity = WxUtil.sendRequest(WxUrlType.msgTemplateUrl+accessToken.getAccess_token(), HttpMethod.POST, params, new StringEntity(data), WxRespCodeEntity.class);
+            wxRespCodeEntity = WxUtil.sendRequest(WxUrlType.msgTemplateUrl, HttpMethod.POST, params, new StringEntity(postData), WxRespCodeEntity.class);
+            logger.info("当前token为："+ accessToken.getAccess_token());
             logger.info("发送模版信息结果："+ wxRespCodeEntity.getErrcode());
         }catch (Exception e){
             logger.error(e);

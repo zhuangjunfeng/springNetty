@@ -8,6 +8,6 @@ public final  class WxUrlType {
     public final  static  String accessTokenUrl  = "https://api.weixin.qq.com/sns/oauth2/access_token";
     public final  static  String userInfoUrl ="https://api.weixin.qq.com/sns/userinfo";
     public final  static  String tokenUrl ="https://api.weixin.qq.com/cgi-bin/token";
-    public final  static  String msgTemplateUrl ="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=";
+    public final  static  String msgTemplateUrl ="https://api.weixin.qq.com/cgi-bin/message/template/send";
 
 }
