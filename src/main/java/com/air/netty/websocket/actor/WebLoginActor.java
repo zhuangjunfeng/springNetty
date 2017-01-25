@@ -9,6 +9,7 @@ import com.air.util.StringUtils;
 import com.air.util.WxUtil;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import org.apache.http.entity.StringEntity;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
@@ -76,10 +77,14 @@ public class WebLoginActor {
         msgTemplateEntity.setKeynote5Data("启动状态","#173177");
         msgTemplateEntity.setRemarkData("密切注意哦！","#173177");
         String data=StringUtils.StautsMsgTemplateEntityToStr(msgTemplateEntity);
-        params.put("data",data);
-        WxRespCodeEntity wxRespCodeEntity = new WxRespCodeEntity();
-        wxRespCodeEntity = WxUtil.sendRequest(WxUrlType.msgTemplateUrl+accessToken.getAccess_token(), HttpMethod.POST, params, null, WxRespCodeEntity.class);
-        logger.info("发送模版信息结果："+ wxRespCodeEntity.getErrcode());
+        try {
+            WxRespCodeEntity wxRespCodeEntity = new WxRespCodeEntity();
+            wxRespCodeEntity = WxUtil.sendRequest(WxUrlType.msgTemplateUrl+accessToken.getAccess_token(), HttpMethod.POST, params, new StringEntity(data), WxRespCodeEntity.class);
+            logger.info("发送模版信息结果："+ wxRespCodeEntity.getErrcode());
+        }catch (Exception e){
+            logger.error(e);
+        }
+
     }
 
     public Map<String, String> getWsUIDMap() {
