@@ -26,7 +26,7 @@ public class StautsMsgTemplateEntity {
     }
     public void setFirstData(String value,String color) {
         Map<String,String> map = new HashMap<String,String>();
-        map.put("value",value);
+        map.put("DATA",value);
         map.put("color",color);
         this.first = map;
     }
@@ -40,7 +40,7 @@ public class StautsMsgTemplateEntity {
     }
     public void setKeynote1Data(String value,String color) {
         Map<String,String> map = new HashMap<String,String>();
-        map.put("value",value);
+        map.put("DATA",value);
         map.put("color",color);
         this.keynote1 = map;
     }
@@ -55,7 +55,7 @@ public class StautsMsgTemplateEntity {
     }
     public void setKeynote2Data(String value,String color) {
         Map<String,String> map = new HashMap<String,String>();
-        map.put("value",value);
+        map.put("DATA",value);
         map.put("color",color);
         this.keynote2 = map;
     }
@@ -69,7 +69,7 @@ public class StautsMsgTemplateEntity {
     }
     public void setKeynote3Data(String value,String color) {
         Map<String,String> map = new HashMap<String,String>();
-        map.put("value",value);
+        map.put("DATA",value);
         map.put("color",color);
         this.keynote3 = map;
     }
@@ -84,7 +84,7 @@ public class StautsMsgTemplateEntity {
     }
     public void setKeynote4Data(String value,String color) {
         Map<String,String> map = new HashMap<String,String>();
-        map.put("value",value);
+        map.put("DATA",value);
         map.put("color",color);
         this.keynote4 = map;
     }
@@ -98,7 +98,7 @@ public class StautsMsgTemplateEntity {
     }
     public void setKeynote5Data(String value,String color) {
         Map<String,String> map = new HashMap<String,String>();
-        map.put("value",value);
+        map.put("DATA",value);
         map.put("color",color);
         this.keynote5 = map;
     }
@@ -112,7 +112,7 @@ public class StautsMsgTemplateEntity {
     }
     public void setRemarkData(String value,String color) {
         Map<String,String> map = new HashMap<String,String>();
-        map.put("value",value);
+        map.put("DATA",value);
         map.put("color",color);
         this.remark = map;
     }
