@@ -51,6 +51,7 @@ public class WxUtil {
 				request = new HttpGet();
 			} else if (HttpMethod.POST.equals(method)) {
 				request = new HttpPost();
+
 				if (requestEntity != null) {
 					((HttpPost) request).setEntity(requestEntity);
 				}

@@ -88,7 +88,7 @@ public class WebLoginActor {
 
         try {
             WxRespCodeEntity wxRespCodeEntity = new WxRespCodeEntity();
-            wxRespCodeEntity = WxUtil.sendRequest(WxUrlType.msgTemplateUrl, HttpMethod.POST,getParams, new StringEntity(postData), WxRespCodeEntity.class);
+            wxRespCodeEntity = WxUtil.sendRequest(WxUrlType.msgTemplateUrl, HttpMethod.POST,getParams, new StringEntity(postData,"UTF-8"), WxRespCodeEntity.class);
             logger.info("当前token为："+ accessToken.getAccess_token());
             logger.info("发送模版信息结果："+ wxRespCodeEntity.getErrcode());
         }catch (Exception e){
