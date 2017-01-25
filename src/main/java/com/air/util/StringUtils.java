@@ -1,5 +1,6 @@
 package com.air.util;
 
+import com.air.entity.StautsMsgTemplateEntity;
 import com.air.netty.websocket.protocol.WebSocketMsg;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -245,6 +246,21 @@ public class StringUtils {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.writeValueAsString(webSocketMsg);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * 对象转换json字符串
+     * @param stautsMsgTemplateEntity  对象
+     * @return json字符串
+     */
+    public static  String StautsMsgTemplateEntityToStr(StautsMsgTemplateEntity stautsMsgTemplateEntity){
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.writeValueAsString(stautsMsgTemplateEntity);
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @Date 2017/1/25
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WxRespCode {
+public class WxRespCodeEntity {
     private Integer errcode;
     private String errmsg;
     private Integer msgid;

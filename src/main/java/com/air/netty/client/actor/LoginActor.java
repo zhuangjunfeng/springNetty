@@ -2,7 +2,7 @@ package com.air.netty.client.actor;
 
 import com.air.constant.WxUrlType;
 import com.air.entity.AccessTokenEntity;
-import com.air.entity.WxRespCode;
+import com.air.entity.WxRespCodeEntity;
 import com.air.netty.client.protocol.Modbus;
 import com.air.util.StringUtils;
 import com.air.util.WxUtil;
@@ -14,7 +14,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletContext;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import com.air.netty.websocket.protocol.WebSocketMsg;
@@ -111,38 +110,7 @@ public class LoginActor{
         params.put("touser","o3aw6v5x9S36WOS0viwzp80QvP5o");
         params.put("template_id","Ku3Kw7p5fGBsJknGoTfiAzaJpdWW9FU408wwfaUTJ0o");
         params.put("url","http://air.semsplus.com/rest/wx/go");
-        params.put("data","{" +
-                            "\"first\":{"
-                                        +"\"value\":"+ "\"你的设备已远程操作成功\","
-                                        +"\"color\":"+ "\"#173177\""+
-                                      "}," +
-                                "\"keynote1\":{"
-                                +"\"value\":"+ "\"0000000\","
-                                +"\"color\":"+ "\"#173177\""+
-                                "}," +
-                                "\"keynote2\":{"
-                                +"\"value\":"+ "\"0000000\","
-                                +"\"color\":"+ "\"#173177\""+
-                                "}," +
-                                "\"keynote3\":{"
-                                +"\"value\":"+ "\"0000000\","
-                                +"\"color\":"+ "\"#173177\""+
-                                "}," +
-                                "\"keynote4\":{"
-                                +"\"value\":"+ "\"0000000\","
-                                +"\"color\":"+ "\"#173177\""+
-                                "}," +
-                                "\"keynote5\":{"
-                                +"\"value\":"+ "\"0000000\","
-                                +"\"color\":"+ "\"#173177\""+
-                                "}," +
-                                "\"remark\":{"
-                                +"\"value\":"+ "\"设备上线\","
-                                +"\"color\":"+ "\"#173177\""+
-                                "}" +
-
-                "}");
-        WxRespCode wxRespCode=WxUtil.sendRequest(WxUrlType.msgTemplateUrl+accessToken.getAccess_token(), HttpMethod.POST,params,null, WxRespCode.class);
+        WxRespCodeEntity wxRespCodeEntity =WxUtil.sendRequest(WxUrlType.msgTemplateUrl+accessToken.getAccess_token(), HttpMethod.POST,params,null, WxRespCodeEntity.class);
     }
 
     public Map<String, String> getIpUIDMap() {

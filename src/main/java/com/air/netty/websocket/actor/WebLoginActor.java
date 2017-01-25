@@ -2,8 +2,10 @@ package com.air.netty.websocket.actor;
 
 import com.air.constant.WxUrlType;
 import com.air.entity.AccessTokenEntity;
-import com.air.entity.WxRespCode;
+import com.air.entity.StautsMsgTemplateEntity;
+import com.air.entity.WxRespCodeEntity;
 import com.air.netty.websocket.protocol.WebSocketMsg;
+import com.air.util.StringUtils;
 import com.air.util.WxUtil;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
@@ -65,40 +67,20 @@ public class WebLoginActor {
         params.put("touser","o3aw6v5x9S36WOS0viwzp80QvP5o");
         params.put("template_id","Ku3Kw7p5fGBsJknGoTfiAzaJpdWW9FU408wwfaUTJ0o");
         params.put("url","http://air.semsplus.com/rest/wx/go");
-        params.put("data","{" +
-                "\"first\":{"
-                +"\"value\":"+ "\"你的设备已远程操作成功\","
-                +"\"color\":"+ "\"#173177\""+
-                "}," +
-                "\"keynote1\":{"
-                +"\"value\":"+ "\"0000000\","
-                +"\"color\":"+ "\"#173177\""+
-                "}," +
-                "\"keynote2\":{"
-                +"\"value\":"+ "\"0000000\","
-                +"\"color\":"+ "\"#173177\""+
-                "}," +
-                "\"keynote3\":{"
-                +"\"value\":"+ "\"0000000\","
-                +"\"color\":"+ "\"#173177\""+
-                "}," +
-                "\"keynote4\":{"
-                +"\"value\":"+ "\"0000000\","
-                +"\"color\":"+ "\"#173177\""+
-                "}," +
-                "\"keynote5\":{"
-                +"\"value\":"+ "\"0000000\","
-                +"\"color\":"+ "\"#173177\""+
-                "}," +
-                "\"remark\":{"
-                +"\"value\":"+ "\"设备上线\","
-                +"\"color\":"+ "\"#173177\""+
-                "}" +
+        StautsMsgTemplateEntity msgTemplateEntity= new StautsMsgTemplateEntity();
+        msgTemplateEntity.setFirstData("请注意，你的设备已远程开启成功","#173177");
+        msgTemplateEntity.setKeynote1Data("办公室1号报警器","#173177");
+        msgTemplateEntity.setKeynote2Data("000000000000", "#173177");
+        msgTemplateEntity.setKeynote3Data("在线", "#173177");
+        msgTemplateEntity.setKeynote4Data("2017-02-25", "#173177");
+        msgTemplateEntity.setKeynote5Data("启动状态","#173177");
+        msgTemplateEntity.setRemarkData("密切注意哦！","#173177");
 
-                "}");
-        WxRespCode wxRespCode = new WxRespCode();
-         wxRespCode= WxUtil.sendRequest(WxUrlType.msgTemplateUrl + accessToken.getAccess_token(), HttpMethod.POST, params, null, WxRespCode.class);
-        logger.info("发送模版信息结果："+wxRespCode.getErrmsg());
+        String data=StringUtils.StautsMsgTemplateEntityToStr(msgTemplateEntity);
+        params.put("data",data);
+        WxRespCodeEntity wxRespCodeEntity = new WxRespCodeEntity();
+        wxRespCodeEntity = WxUtil.sendRequest(WxUrlType.msgTemplateUrl + accessToken.getAccess_token(), HttpMethod.POST, params, null, WxRespCodeEntity.class);
+        logger.info("发送模版信息结果："+ wxRespCodeEntity.getErrcode());
     }
 
     public Map<String, String> getWsUIDMap() {
