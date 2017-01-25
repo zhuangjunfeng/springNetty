@@ -9,112 +9,68 @@ import java.util.Map;
  * @Date 2017/1/25
  **/
 public class StautsMsgTemplateEntity {
-    private Map<String, String> first;
-    private Map<String, String> keynote1;
-    private Map<String, String> keynote2;
-    private Map<String, String> keynote3;
-    private Map<String,String> keynote4;
-    private Map<String,String> keynote5;
-    private Map<String,String> remark;
+    private String first;
+    private String keynote1;
+    private String keynote2;
+    private String keynote3;
+    private String keynote4;
+    private String keynote5;
+    private String remark;
 
-    public Map<String, String> getFirst() {
+    public String getFirst() {
         return first;
     }
 
-    public void setFirst(Map<String, String> first) {
+    public void setFirst(String first) {
         this.first = first;
     }
-    public void setFirstData(String value,String color) {
-        Map<String,String> map = new HashMap<String,String>();
-        map.put("DATA",value);
-        map.put("color",color);
-        this.first = map;
-    }
 
-    public Map<String, String> getKeynote1() {
+    public String getKeynote1() {
         return keynote1;
     }
 
-    public void setKeynote1(Map<String, String> keynote1) {
+    public void setKeynote1(String keynote1) {
         this.keynote1 = keynote1;
     }
-    public void setKeynote1Data(String value,String color) {
-        Map<String,String> map = new HashMap<String,String>();
-        map.put("DATA",value);
-        map.put("color",color);
-        this.keynote1 = map;
-    }
 
-
-    public Map<String, String> getKeynote2() {
+    public String getKeynote2() {
         return keynote2;
     }
 
-    public void setKeynote2(Map<String, String> keynote2) {
+    public void setKeynote2(String keynote2) {
         this.keynote2 = keynote2;
     }
-    public void setKeynote2Data(String value,String color) {
-        Map<String,String> map = new HashMap<String,String>();
-        map.put("DATA",value);
-        map.put("color",color);
-        this.keynote2 = map;
-    }
 
-    public Map<String, String> getKeynote3() {
+    public String getKeynote3() {
         return keynote3;
     }
 
-    public void setKeynote3(Map<String, String> keynote3) {
+    public void setKeynote3(String keynote3) {
         this.keynote3 = keynote3;
     }
-    public void setKeynote3Data(String value,String color) {
-        Map<String,String> map = new HashMap<String,String>();
-        map.put("DATA",value);
-        map.put("color",color);
-        this.keynote3 = map;
-    }
 
-
-    public Map<String, String> getKeynote4() {
+    public String getKeynote4() {
         return keynote4;
     }
 
-    public void setKeynote4(Map<String, String> keynote4) {
+    public void setKeynote4(String keynote4) {
         this.keynote4 = keynote4;
     }
-    public void setKeynote4Data(String value,String color) {
-        Map<String,String> map = new HashMap<String,String>();
-        map.put("DATA",value);
-        map.put("color",color);
-        this.keynote4 = map;
-    }
 
-    public Map<String, String> getKeynote5() {
+    public String getKeynote5() {
         return keynote5;
     }
 
-    public void setKeynote5(Map<String, String> keynote5) {
+    public void setKeynote5(String keynote5) {
         this.keynote5 = keynote5;
     }
-    public void setKeynote5Data(String value,String color) {
-        Map<String,String> map = new HashMap<String,String>();
-        map.put("DATA",value);
-        map.put("color",color);
-        this.keynote5 = map;
-    }
 
-    public Map<String, String> getRemark() {
+    public String getRemark() {
         return remark;
     }
 
-    public void setRemark(Map<String, String> remark) {
+    public void setRemark(String remark) {
         this.remark = remark;
-    }
-    public void setRemarkData(String value,String color) {
-        Map<String,String> map = new HashMap<String,String>();
-        map.put("DATA",value);
-        map.put("color",color);
-        this.remark = map;
     }
 }
 
