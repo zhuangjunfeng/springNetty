@@ -89,7 +89,7 @@ public class InitListener implements InitializingBean,ServletContextAware{
         params.put("appid",airWxInfo.getAppid());
         params.put("secret",airWxInfo.getSecret());
         AccessTokenEntity accessTokenEntity = new AccessTokenEntity();
-        accessTokenEntity = WxUtil.sendRequest(WxUrlType.tokenUrl, HttpMethod.GET, null, null, AccessTokenEntity.class);
+        accessTokenEntity = WxUtil.sendRequest(WxUrlType.tokenUrl, HttpMethod.GET, params, null, AccessTokenEntity.class);
         servletContext.setAttribute("accessToken",accessTokenEntity);
         logger.info("获取accessToken为"+accessTokenEntity.getAccess_token());
     }
