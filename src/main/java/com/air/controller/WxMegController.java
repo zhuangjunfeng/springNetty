@@ -9,10 +9,7 @@ import com.air.util.WxUtil;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -68,6 +65,14 @@ public class WxMegController {
         return "redirect:"+WxUrlType.authorizeUrl+appidUrl+redirect_uri+typeUrl;
     }
 
+    /**
+     * 获取微信权限验证
+     * @param signature 指纹
+     * @param timestamp 时间戳
+     * @param nonce 随机码
+     * @param echostr 加密串
+     * @return
+     */
     @RequestMapping(method =RequestMethod.GET,produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String authGet(@RequestParam("signature") String signature,
@@ -76,6 +81,18 @@ public class WxMegController {
                    @RequestParam("echostr") String echostr) {
         logger.info("微信验证"+echostr);
         return echostr;
+    }
+
+    /**
+     *接收微信服务器发送的消息
+     * @param requestBody
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseBody
+    public String receiveData(@RequestBody String requestBody){
+
+        return "";
     }
 
 

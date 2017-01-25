@@ -1,13 +1,18 @@
 package com.air.listener;
 
+import com.air.constant.WxUrlType;
+import com.air.entity.AccessTokenEntity;
 import com.air.pojo.AirWxInfo;
 import com.air.service.AirWxInfoService;
 import com.air.service.NettyService;
 import com.air.service.WebSocketService;
 import com.air.util.StringUtils;
+import com.air.util.WxUtil;
 import io.netty.channel.Channel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.http.HttpMethod;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
 
@@ -50,6 +55,12 @@ public class InitListener implements InitializingBean,ServletContextAware{
         servletContext.setAttribute("wsUIDMap",wsUIDMap);
         servletContext.setAttribute("clientMap",clientMap);
         servletContext.setAttribute("websocketMap",websocketMap);
+        this.initAccessToken(servletContext);
+        this.initNettyServer(servletContext);
+
+    }
+
+    public void initNettyServer(ServletContext servletContext){
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("config/netty.properties");
         Properties p = new Properties();
         try{
@@ -68,6 +79,19 @@ public class InitListener implements InitializingBean,ServletContextAware{
                 webSocketService.start(Integer.parseInt(p.getProperty("websocket.port")),servletContext);
             }});
         websocket.start();
+    }
+
+    public void initAccessToken(ServletContext servletContext){
+        AirWxInfo airWxInfo = new AirWxInfo();
+        airWxInfo = (AirWxInfo)servletContext.getAttribute("wxinfo");
+        Map<String,String> params = new HashMap<String,String>();
+        params.put("grant_type","client_credential");
+        params.put("appid",airWxInfo.getAppid());
+        params.put("secret",airWxInfo.getSecret());
+        AccessTokenEntity accessTokenEntity = new AccessTokenEntity();
+        accessTokenEntity = WxUtil.sendRequest(WxUrlType.tokenUrl, HttpMethod.GET, null, null, AccessTokenEntity.class);
+        servletContext.setAttribute("accessToken",accessTokenEntity);
+        logger.info("获取accessToken为"+accessTokenEntity.getAccess_token());
     }
 
 

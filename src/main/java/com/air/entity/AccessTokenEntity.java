@@ -1,8 +1,11 @@
 package com.air.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Created by Administrator on 2017/1/21.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AccessTokenEntity {
     private String access_token;
     private int expires_in;
