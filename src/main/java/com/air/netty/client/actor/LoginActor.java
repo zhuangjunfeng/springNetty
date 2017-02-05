@@ -51,12 +51,15 @@ public class LoginActor{
         this.login();
         this.sendWeb();
 
+        String UID = this.modbus.getUID();
 
-        List<AirUserDevice> list=airDeviceService.queryDeviceOpenid(modbus.getUID());
-        for(AirUserDevice airUserDevice:list){
-            this.sendWxMsg(airUserDevice.getOpenid());
+        List<AirUserDevice> list=airDeviceService.queryDeviceOpenid(UID);
+        logger.info("获取的登录UID为："+UID+"----查询结果数为："+list.size());
+        if(list!=null){
+            for(AirUserDevice airUserDevice:list){
+                this.sendWxMsg(airUserDevice.getOpenid());
+            }
         }
-
     }
 
     public void login(){
