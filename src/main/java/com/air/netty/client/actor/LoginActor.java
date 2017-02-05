@@ -51,6 +51,7 @@ public class LoginActor{
         this.login();
         this.sendWeb();
 
+
         List<AirUserDevice> list=airDeviceService.queryDeviceOpenid(modbus.getUID());
         for(AirUserDevice airUserDevice:list){
             this.sendWxMsg(airUserDevice.getOpenid());
