@@ -3,16 +3,13 @@ package com.air.netty.websocket.actor;
 import com.air.netty.client.protocol.Modbus;
 import com.air.netty.websocket.protocol.WebSocketMsg;
 import com.air.util.StringUtils;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 
 import javax.servlet.ServletContext;
-import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -22,7 +19,7 @@ import java.util.Map;
  **/
 @Controller
 public class SendDataActor {
-    private static Logger logger = Logger.getLogger(SendDataActor.class);
+    protected static final Logger logger = LoggerFactory.getLogger(SendDataActor.class);
 
     private WebSocketMsg webSocketMsg;
     private Channel channel;

@@ -3,7 +3,7 @@ package com.air.netty.client.actor;
 import com.air.netty.client.protocol.Modbus;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletContext;
@@ -15,7 +15,7 @@ import java.util.Map;
  */
 @Component("F1")
 public class HeartbeatActor {
-    private static Logger logger = Logger.getLogger(HeartbeatActor.class);
+    protected static final org.slf4j.Logger logger = LoggerFactory.getLogger(HeartbeatActor.class);
 
     private Modbus modbus;
     private Channel channel;

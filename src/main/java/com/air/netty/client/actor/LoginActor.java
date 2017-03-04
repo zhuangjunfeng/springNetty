@@ -13,7 +13,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.apache.http.entity.StringEntity;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +32,7 @@ import com.air.netty.websocket.protocol.WebSocketMsg;
  **/
 @Component("F0")
 public class LoginActor{
-    private static Logger logger = Logger.getLogger(LoginActor.class);
+    protected static final Logger logger = LoggerFactory.getLogger(LoginActor.class);
     private  Modbus modbus;
     private Channel channel;
     private ServletContext servletContext;
@@ -152,7 +153,7 @@ public class LoginActor{
             logger.info("当前token为："+ accessToken.getAccess_token());
             logger.info("发送模版信息结果："+ wxRespCodeEntity.getErrcode());
         }catch (Exception e){
-            logger.error(e);
+            logger.error("",e);
         }
 
     }

@@ -7,7 +7,8 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -27,7 +28,7 @@ import java.util.regex.Pattern;
 @Component
 @ChannelHandler.Sharable
 public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
-    private static Logger logger = Logger.getLogger(ModbusHandler.class);
+    protected static final Logger logger = LoggerFactory.getLogger(ModbusHandler.class);
 
     private ServletContext servletContext;
     @Resource

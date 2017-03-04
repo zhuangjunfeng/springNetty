@@ -1,22 +1,13 @@
 package com.air.netty.websocket.actor;
 
-import com.air.constant.WxUrlType;
-import com.air.entity.AccessTokenEntity;
-import com.air.entity.StautsMsgTemplateEntity;
-import com.air.entity.WxRespCodeEntity;
 import com.air.netty.websocket.protocol.WebSocketMsg;
-import com.air.util.StringUtils;
-import com.air.util.WxUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
-import org.apache.http.entity.StringEntity;
-import org.apache.log4j.Logger;
-import org.springframework.http.HttpMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 
 import javax.servlet.ServletContext;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,7 +15,7 @@ import java.util.Map;
  */
 @Controller
 public class WebLoginActor {
-    private static Logger logger = Logger.getLogger(WebLoginActor.class);
+    protected static final Logger logger = LoggerFactory.getLogger(WebLoginActor.class);
 
     private WebSocketMsg webSocketMsg;
     private Channel channel;

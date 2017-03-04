@@ -9,8 +9,8 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
-import org.apache.log4j.Logger;
-import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -23,7 +23,7 @@ import java.util.Map;
 @ChannelHandler.Sharable
 public class TextWebSocketFrameHandler extends
 		SimpleChannelInboundHandler<TextWebSocketFrame> {
-	private static Logger logger = Logger.getLogger(TextWebSocketFrameHandler.class);
+	protected static final Logger logger = LoggerFactory.getLogger(TextWebSocketFrameHandler.class);
 
 	private ServletContext servletContext;
 	private Map websocketMap;
