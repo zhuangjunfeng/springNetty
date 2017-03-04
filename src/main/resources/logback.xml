@@ -16,6 +16,13 @@
 	<!-- 文件输出日志(SQL) -->
 	<appender name="sql-file" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<File>logs/semsAir-sql.log</File>
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<evaluator name="dao">
+				<expression>message.contains("MYBATIS")</expression>
+			</evaluator>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<fileNamePattern>logs/history/semsAir-sql-%d{yyyy-MM-dd}.log</fileNamePattern>
 			<maxHistory>60</maxHistory>
@@ -68,10 +75,6 @@
 			<pattern>%d{HH:mm:ss} |%5le| %logger{50} => %msg %n%ex</pattern>
 		</layout>
 	</appender>
-
-    <logger name="com.air.mapper" level="DEBUG">
-		<appender-ref ref="async-sql-file" />
-	</logger>
 
     <logger name="java.sql.Connection" level="DEBUG"/>
 

@@ -86,7 +86,7 @@ public class InitListener implements InitializingBean,ServletContextAware{
         AccessTokenEntity accessTokenEntity = new AccessTokenEntity();
         accessTokenEntity = WxUtil.sendRequest(WxUrlType.tokenUrl, HttpMethod.GET, params, null, AccessTokenEntity.class);
         servletContext.setAttribute("accessToken",accessTokenEntity);
-        logger.info("获取accessToken为"+accessTokenEntity.getAccess_token());
+        logger.info("获取accessToken为"+accessTokenEntity!=null?accessTokenEntity.getAccess_token():"");
     }
 
 
