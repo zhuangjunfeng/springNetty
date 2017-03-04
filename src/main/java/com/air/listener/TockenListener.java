@@ -1,7 +1,7 @@
 package com.air.listener;
 
 import com.air.util.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSessionEvent;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSessionListener;
 
 
 public class TockenListener implements HttpSessionListener {
-    private static Logger logger = Logger.getLogger(TockenListener.class);
+    protected static final org.slf4j.Logger logger = LoggerFactory.getLogger(TockenListener.class);
 
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {

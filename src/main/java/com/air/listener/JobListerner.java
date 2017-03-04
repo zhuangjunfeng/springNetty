@@ -5,7 +5,7 @@ import com.air.entity.AccessTokenEntity;
 import com.air.pojo.AirWxInfo;
 import com.air.util.WxUtil;
 import io.netty.channel.Channel;
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @Component
 public class JobListerner implements ApplicationContextAware,ServletContextAware{
-    private static Logger logger = Logger.getLogger(JobListerner.class);
+    protected static final org.slf4j.Logger logger = LoggerFactory.getLogger(JobListerner.class);
 
     private ApplicationContext applicationContext;
     private ServletContext servletContext;

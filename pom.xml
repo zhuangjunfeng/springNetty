@@ -230,12 +230,6 @@
       <artifactId>json</artifactId>
       <version>20160212</version>
     </dependency>
-
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.9</version>
-    </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
@@ -252,5 +246,21 @@
       <artifactId>commons-lang3</artifactId>
       <version>${commons-lang3.version}</version>
     </dependency>
+
+    <dependency>  
+    <groupId>ch.qos.logback</groupId>  
+    <artifactId>logback-classic</artifactId>  
+    <version>1.2.1</version>  
+  </dependency>  
+  <dependency>  
+      <groupId>org.logback-extensions</groupId>  
+      <artifactId>logback-ext-spring</artifactId>  
+      <version>0.1.4</version>  
+  </dependency>  
+  <dependency>  
+      <groupId>org.slf4j</groupId>  
+      <artifactId>jcl-over-slf4j</artifactId>  
+      <version>1.7.24</version>  
+  </dependency> 
   </dependencies>
 </project>

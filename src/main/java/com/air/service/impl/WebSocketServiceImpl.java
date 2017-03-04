@@ -11,7 +11,7 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ import javax.servlet.ServletContext;
  **/
 @Service
 public class WebSocketServiceImpl  implements WebSocketService{
-    private static Logger logger = Logger.getLogger(WebSocketServiceImpl.class);
+    protected static final org.slf4j.Logger logger = LoggerFactory.getLogger(WebSocketServiceImpl.class);
 
 
     @Autowired

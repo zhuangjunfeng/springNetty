@@ -13,13 +13,11 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.Map;
 
@@ -29,7 +27,7 @@ import java.util.Map;
  * 
  */
 public class WxUtil {
-	private static Logger logger = Logger.getLogger(WxUtil.class);
+	protected static final org.slf4j.Logger logger = LoggerFactory.getLogger(WxUtil.class);
 
 
 	private WxUtil() {
@@ -82,9 +80,9 @@ public class WxUtil {
 			}
 
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error("",e);
 		} catch (URISyntaxException e) {
-			logger.error(e);
+			logger.error("",e);
 		}
 		return null;
 	}

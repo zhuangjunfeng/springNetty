@@ -6,26 +6,21 @@ import com.air.pojo.AirWxInfo;
 import com.air.service.AirWxInfoService;
 import com.air.service.NettyService;
 import com.air.service.WebSocketService;
-import com.air.util.StringUtils;
 import com.air.util.WxUtil;
 import io.netty.channel.Channel;
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.http.HttpMethod;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionBindingListener;
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.MessageDigest;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * 内容管理平台服务启动监听器
@@ -34,7 +29,7 @@ import java.util.*;
  */
 @Component
 public class InitListener implements InitializingBean,ServletContextAware{
-    private static Logger logger = Logger.getLogger(InitListener.class);
+    protected static final org.slf4j.Logger logger = LoggerFactory.getLogger(InitListener.class);
 
     @Resource
     private NettyService nettyService;

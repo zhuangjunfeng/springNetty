@@ -12,7 +12,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +25,7 @@ import javax.servlet.ServletContext;
  **/
 @Component
 public class NettyServiceImpl  implements NettyService{
-    private static Logger logger = Logger.getLogger(NettyServiceImpl.class);
+    protected static final org.slf4j.Logger logger = LoggerFactory.getLogger(NettyServiceImpl.class);
     @Autowired
     private ModbusHandler modbusHandler;
 

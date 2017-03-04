@@ -1,12 +1,14 @@
 package com.air.controller;
 
+import ch.qos.logback.classic.Logger;
 import com.air.constant.WxUrlType;
 import com.air.entity.AccessTokenEntity;
 import com.air.pojo.AirUser;
 import com.air.pojo.AirWxInfo;
 import com.air.service.AirUserService;
 import com.air.util.WxUtil;
-import org.apache.log4j.Logger;
+
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +25,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/wx")
 public class WxMegController {
-
-    private static Logger logger = Logger.getLogger(WxMegController.class);
+    protected static final org.slf4j.Logger logger = LoggerFactory.getLogger(WxMegController.class);
     @Resource
     private AirUserService airUserService;
 
