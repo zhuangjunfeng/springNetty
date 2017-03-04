@@ -18,7 +18,7 @@
 		<File>logs/semsAir-sql.log</File>
 		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
 			<evaluator name="dao">
-				<expression>message.contains("MYBATIS")</expression>
+				<expression>marker.contains("MYBATIS")</expression>
 			</evaluator>
 			<onMatch>ACCEPT</onMatch>
 			<onMismatch>DENY</onMismatch>
