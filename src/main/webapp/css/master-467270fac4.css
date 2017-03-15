@@ -1,0 +1,124 @@
+/*售后服务*/
+.service-content .title-card {
+  height: 10.5rem;
+  margin: 0;
+}
+.service-content .list-block {
+  width: 9rem;
+}
+.service-content .card-header,
+.service-content .card-header .list-block,
+.service-content .card-header .item-content,
+.service-content .card-header .item-inner,
+.service-content .card-header .item-input,
+.service-content .card-header .item-input input {
+  height: 1.5rem;
+  font-size: 0.5rem;
+  min-height: 0;
+}
+.service-content .item-content,
+.service-content .card-footer .item-input textarea {
+  padding: 0;
+}
+.service-content .card-footer .item-input {
+  margin: 0;
+}
+.service-content .card-footer,
+.service-content .card-footer .list-block,
+.service-content .card-footer .item-inner,
+.service-content .card-footer .item-input,
+.service-content .card-footer .item-input textarea {
+  height: 6rem;
+  font-size: 0.5rem;
+}
+.service-content .service-input {
+  border: 0;
+}
+.service-content .save-button {
+  width: 8rem;
+  margin: 1rem auto 0rem;
+}
+.service-content .save-button a {
+  font-size: 0.5rem;
+  background-color: #1ba365;
+}
+/*消息设置*/
+.settings-content .card,
+.settings-content .card-content,
+.settings-content .list-block,
+.settings-content .list-block .item-content,
+.settings-content .list-block .item-inner,
+.settings-content .list-block .item-title-row.list-block .item-input,
+.settings-content .label-switch,
+.settings-content .checkbox {
+  margin: 0;
+  height: 1.5rem;
+  min-height: 0;
+}
+.settings-content .settings-card {
+  margin-top: 0.5rem;
+}
+.settings-content .item-inner .item-title {
+  font-size: 0.5rem;
+  font-weight: bold;
+}
+.settings-content .item-text {
+  font-size: 0.4rem;
+  line-height: 0.5rem;
+  height: 0.5rem;
+  width: 6rem;
+}
+.settings-content .label-switch {
+  width: 2rem;
+}
+.settings-content .checkbox {
+  width: 1.8rem;
+  height: 1rem;
+  margin-top: 0.3rem;
+}
+.settings-content .checkbox:after,
+.settings-content .checkbox:before {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+.settings-content .label-switch {
+  float: right;
+}
+/*解除设备*/
+.remove-content .remove-card,
+.remove-content .card-content,
+.remove-content .list-block,
+.remove-content ul {
+  height: 6rem;
+  margin: 0;
+}
+.remove-content li,
+.remove-content .item-inner {
+  height: 1.5rem;
+  min-height: 0;
+}
+.remove-content .item-inner .item-title {
+  font-size: 0.5rem;
+  padding-left: 0.75rem;
+}
+.remove-content .item-inner .item-after {
+  font-size: 0.45rem;
+}
+.remove-content .item-inner .one-item-after {
+  color: #b9b8ba;
+}
+.remove-content .item-after .icon {
+  font-size: 0.75rem !important;
+  color: #b9b8ba;
+}
+.remove-content .list-block .item-link .item-inner {
+  padding-right: 0.75rem;
+}
+.remove-content .remove-button {
+  width: 8rem;
+  margin: 1rem auto 0rem;
+}
+.remove-content .remove-button a {
+  font-size: 0.5rem;
+  background-color: #1ba365;
+}

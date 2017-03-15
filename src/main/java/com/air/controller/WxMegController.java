@@ -29,6 +29,11 @@ public class WxMegController {
     @Resource
     private AirUserService airUserService;
 
+    /**
+     * 登录成功跳转
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView loginSys(HttpServletRequest request){
 
@@ -52,10 +57,20 @@ public class WxMegController {
             airUserService.addAirUser(airUser);
         }
         request.getSession().setAttribute("airUser",airUser);
+        String goUrl= request.getSession().getAttribute("/settings").toString();
+        if(goUrl!=null&&!goUrl.equals("")){
+            return new ModelAndView("redirect:"+goUrl, null);
+        }
         ModelAndView mv = new ModelAndView();
         mv.setViewName("index");
         return mv;
     }
+
+    /**
+     * 微信登录
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/go", method = RequestMethod.GET)
     public String  goWx(HttpServletRequest request){
         AirWxInfo airWxInfo = new AirWxInfo();
@@ -66,6 +81,57 @@ public class WxMegController {
         return "redirect:"+WxUrlType.authorizeUrl+appidUrl+redirect_uri+typeUrl;
     }
 
+    /**
+     * 设备设置
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/settings", method = RequestMethod.GET)
+    public ModelAndView Settings(HttpServletRequest request) {
+        AirUser airUser = new AirUser();
+        airUser=(AirUser)request.getSession().getAttribute("airUser");
+        if(airUser==null){
+            request.getSession().setAttribute("goUrl","/settings");
+            return new ModelAndView("redirect:/go", null);
+        }
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("settings");
+        return mv;
+    }
+    /**
+     * 售后服务
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/service", method = RequestMethod.GET)
+    public ModelAndView Service(HttpServletRequest request) {
+        AirUser airUser = new AirUser();
+        airUser=(AirUser)request.getSession().getAttribute("airUser");
+        if(airUser==null){
+            request.getSession().setAttribute("goUrl","/service");
+            return new ModelAndView("redirect:/go", null);
+        }
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("service");
+        return mv;
+    }
+    /**
+     * 设备监控
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/monitoring", method = RequestMethod.GET)
+    public ModelAndView Monitoring(HttpServletRequest request) {
+        AirUser airUser = new AirUser();
+        airUser=(AirUser)request.getSession().getAttribute("airUser");
+        if(airUser==null){
+            request.getSession().setAttribute("goUrl","/monitoring");
+            return new ModelAndView("redirect:/go", null);
+        }
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("monitoring");
+        return mv;
+    }
     /**
      * 获取微信权限验证
      * @param signature 指纹

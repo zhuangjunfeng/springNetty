@@ -1,0 +1,52 @@
+/*绑定事件*/
+.binding-content .binding-state {
+  text-align: center;
+  width: 100%;
+  margin-top: 2.5rem;
+}
+.binding-content .icon {
+  font-size: 3rem !important;
+  color: #bcbcbc;
+  text-align: center;
+}
+.binding-content .binding-p {
+  text-align: center;
+  font-size: 0.5rem;
+  color: #6b6b6b;
+}
+.binding-content .binding-button {
+  width: 8rem;
+  margin: 1rem  auto 0rem ;
+}
+.binding-content .binding-button a {
+  height: 1.35rem;
+  line-height: 1.35rem;
+  font-size: 0.5rem;
+  color: #fff;
+  background-color: #1ba365;
+}
+/*设备管理*/
+.monitoring-content .monitoring-card,
+.monitoring-content .card-content,
+.monitoring-content .list-block {
+  height: 2rem;
+  margin: 0;
+}
+.monitoring-content li {
+  height: 1rem;
+}
+.monitoring-content .list-block .item-link {
+  height: 1rem;
+  min-height: 0;
+  font-size: 0.5rem;
+}
+.monitoring-content .list-block .item-link .item-inner {
+  padding: 0 ;
+  margin: 0;
+  line-height: 1rem;
+  min-height: 0;
+  color: #333333;
+}
+.monitoring-content div .item-inner {
+  height: 1rem;
+}

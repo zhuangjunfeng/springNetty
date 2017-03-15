@@ -1,0 +1,128 @@
+/*信息中心页面*/
+.center-card,
+.center-card-content {
+  height: 6rem;
+}
+.center-card .list-block,
+.center-card-content .list-block {
+  margin: 0 0.25rem;
+  padding-top: 0.35rem;
+}
+.center-card .warn-item-text,
+.center-card-content .warn-item-text {
+  height: 1.5rem;
+}
+.center-card .item-subtitle,
+.center-card-content .item-subtitle {
+  color: #0099cc;
+}
+/*监控页面*/
+.monitoring-content {
+  height: 100%;
+}
+.monitoring-content .state-card {
+  margin: 0;
+  height: 9.5rem;
+  background-color: #1ba365;
+  padding-top: 1.2rem;
+}
+.monitoring-content .monitoring-state {
+  height: 6rem;
+  width: 6rem;
+  border: 0.1rem #fff dashed;
+  border-radius: 50%;
+  overflow: auto;
+  text-align: center;
+  color: #fff;
+  margin: 0 auto;
+  margin-bottom: 1.2rem;
+}
+.monitoring-content h5 {
+  font-size: 0.5rem;
+  margin: 0.1rem auto 0;
+  font-weight: normal;
+}
+.monitoring-content h6 {
+  font-size: 0.4rem;
+  margin: 0.3rem auto 0;
+  font-weight: normal;
+}
+.monitoring-content .icon {
+  font-size: 1rem !important;
+}
+.monitoring-message {
+  color: #fff;
+  font-weight: normal;
+  height: 1.1rem;
+}
+.monitoring-message .icon {
+  font-size: 0.68rem !important;
+}
+.monitoring-message .message {
+  width: 25%;
+  height: 1.1rem;
+  line-height: 1.1rem;
+  text-align: center;
+  float: left;
+  font-size: 0.5rem;
+}
+.monitoring-message .message p {
+  margin: 0;
+  font-size: 0.4rem;
+}
+.monitoring-button {
+  height: 5.5rem;
+}
+.monitoring-button1,
+.monitoring-button2 {
+  width: 100%;
+  height: 2.25rem;
+  text-align: center;
+  margin: 0.75rem auto 0rem;
+  color: gray;
+}
+.monitoring-button1 div,
+.monitoring-button2 div {
+  width: 25%;
+  float: left;
+}
+.monitoring-button1 span:hover,
+.monitoring-button2 span:hover,
+.monitoring-button1 div div:hover,
+.monitoring-button2 div div:hover {
+  background-color: #1aa365;
+  color: #fff;
+  border: 0.05rem #1aa365 solid;
+}
+.monitoring-button1 .icon,
+.monitoring-button2 .icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  line-height: 1.35rem;
+  border-radius: 50%;
+  border: 0.05rem gray solid;
+}
+.monitoring-button1 .icon,
+.monitoring-button2 .icon {
+  font-size: 0.75rem !important;
+}
+.monitoring-button1 #clock,
+.monitoring-button2 #clock,
+.monitoring-button1 #wang,
+.monitoring-button2 #wang {
+  line-height: 1.20rem;
+}
+.monitoring-button1 div div,
+.monitoring-button2 div div {
+  font-size: 0.5rem;
+  margin-left: 0.55rem;
+}
+.monitoring-button1 a,
+.monitoring-button2 a {
+  color: gray;
+}
+.monitoring-button1 p,
+.monitoring-button2 p {
+  font-size: 0.45rem;
+  margin: 0.1rem 0 0 0;
+}

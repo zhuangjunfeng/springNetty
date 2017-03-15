@@ -30,7 +30,7 @@ function initWebSocket(){
             query();
         };
         socket.onclose = function(event) {
-            $.toast("网络不给力...");
+            initWebSocket();
         };
     } else {
         $.alert('您的手机暂不支持!');
@@ -128,44 +128,5 @@ function query() {
 
 $(function() {
     initWebSocket();
-
-    $(".bar-tab a").click(function() {
-        $.router.load("#" + $(this).attr("menu-data"));
-    })
-    $(".button-success").click(function() {
-            var rs = true;
-            if ($("input[name='device_name']").val() == "") {
-                $.alert('请输入设备名称!');
-                rs = false;
-                return;
-            }
-            if ($("input[name='device_uid']").val() == "") {
-                $.alert('请输入设备UID!');
-                rs = false;
-                return;
-            }
-            if (rs) {
-                add();
-            }
-
-        })
-
-    $("#openFan").click(function(){
-       var uid= $("#device-info-uid").attr("data-uid");
-        openFan(uid);
-    });
-    $("#closeFan").click(function(){
-        var uid= $("#device-info-uid").attr("data-uid");
-        closeFan(uid);
-    });
-    //设备列表
-    $(document).on("pageInit", "#device-list", function(e, id, page) {
-        
-    });
-    $(document).on("pageInit", "#device-add", function(e, id, page) {
-        $('#add-form')[0].reset();
-    });
-
-
     $.init();
 });
