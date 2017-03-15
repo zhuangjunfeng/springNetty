@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/1/19.
  */
-@Service
+@Service("airDeviceService")
 public class AirDeviceServiceImpl implements AirDeviceService{
     @Resource
     private AirDeviceMapper airDeviceMapper;

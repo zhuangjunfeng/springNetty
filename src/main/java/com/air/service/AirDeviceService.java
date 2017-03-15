@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/1/19.
  */
-@Service
+@Service("airDeviceService")
 public interface AirDeviceService {
     public List queryDevice(String openid);
     public List queryDeviceOpenid(String uid);
