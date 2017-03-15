@@ -15,10 +15,10 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.apache.http.entity.StringEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import java.util.Date;
@@ -32,7 +32,7 @@ import com.air.netty.websocket.protocol.WebSocketMsg;
  * @Date 2016/12/13
  **/
 @Component("F0")
-public class LoginActor implements InitializingBean{
+public class LoginActor{
     protected static final Logger logger = LoggerFactory.getLogger(LoginActor.class);
     private  Modbus modbus;
     private Channel channel;
@@ -52,9 +52,6 @@ public class LoginActor implements InitializingBean{
         this.servletContext=servletContext;
         this.login();
         this.sendWeb();
-
-
-        
     }
 
     public void login(){
@@ -150,8 +147,8 @@ public class LoginActor implements InitializingBean{
         }
 
     }
-    @Override
-    public void afterPropertiesSet() throws Exception {
+    @PostConstruct
+    public void init(){
         String UID = this.modbus.getUID();
         logger.info("获取的登录UID为：" + UID);
         if(this.airDeviceService!=null){
