@@ -36,7 +36,24 @@ function initWebSocket(){
         $.alert('您的手机暂不支持!');
     }
 }
-
+/**
+ * 发送指令方法
+ * @param cmd
+ * @param uid
+ * @param data
+ * @param code
+ */
+function sendWS(cmd,uid,data,code){
+    if (!window.WebSocket) {
+        return;
+    }
+    if (socket.readyState == WebSocket.OPEN) {
+        var msgJson = { "cmd": cmd, "uid":uid,"data": data ,"code":code};
+        socket.send(JSON.stringify(msgJson));
+    } else {
+        $.toast("网络不给力...");
+    }
+}
 
 ///**
 // * 添加设备
