@@ -57,7 +57,7 @@ public class WxMegController {
             airUserService.addAirUser(airUser);
         }
         request.getSession().setAttribute("airUser",airUser);
-        String goUrl= request.getSession().getAttribute("/settings").toString();
+        String goUrl= (String)request.getSession().getAttribute("goUrl");
         if(goUrl!=null&&!goUrl.equals("")){
             return new ModelAndView("redirect:"+goUrl, null);
         }
@@ -111,6 +111,7 @@ public class WxMegController {
             request.getSession().setAttribute("goUrl","/service");
             return new ModelAndView("redirect:/go", null);
         }
+        logger.debug(airUser.getOpenid()+"");
         ModelAndView mv = new ModelAndView();
         mv.setViewName("service");
         return mv;
@@ -128,6 +129,7 @@ public class WxMegController {
             request.getSession().setAttribute("goUrl","/monitoring");
             return new ModelAndView("redirect:/go", null);
         }
+        logger.debug(airUser.getOpenid()+"");
         ModelAndView mv = new ModelAndView();
         mv.setViewName("monitoring");
         return mv;
