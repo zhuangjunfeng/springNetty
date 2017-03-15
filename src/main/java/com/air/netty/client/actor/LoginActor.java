@@ -15,6 +15,7 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.apache.http.entity.StringEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.air.netty.websocket.protocol.WebSocketMsg;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 /**
  * @Description  终端登录
  * @Author semstouch
@@ -52,6 +55,8 @@ public class LoginActor{
         this.servletContext=servletContext;
         this.login();
         this.sendWeb();
+        ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+        this.airDeviceService = (AirDeviceService)ac.getBean("airDeviceService");
         String UID = this.modbus.getUID();
         logger.info("获取的登录UID为：" + UID+airDeviceService);
         if(this.airDeviceService!=null){
@@ -195,11 +200,4 @@ public class LoginActor{
         this.wsUIDMap = wsUIDMap;
     }
 
-    public AirDeviceService getAirDeviceService() {
-        return airDeviceService;
-    }
-
-    public void setAirDeviceService(AirDeviceService airDeviceService) {
-        this.airDeviceService = airDeviceService;
-    }
 }
