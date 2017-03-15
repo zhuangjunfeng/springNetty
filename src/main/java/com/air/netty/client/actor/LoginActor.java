@@ -52,6 +52,17 @@ public class LoginActor{
         this.servletContext=servletContext;
         this.login();
         this.sendWeb();
+        String UID = this.modbus.getUID();
+        logger.info("获取的登录UID为：" + UID);
+        if(this.airDeviceService!=null){
+            List<AirUserDevice> list=airDeviceService.queryDeviceOpenid(UID);
+            logger.info("----查询结果数为："+list.size());
+            if(list!=null){
+                for(AirUserDevice airUserDevice:list){
+                    this.sendWxMsg(airUserDevice.getOpenid());
+                }
+            }
+        }
     }
 
     public void login(){
@@ -147,20 +158,10 @@ public class LoginActor{
         }
 
     }
-    @PostConstruct
-    public void init(){
-        String UID = this.modbus.getUID();
-        logger.info("获取的登录UID为：" + UID);
-        if(this.airDeviceService!=null){
-            List<AirUserDevice> list=airDeviceService.queryDeviceOpenid(UID);
-            logger.info("----查询结果数为："+list.size());
-            if(list!=null){
-                for(AirUserDevice airUserDevice:list){
-                    this.sendWxMsg(airUserDevice.getOpenid());
-                }
-            }
-        }
-    }
+//    @PostConstruct
+//    public void init(){
+//        System.out.print(111);
+//    }
 
     public Map<String, String> getIpUIDMap() {
         return ipUIDMap;
@@ -192,5 +193,13 @@ public class LoginActor{
 
     public void setWsUIDMap(Map<String, String> wsUIDMap) {
         this.wsUIDMap = wsUIDMap;
+    }
+
+    public AirDeviceService getAirDeviceService() {
+        return airDeviceService;
+    }
+
+    public void setAirDeviceService(AirDeviceService airDeviceService) {
+        this.airDeviceService = airDeviceService;
     }
 }
