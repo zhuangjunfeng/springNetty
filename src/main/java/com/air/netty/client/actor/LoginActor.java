@@ -15,6 +15,7 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.apache.http.entity.StringEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +32,7 @@ import com.air.netty.websocket.protocol.WebSocketMsg;
  * @Date 2016/12/13
  **/
 @Component("F0")
-public class LoginActor{
+public class LoginActor implements InitializingBean{
     protected static final Logger logger = LoggerFactory.getLogger(LoginActor.class);
     private  Modbus modbus;
     private Channel channel;
@@ -52,17 +53,7 @@ public class LoginActor{
         this.login();
         this.sendWeb();
 
-        String UID = this.modbus.getUID();
-        logger.info("获取的登录UID为："+UID);
-        if(this.airDeviceService!=null){
-            List<AirUserDevice> list=airDeviceService.queryDeviceOpenid(UID);
-            logger.info("----查询结果数为："+list.size());
-            if(list!=null){
-                for(AirUserDevice airUserDevice:list){
-                    this.sendWxMsg(airUserDevice.getOpenid());
-                }
-            }
-        }
+
         
     }
 
@@ -158,6 +149,20 @@ public class LoginActor{
             logger.error("",e);
         }
 
+    }
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        String UID = this.modbus.getUID();
+        logger.info("获取的登录UID为：" + UID);
+        if(this.airDeviceService!=null){
+            List<AirUserDevice> list=airDeviceService.queryDeviceOpenid(UID);
+            logger.info("----查询结果数为："+list.size());
+            if(list!=null){
+                for(AirUserDevice airUserDevice:list){
+                    this.sendWxMsg(airUserDevice.getOpenid());
+                }
+            }
+        }
     }
 
     public Map<String, String> getIpUIDMap() {
