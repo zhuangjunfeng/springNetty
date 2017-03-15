@@ -54,7 +54,7 @@ public class LoginActor{
 
         String UID = this.modbus.getUID();
         logger.info("获取的登录UID为："+UID);
-        if(airDeviceService!=null){
+        if(this.airDeviceService!=null){
             List<AirUserDevice> list=airDeviceService.queryDeviceOpenid(UID);
             logger.info("----查询结果数为："+list.size());
             if(list!=null){
