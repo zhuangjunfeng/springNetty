@@ -1,3 +1,77 @@
+
+var socket;
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+
+/**
+ * 初始化页面
+ */
+function initWebSocket(){
+    if (!window.WebSocket) {
+        window.WebSocket = window.MozWebSocket;
+    }
+    if (window.WebSocket) {
+        socket = new WebSocket("ws://"+window.location.hostname+":5888/ws");
+        socket.onmessage = function(event) {
+            $.toast(event.data);
+        };
+        socket.onclose = function(event) {
+            initWebSocket();
+        };
+    } else {
+        $.alert('您的手机暂不支持!');
+    }
+}
+/**
+ * 发送指令方法
+ * @param cmd
+ * @param uid
+ * @param data
+ * @param code
+ */
+function sendWS(cmd,uid,data,code){
+    if (!window.WebSocket) {
+        return;
+    }
+    if (socket.readyState == WebSocket.OPEN) {
+        var msgJson = { "cmd": cmd, "uid":uid,"data": data ,"code":code};
+        socket.send(JSON.stringify(msgJson));
+    } else {
+        $.toast("网络不给力...");
+    }
+}
+/**
+ * URL上获取参数
+ * @param name
+ * @returns {null}
+ * @constructor
+ */
+function GetQueryString(name)
+{
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if(r!=null)return  unescape(r[2]); return null;
+}
+
+
+
+var uid=GetQueryString("uid");
+initWebSocket();
+
 //解绑设备页面的解绑按钮
 $(document).on('click', '.button-danger', function() {
     $.confirm('解绑设备', function() {
@@ -51,4 +125,6 @@ $("#clock").datetimePicker({
 $(document).on('click', '#wang', function() {
     $.alert('<div>重置滤网已经完成</div>');
 });
+
+
 

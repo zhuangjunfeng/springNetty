@@ -36,7 +36,6 @@ public class WxMegController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView loginSys(HttpServletRequest request){
-
         AirWxInfo airWxInfo = new AirWxInfo();
         airWxInfo = (AirWxInfo)request.getSession().getServletContext().getAttribute("wxinfo");
         String code = request.getParameter("code");
@@ -122,11 +121,15 @@ public class WxMegController {
      * @return
      */
     @RequestMapping(value = "/monitoring", method = RequestMethod.GET)
-    public ModelAndView Monitoring(HttpServletRequest request) {
+    public ModelAndView Monitoring(HttpServletRequest request,String uid) {
+        logger.debug("需要监控UID为："+uid);
+        if(uid==null||uid.equals("")){
+            return new ModelAndView("redirect:/go", null);
+        }
         AirUser airUser = new AirUser();
         airUser=(AirUser)request.getSession().getAttribute("airUser");
         if(airUser==null){
-            request.getSession().setAttribute("goUrl","/monitoring");
+            request.getSession().setAttribute("goUrl","/monitoring?uid="+uid);
             return new ModelAndView("redirect:/go", null);
         }
         logger.debug(airUser.getOpenid()+"");

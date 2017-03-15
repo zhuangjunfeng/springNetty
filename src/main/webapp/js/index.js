@@ -37,51 +37,40 @@ function initWebSocket(){
     }
 }
 
-function sendWS(cmd,uid,data,code){
-    if (!window.WebSocket) {
-        return;
-    }
-    if (socket.readyState == WebSocket.OPEN) {
-        var msgJson = { "cmd": cmd, "uid":uid,"data": data ,"code":code};
-        socket.send(JSON.stringify(msgJson));
-    } else {
-        $.toast("网络不给力...");
-    }
-}
 
-/**
- * 添加设备
- */
-function add() {
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: "/rest/device",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-        },
-        data: $("#add-form").serialize(),
-        success: function(data) {
-            $.router.load("#device-list");
-        }
-    })
-}
+///**
+// * 添加设备
+// */
+//function add() {
+//    $.ajax({
+//        type: "POST",
+//        dataType: "json",
+//        url: "/rest/device",
+//        headers: {
+//            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+//        },
+//        data: $("#add-form").serialize(),
+//        success: function(data) {
+//            $.router.load("#device-list");
+//        }
+//    })
+//}
 
-/**
- * 开启风扇
- */
-function openFan(uid){
-    var  data= "015000";
-    sendWS("sendDataActor",uid,data,"f5");
-}
-
-/**
- * 关闭风扇
- */
-function closeFan(uid){
-    var  data= "010100";
-    sendWS("sendDataActor",uid,data,"f5");
-}
+///**
+// * 开启风扇
+// */
+//function openFan(uid){
+//    var  data= "015000";
+//    sendWS("sendDataActor",uid,data,"f5");
+//}
+//
+///**
+// * 关闭风扇
+// */
+//function closeFan(uid){
+//    var  data= "010100";
+//    sendWS("sendDataActor",uid,data,"f5");
+//}
 
 /**
  * 查询全部设备
@@ -98,7 +87,7 @@ function query() {
             $.each(typeList, function(i, n) {
                 sendWS("webLoginActor",n.device_uid,"","");
                 listHtml += "<div class='list-block media-list'><ul><li>" +
-                    "<a href='#' class='item-link item-content d-detail' data-uid='"+ n.device_uid+"' data-title='"+ n.device_name+"'>" +
+                    "<a href='#' class='item-link item-content d-detail' data-uid='"+ n.device_uid+"'>" +
                     "<div class='item-media'>" +
                     "<img src='http://air.semsplus.com/img/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg' style='width: 4rem;'>" +
                     "</div>" +
@@ -117,10 +106,7 @@ function query() {
             $("#devices").html(listHtml);
             $(".d-detail").click(function(){
                 var uid = $(this).attr("data-uid");
-                var title = $(this).attr("data-title");
-                $("#device-info-title").html(title);
-                $("#device-info-uid").attr("data-uid",uid);
-                $.router.load("#device-info");
+                window.location.href="http://air.semsplus.com/rest/wx/monitoring?uid="+uid;
             });
         }
     });
