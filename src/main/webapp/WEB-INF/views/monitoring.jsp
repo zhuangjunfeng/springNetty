@@ -23,22 +23,22 @@
             <div class="card state-card">
                 <!-- 监控页面的圆圈的状态-->
                 <div class="monitoring-state">
-                    <h1>优</h1>
+                    <h1 id="vocInfo">优</h1>
                     <h5 class="auto-title">手动运行</h5>
-                    <h6>PM2.5：25mg/m3</h6>
+                    <h6 id="pmInfo">PM2.5：25mg/m3</h6>
                 </div>
                 <!-- 监控页面的信息部分-->
                 <div class="monitoring-message">
-                    <div class='message'>
-                        <p>室温&nbsp;100&#8451;</p>
+                    <div class='message' id="temperatureInfo">
+                        <p>温度&nbsp;100&#8451;</p>
                     </div>
-                    <div class='message'>
+                    <div class='message' id="speedInfo">
                         <p>风速&nbsp;低</p>
                     </div>
-                    <div class='message'>
+                    <div class='message' id="humidityInfo">
                         <p>湿度&nbsp;80%</p>
                     </div>
-                    <div class='message'>
+                    <div class='message' id="filterInfo">
                         <p>滤网&nbsp;50%</p>
                     </div>
                 </div>

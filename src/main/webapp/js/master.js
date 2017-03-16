@@ -80,26 +80,20 @@ $("#switchBtn").click(function() {
     if ($(this).attr("status") == "open") {
         $(".auto-title").text("已关机");
         $(".state-card").css("background-color", "#999999");
-        var  data= "010100";
+        var  data= "010300";
         sendWS("sendDataActor",uid,data,"f5");
         $(this).attr("status","close")
     } else {
         $(".auto-title").text("手动运行");
         $(".state-card").css("background-color", "#1ba365");
-        var  data= "015000";
+        var  data= "013000";
         sendWS("sendDataActor",uid,data,"f5");
         $(this).attr("status","open")
     }
 });
 //AUTO按钮
 $("#autoBtn").click(function() {
-    if ($(this).attr("status")=="auto") {
-        $(".auto-title").text("手动运行");
-        $(this).attr("status","hand")
-    } else {
-        $(".auto-title").text("自动运行");
-        $(this).attr("status","auto")
-    }
+    $.alert("暂不支持该功能！");
 });
 //风速按钮
 $("#speedBtn").click(function() {
@@ -118,6 +112,18 @@ $("#speedBtn").click(function() {
     }];
     var groups = [buttons1, buttons2];
     $.actions(groups);
+});
+
+$("#plasmaBtn").click(function() {
+    if ($(this).attr("status") == "open") {
+        var  data= "04";
+        sendWS("sendDataActor",uid,data,"f5");
+        $(this).attr("status","close")
+    } else {
+        var  data= "030300";
+        sendWS("sendDataActor",uid,data,"f5");
+        $(this).attr("status","open")
+    }
 });
 
 $("#clockBtn").datetimePicker({
