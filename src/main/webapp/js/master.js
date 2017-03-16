@@ -1,5 +1,6 @@
 
 var socket;
+var uid;
 $.fn.serializeObject = function()
 {
     var o = {};
@@ -28,6 +29,10 @@ function initWebSocket(){
         socket = new WebSocket("ws://"+window.location.hostname+":5888/ws");
         socket.onmessage = function(event) {
             $.toast(event.data);
+        };
+        socket.onopen = function(event) {
+           uid=GetQueryString("uid");
+            sendWS("webLoginActor",uid,"","");
         };
         socket.onclose = function(event) {
             initWebSocket();
@@ -69,7 +74,7 @@ function GetQueryString(name)
 
 
 
-var uid=GetQueryString("uid");
+
 initWebSocket();
 
 //解绑设备页面的解绑按钮
