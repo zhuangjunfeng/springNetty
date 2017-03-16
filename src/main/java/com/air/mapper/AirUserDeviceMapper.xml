@@ -30,6 +30,11 @@
     delete from air_user_device
     where user_device_id = #{user_device_id,jdbcType=INTEGER}
   </delete>
+    <delete id="deleteByDeviceId" parameterType="java.lang.Integer" >
+        delete from air_user_device
+        where device_id = #{device_id,jdbcType=INTEGER}
+    </delete>
+
   <insert id="insert" parameterType="com.air.pojo.AirUserDevice" >
     insert into air_user_device (user_device_id, openid, device_id
       )

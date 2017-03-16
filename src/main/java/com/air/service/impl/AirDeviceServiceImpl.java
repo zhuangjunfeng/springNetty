@@ -32,6 +32,11 @@ public class AirDeviceServiceImpl implements AirDeviceService{
     }
 
     @Override
+    public AirDevice selectByUid(String device_uid) {
+        return airDeviceMapper.selectByUid(device_uid);
+    }
+
+    @Override
     public boolean addDevice(AirDevice airDevice,AirUser airUser) {
 
         AirUserDevice airUserDevice = new AirUserDevice();
@@ -51,6 +56,7 @@ public class AirDeviceServiceImpl implements AirDeviceService{
 
     @Override
     public boolean delDevice(AirDevice airDevice) {
+                airUserDeviceMapper.deleteByDeviceId(airDevice.getDevice_id());
         return airDeviceMapper.deleteByPrimaryKey(airDevice.getDevice_id())==1?true:false;
     }
 }

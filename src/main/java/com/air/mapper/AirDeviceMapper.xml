@@ -11,11 +11,11 @@
   <sql id="Base_Column_List" >
     device_id, device_name, device_uid, create_time, update_time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByUid" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
     from air_device
-    where device_id = #{device_id,jdbcType=INTEGER}
+    where device_uid = #{device_uid,jdbcType=VARCHAR}
   </select>
 
   <select id="selectAllAirDevice" resultMap="BaseResultMap">

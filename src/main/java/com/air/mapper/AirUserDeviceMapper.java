@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface AirUserDeviceMapper {
     int deleteByPrimaryKey(Integer user_device_id);
+    int deleteByDeviceId(Integer device_id);
 
     int insert(AirUserDevice record);
 

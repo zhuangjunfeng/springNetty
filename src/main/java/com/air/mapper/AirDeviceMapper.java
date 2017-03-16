@@ -12,7 +12,7 @@ public interface AirDeviceMapper {
 
     int insertSelective(AirDevice record);
 
-    AirDevice selectByPrimaryKey(Integer device_id);
+    AirDevice selectByUid(String device_uid);
 
     int updateByPrimaryKeySelective(AirDevice record);
 

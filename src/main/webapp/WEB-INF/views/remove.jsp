@@ -15,7 +15,6 @@
     <link rel="stylesheet" type="text/css" href="<%=basePath %>/css/master-467270fac4.css">
     <link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_30orapuilrgm0a4i.css">
 </head>
-
 <body>
     <div class="page-group">
         <!-- 单个page ,第一个.page默认被展示-->
@@ -51,22 +50,13 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li>
-                                    <i class="icon icon-f7"></i>
-                                    <div class="item-inner">
-                                        <div class="item-title">消息设备</div>
-                                        <div class="item-after">
-                                            <span class="icon icon-right"></span>
-                                        </div>
-                                    </div>
-                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <!-- 解绑设备的按钮 -->
                 <div class="remove-button">
-                    <a href="#" class="button  button-fill button-danger">解绑设备</a>
+                    <a href="#" class="button  button-fill button-danger" id="removeBtn">解绑设备</a>
                 </div>
             </div>
         </div>

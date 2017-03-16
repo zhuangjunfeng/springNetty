@@ -25,12 +25,20 @@ public class AirDeviceController {
     @Resource
     private AirDeviceService airDeviceService;
 
+    /**
+     * 绑定设备信息
+     * @param airDevice 设备信息
+     * @param request  request
+     * @return JSONResult
+     */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public  JSONResult add(@ModelAttribute("airDevice") AirDevice airDevice,HttpServletRequest request){
         JSONResult result=new JSONResult();
         AirUser airUser = (AirUser)request.getSession().getAttribute("airUser");
-
+        if(airUser==null){
+            return result;
+        }
         if(airDeviceService.addDevice(airDevice,airUser)){
             result.setMessage("success");
         }else {
@@ -39,11 +47,43 @@ public class AirDeviceController {
         return result;
     }
 
+    /**
+     *根据uid删除设备信息
+     * @param request request
+     * @param uid uid
+     * @return JSONResult
+     */
+    @RequestMapping(value = "/del",method = RequestMethod.POST)
+    @ResponseBody
+    public  JSONResult del(HttpServletRequest request,String uid){
+        JSONResult result=new JSONResult();
+        AirUser airUser = (AirUser)request.getSession().getAttribute("airUser");
+        if(airUser==null){
+            return result;
+        }
+        //需要在此处查询是否归属
+        AirDevice airDevice = airDeviceService.selectByUid(uid);
+        if(airDevice==null){
+            result.setMessage("error");
+            return result;
+        }
+        if(airDeviceService.delDevice(airDevice)){
+            result.setMessage("success");
+        }else {
+            result.setMessage("error");
+        }
+        return result;
+    }
+
+    /**
+     * 根据openId查找全部的设备信息
+     * @param request request
+     * @return JSONResult
+     */
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     @ResponseBody
     public JSONResult find(HttpServletRequest request){
         JSONResult result=new JSONResult();
-
         AirUser airUser = (AirUser)request.getSession().getAttribute("airUser");
 
         if(airUser==null){
