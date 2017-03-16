@@ -80,13 +80,13 @@ $("#switchBtn").click(function() {
     if ($(this).attr("status") == "open") {
         $(".auto-title").text("已关机");
         $(".state-card").css("background-color", "#999999");
-        var  data= "015000";
+        var  data= "010100";
         sendWS("sendDataActor",uid,data,"f5");
         $(this).attr("status","close")
     } else {
         $(".auto-title").text("手动运行");
         $(".state-card").css("background-color", "#1ba365");
-        var  data= "010100";
+        var  data= "015000";
         sendWS("sendDataActor",uid,data,"f5");
         $(this).attr("status","open")
     }
