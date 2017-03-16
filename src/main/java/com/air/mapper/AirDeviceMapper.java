@@ -2,6 +2,7 @@ package com.air.mapper;
 
 import com.air.pojo.AirDevice;
 import com.air.pojo.AirUser;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface AirDeviceMapper {
 
     int insertSelective(AirDevice record);
 
-    AirDevice selectByUid(String device_uid,String openid);
+    AirDevice selectByUid(@Param("device_uid")String device_uid,@Param("openid")String openid);
 
     int updateByPrimaryKeySelective(AirDevice record);
 

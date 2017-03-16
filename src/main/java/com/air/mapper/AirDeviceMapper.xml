@@ -15,8 +15,8 @@
     select
       air_device.device_id,device_name,device_uid,create_time,update_time
     from air_device,air_user_device
-    where air_device.device_uid = #{device_uid,jdbcType=VARCHAR}
-      and air_user_device.openid= #{openid,jdbcType=VARCHAR}
+    where air_device.device_uid =#{device_uid,jdbcType=VARCHAR}
+      and air_user_device.openid=#{openid,jdbcType=VARCHAR}
       and air_device.device_id = air_user_device.device_id
   </select>
 
