@@ -114,34 +114,36 @@ function query() {
                 listHtml+="<div class='binding-content'><div class='binding-state'>"
                     +"<span class='icon iconfont icon-xiaolian'></span></div> <div class='binding-p'>"
                    +"您还没有绑定设备，请先进行绑定 </div><div class='binding-button'><a href='http://air.semsplus.com/rest/wx/binding' class='button button-success'>设备绑定</a>"
-                    +"</div></div>"
-            }
-            $.each(typeList, function(i, n) {
-                listHtml += "<div class='list-block media-list'><ul><li>" +
-                    "<a href='#' class='item-link item-content d-detail' id='"+ n.device_uid+"'>" +
-                    "<div class='item-media'>" +
-                    "<img src='http://air.semsplus.com/img/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg' style='width: 4rem;'>" +
-                    "</div>" +
-                    "<div class='item-inner'>" +
-                    " <div class='item-title-row'>" +
-                    "<div class='item-title'>" +
-                    n.device_name +
-                    "</div>" +
-                    "<div class='item-after'></div>" +
-                    "</div>" +
-                    "<div class='item-subtitle'></div>" +
-                    "<div class='item-text'></div> " +
-                    "</div> </a> </li> </ul> </div>"
-            })
+                    +"</div></div>";
+                $("#device-list").html(listHtml);
+            }else {
+                $.each(typeList, function (i, n) {
+                    listHtml += "<div class='list-block media-list'><ul><li>" +
+                        "<a href='#' class='item-link item-content d-detail' id='" + n.device_uid + "'>" +
+                        "<div class='item-media'>" +
+                        "<img src='http://air.semsplus.com/img/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg' style='width: 4rem;'>" +
+                        "</div>" +
+                        "<div class='item-inner'>" +
+                        " <div class='item-title-row'>" +
+                        "<div class='item-title'>" +
+                        n.device_name +
+                        "</div>" +
+                        "<div class='item-after'></div>" +
+                        "</div>" +
+                        "<div class='item-subtitle'></div>" +
+                        "<div class='item-text'></div> " +
+                        "</div> </a> </li> </ul> </div>"
+                })
 
-            $("#devices").html(listHtml);
-            $.each(typeList, function(i, n) {
-                sendWS("webLoginActor",n.device_uid,"","");
-            });
-            $(".d-detail").click(function(){
-                var uid = $(this).attr("id");
-                window.location.href="http://air.semsplus.com/rest/wx/monitoring?uid="+uid;
-            });
+                $("#devices").html(listHtml);
+                $.each(typeList, function (i, n) {
+                    sendWS("webLoginActor", n.device_uid, "", "");
+                });
+                $(".d-detail").click(function () {
+                    var uid = $(this).attr("id");
+                    window.location.href = "http://air.semsplus.com/rest/wx/monitoring?uid=" + uid;
+                });
+            }
         }
     });
 }
