@@ -137,6 +137,27 @@ public class WxMegController {
         mv.setViewName("monitoring");
         return mv;
     }
+     /**
+     * 设备监控
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/remove", method = RequestMethod.GET)
+    public ModelAndView Remove(HttpServletRequest request,String uid) {
+        if(uid==null||uid.equals("")){
+            return new ModelAndView("redirect:/go", null);
+        }
+        AirUser airUser = new AirUser();
+        airUser=(AirUser)request.getSession().getAttribute("airUser");
+        if(airUser==null){
+            request.getSession().setAttribute("goUrl","/remove?uid="+uid);
+            return new ModelAndView("redirect:/go", null);
+        }
+        logger.debug(airUser.getOpenid()+"");
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("remove");
+        return mv;
+    }
     /**
      * 获取微信权限验证
      * @param signature 指纹
