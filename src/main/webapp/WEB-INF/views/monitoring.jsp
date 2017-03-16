@@ -77,9 +77,9 @@
                         <span class='icon iconfont icon-kongqilvwang' id='wang'></span>
                         <p>重置滤网</p>
                     </div>
-                    <a href='javascript:;' id="more">
+                    <a href='javascript:;' id="moreBtn">
                         <div>
-                            <span class='icon iconfont icon-sandian'></span>
+                            <span class='icon iconfont icon-sandian' id="more"></span>
                             <p>更多</p>
                         </div>
                     </a>

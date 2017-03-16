@@ -131,7 +131,7 @@ $("#wang").click(function() {
     $.alert('<div>重置滤网已经完成</div>');
 });
 //点击更多
-$("#more").click(function(){
+$("#moreBtn").click(function(){
     window.location.href="http://air.semsplus.com/rest/wx/remove?uid="+uid;
 });
 
