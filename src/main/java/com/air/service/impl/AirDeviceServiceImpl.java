@@ -32,10 +32,9 @@ public class AirDeviceServiceImpl implements AirDeviceService{
     }
 
     @Override
-    public AirDevice selectByUid(String device_uid) {
-        return airDeviceMapper.selectByUid(device_uid);
+    public AirDevice selectByUid(String device_uid,String openid) {
+        return airDeviceMapper.selectByUid(device_uid,openid);
     }
-
     @Override
     public boolean addDevice(AirDevice airDevice,AirUser airUser) {
 

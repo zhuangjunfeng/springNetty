@@ -13,7 +13,7 @@ import java.util.List;
 public interface AirDeviceService {
     public List queryDevice(String openid);
     public List queryDeviceOpenid(String uid);
-    public AirDevice selectByUid(String device_uid);
+    public AirDevice selectByUid(String device_uid,String openid);
     public boolean addDevice(AirDevice airDevice,AirUser airUser);
     public boolean updateDevice(AirDevice airDevice);
     public boolean delDevice(AirDevice airDevice);

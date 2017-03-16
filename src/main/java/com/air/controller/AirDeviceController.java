@@ -39,6 +39,12 @@ public class AirDeviceController {
         if(airUser==null){
             return result;
         }
+        //需要在此处查询是否归属
+        AirDevice airDeviceOld = airDeviceService.selectByUid(airDevice.getDevice_uid(),airUser.getOpenid());
+        if(airDeviceOld!=null){
+            result.setMessage("isIn");
+            return result;
+        }
         if(airDeviceService.addDevice(airDevice,airUser)){
             result.setMessage("success");
         }else {
@@ -62,7 +68,7 @@ public class AirDeviceController {
             return result;
         }
         //需要在此处查询是否归属
-        AirDevice airDevice = airDeviceService.selectByUid(uid);
+        AirDevice airDevice = airDeviceService.selectByUid(uid,airUser.getOpenid());
         if(airDevice==null){
             result.setMessage("error");
             return result;
