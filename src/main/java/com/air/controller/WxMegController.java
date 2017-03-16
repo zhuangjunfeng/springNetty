@@ -56,7 +56,8 @@ public class WxMegController {
             airUserService.addAirUser(airUser);
         }
         request.getSession().setAttribute("airUser",airUser);
-        if((goUrl!=null)&&(!goUrl.equals(""))){
+        logger.debug("缓存路径为："+goUrl);
+        if(goUrl!=null){
             return new ModelAndView("redirect:/rest/wx/"+goUrl, null);
         }
         ModelAndView mv = new ModelAndView();
