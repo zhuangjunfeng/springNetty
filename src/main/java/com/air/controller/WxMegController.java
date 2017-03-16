@@ -98,6 +98,23 @@ public class WxMegController {
         return mv;
     }
     /**
+     * 设备设置
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/binding", method = RequestMethod.GET)
+    public ModelAndView Binding(HttpServletRequest request) {
+        AirUser airUser = new AirUser();
+        airUser=(AirUser)request.getSession().getAttribute("airUser");
+        if(airUser==null){
+            request.getSession().setAttribute("goUrl","/binding");
+            return new ModelAndView("redirect:/go", null);
+        }
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("binding");
+        return mv;
+    }
+    /**
      * 售后服务
      * @param request
      * @return
