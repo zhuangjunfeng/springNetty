@@ -28,7 +28,7 @@ function initWebSocket(){
     if (window.WebSocket) {
         socket = new WebSocket("ws://"+window.location.hostname+":5888/ws");
         socket.onmessage = function(event) {
-            $.toast(event.cmd);
+            $.toast(event.data.cmd);
         };
         socket.onopen = function(event) {
            uid=GetQueryString("uid");
