@@ -37,6 +37,7 @@ public class AirDeviceController {
         JSONResult result=new JSONResult();
         AirUser airUser = (AirUser)request.getSession().getAttribute("airUser");
         if(airUser==null){
+            result.setMessage("onLogin");
             return result;
         }
         //需要在此处查询是否归属
@@ -70,7 +71,7 @@ public class AirDeviceController {
         //需要在此处查询是否归属
         AirDevice airDevice = airDeviceService.selectByUid(uid,airUser.getOpenid());
         if(airDevice==null){
-            result.setMessage("error");
+            result.setMessage("noIn");
             return result;
         }
         if(airDeviceService.delDevice(airDevice)){

@@ -19,7 +19,14 @@ $("#removeBtn").click(function(){
         url: "http://air.semsplus.com/rest/device/del",
         data: {uid: uid},
         success: function (data) {
-            window.location.href="http://air.semsplus.com/rest/wx/go";
+            if(data.message=="success") {
+                $.alert('解绑成功！');
+                window.location.href = "http://air.semsplus.com/rest/wx/go";
+            }
+            if(data.message=="noIn") {
+                $.alert('设备不存在！');
+                window.location.href = "http://air.semsplus.com/rest/wx/go";
+            }
         }
     })
 });
