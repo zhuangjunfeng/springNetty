@@ -110,6 +110,12 @@ function query() {
         success: function(data) {
             var typeList = data.data.list;
             var listHtml = "";
+            if(typeList.length==0){
+                listHtml+="<div class='binding-content'><div class='binding-state'>"
+                    +"<span class='icon iconfont icon-xiaolian'></span></div> <div class='binding-p'>"
+                   +"您还没有绑定设备，请先进行绑定 </div><div class='binding-button'><a href='http://air.semsplus.com/rest/wx/binding' class='button button-success'>设备绑定</a>"
+                    +"</div></div>"
+            }
             $.each(typeList, function(i, n) {
                 listHtml += "<div class='list-block media-list'><ul><li>" +
                     "<a href='#' class='item-link item-content d-detail' id='"+ n.device_uid+"'>" +

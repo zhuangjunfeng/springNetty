@@ -23,9 +23,9 @@
             <div class="card state-card">
                 <!-- 监控页面的圆圈的状态-->
                 <div class="monitoring-state">
-                    <h1 id="vocInfo">优</h1>
-                    <h5 class="auto-title">手动运行</h5>
-                    <h6 id="pmInfo">PM2.5：25mg/m3</h6>
+                    <h1 id="vocInfo">-</h1>
+                    <h5 class="auto-title">-</h5>
+                    <h6 id="pmInfo">PM2.5：-mg/m3</h6>
                 </div>
                 <!-- 监控页面的信息部分-->
                 <div class="monitoring-message">
@@ -48,7 +48,6 @@
                 <div class="monitoring-button1">
                     <div>
                         <span class="icon iconfont icon-kaiguan" id="switchBtn"></span>
-
                         <p>开关</p>
                     </div>
                     <div>
