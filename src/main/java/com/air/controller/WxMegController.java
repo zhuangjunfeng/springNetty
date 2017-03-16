@@ -35,7 +35,7 @@ public class WxMegController {
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView loginSys(HttpServletRequest request){
+    public ModelAndView loginSys(HttpServletRequest request,String goUrl){
         AirWxInfo airWxInfo = new AirWxInfo();
         airWxInfo = (AirWxInfo)request.getSession().getServletContext().getAttribute("wxinfo");
         String code = request.getParameter("code");
@@ -56,9 +56,8 @@ public class WxMegController {
             airUserService.addAirUser(airUser);
         }
         request.getSession().setAttribute("airUser",airUser);
-        String goUrl= (String)request.getSession().getAttribute("goUrl");
         if(goUrl!=null&&!goUrl.equals("")){
-            return new ModelAndView("redirect:"+goUrl, null);
+            return new ModelAndView("redirect:/rest/wx/"+goUrl, null);
         }
         ModelAndView mv = new ModelAndView();
         mv.setViewName("index");
@@ -71,11 +70,11 @@ public class WxMegController {
      * @return
      */
     @RequestMapping(value = "/go", method = RequestMethod.GET)
-    public String  goWx(HttpServletRequest request){
+    public String  goWx(HttpServletRequest request,String goUrl){
         AirWxInfo airWxInfo = new AirWxInfo();
         airWxInfo = (AirWxInfo)request.getSession().getServletContext().getAttribute("wxinfo");
         String appidUrl="?appid="+airWxInfo.getAppid()+"&";
-        String redirect_uri="redirect_uri=http://air.semsplus.com/rest/wx/login&";
+        String redirect_uri="redirect_uri=http://air.semsplus.com/rest/wx/login?goUrl="+goUrl+"&";
         String typeUrl ="response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
         return "redirect:"+WxUrlType.authorizeUrl+appidUrl+redirect_uri+typeUrl;
     }
@@ -90,8 +89,7 @@ public class WxMegController {
         AirUser airUser = new AirUser();
         airUser=(AirUser)request.getSession().getAttribute("airUser");
         if(airUser==null){
-            request.getSession().setAttribute("goUrl","/settings");
-            return new ModelAndView("redirect:/go", null);
+            return new ModelAndView("redirect:/rest/wx/go?goUrl=settings", null);
         }
         ModelAndView mv = new ModelAndView();
         mv.setViewName("settings");
@@ -107,8 +105,7 @@ public class WxMegController {
         AirUser airUser = new AirUser();
         airUser=(AirUser)request.getSession().getAttribute("airUser");
         if(airUser==null){
-            request.getSession().setAttribute("goUrl","/binding");
-            return new ModelAndView("redirect:/go", null);
+            return new ModelAndView("redirect:/rest/wx/go?goUrl=binding", null);
         }
         ModelAndView mv = new ModelAndView();
         mv.setViewName("binding");
@@ -124,8 +121,7 @@ public class WxMegController {
         AirUser airUser = new AirUser();
         airUser=(AirUser)request.getSession().getAttribute("airUser");
         if(airUser==null){
-            request.getSession().setAttribute("goUrl","/service");
-            return new ModelAndView("redirect:/go", null);
+            return new ModelAndView("redirect:/rest/wx/go?goUrl=service", null);
         }
         logger.debug(airUser.getOpenid()+"");
         ModelAndView mv = new ModelAndView();
@@ -141,13 +137,12 @@ public class WxMegController {
     public ModelAndView Monitoring(HttpServletRequest request,String uid) {
         logger.debug("需要监控UID为："+uid);
         if(uid==null||uid.equals("")){
-            return new ModelAndView("redirect:/go", null);
+            return new ModelAndView("redirect:/rest/wx/go", null);
         }
         AirUser airUser = new AirUser();
         airUser=(AirUser)request.getSession().getAttribute("airUser");
         if(airUser==null){
-            request.getSession().setAttribute("goUrl","/monitoring?uid="+uid);
-            return new ModelAndView("redirect:/go", null);
+            return new ModelAndView("redirect:/rest/wx/go?goUrl=monitoring&uid="+uid, null);
         }
         logger.debug(airUser.getOpenid()+"");
         ModelAndView mv = new ModelAndView();
@@ -162,13 +157,12 @@ public class WxMegController {
     @RequestMapping(value = "/remove", method = RequestMethod.GET)
     public ModelAndView Remove(HttpServletRequest request,String uid) {
         if(uid==null||uid.equals("")){
-            return new ModelAndView("redirect:/go", null);
+            return new ModelAndView("redirect:/rest/wx/go", null);
         }
         AirUser airUser = new AirUser();
         airUser=(AirUser)request.getSession().getAttribute("airUser");
         if(airUser==null){
-            request.getSession().setAttribute("goUrl","/remove?uid="+uid);
-            return new ModelAndView("redirect:/go", null);
+            return new ModelAndView("redirect:/rest/wx/go?goUrl=remove&uid="+uid, null);
         }
         logger.debug(airUser.getOpenid()+"");
         ModelAndView mv = new ModelAndView();
