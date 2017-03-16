@@ -56,8 +56,8 @@ public class WxMegController {
             airUserService.addAirUser(airUser);
         }
         request.getSession().setAttribute("airUser",airUser);
-        logger.debug("缓存路径为："+goUrl);
-        if(goUrl!=null){
+        if(goUrl!=null&&!goUrl.equals("")){
+            logger.debug("缓存路径为："+goUrl);
             return new ModelAndView("redirect:/rest/wx/"+goUrl, null);
         }
         ModelAndView mv = new ModelAndView();
@@ -75,7 +75,12 @@ public class WxMegController {
         AirWxInfo airWxInfo = new AirWxInfo();
         airWxInfo = (AirWxInfo)request.getSession().getServletContext().getAttribute("wxinfo");
         String appidUrl="?appid="+airWxInfo.getAppid()+"&";
-        String redirect_uri="redirect_uri=http://air.semsplus.com/rest/wx/login?goUrl="+goUrl+"&";
+        String redirect_uri="";
+        if((goUrl!=null)&&(!goUrl.equals(""))){
+            redirect_uri="redirect_uri=http://air.semsplus.com/rest/wx/login?goUrl="+goUrl+"&";
+        }else {
+            redirect_uri = "redirect_uri=http://air.semsplus.com/rest/wx/login&";
+        }
         String typeUrl ="response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
         return "redirect:"+WxUrlType.authorizeUrl+appidUrl+redirect_uri+typeUrl;
     }

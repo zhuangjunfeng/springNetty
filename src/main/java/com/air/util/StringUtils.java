@@ -281,4 +281,12 @@ public class StringUtils {
         }
         return null;
     }
+
+    public static void main(String[] args) {
+        String goUrl= "null";
+        if(goUrl!=null){
+            System.out.print("");
+        }
+
+    }
 }
