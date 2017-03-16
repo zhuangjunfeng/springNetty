@@ -63,6 +63,8 @@
     </div>
     <script type='text/javascript' src='<%=basePath %>/js/lib/zepto.js' charset='utf-8'></script>
     <script type='text/javascript' src='<%=basePath %>/js/lib/sm.js' charset='utf-8'></script>
+    <script type="text/javascript" src="<%=basePath %>/js/remove.js"></script>
+
 </body>
 
 </html>
