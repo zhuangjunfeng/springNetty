@@ -56,7 +56,7 @@ public class WxMegController {
             airUserService.addAirUser(airUser);
         }
         request.getSession().setAttribute("airUser",airUser);
-        if(goUrl!=null&&!goUrl.equals("")){
+        if((goUrl!=null)&&(!goUrl.equals(""))){
             return new ModelAndView("redirect:/rest/wx/"+goUrl, null);
         }
         ModelAndView mv = new ModelAndView();
