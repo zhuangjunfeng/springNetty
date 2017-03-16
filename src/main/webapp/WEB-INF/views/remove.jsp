@@ -8,7 +8,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>解绑设备</title>
-    <script type="text/javascript" src="js/lib/flexible.js"></script>
+    <script type="text/javascript" src="<%=basePath %>/js/lib/flexible.js"></script>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="<%=basePath %>/css/sm-55da968180.css">
