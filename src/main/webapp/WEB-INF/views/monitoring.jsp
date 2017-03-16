@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <html>
 <head>
@@ -25,7 +25,7 @@
                 <div class="monitoring-state">
                     <h1>优</h1>
                     <h5 class="auto-title">手动运行</h5>
-                    <h6>PM2.5：25mg/m3<br/>VOC：80mg/m3</h6>
+                    <h6>PM2.5：25mg/m3</h6>
                 </div>
                 <!-- 监控页面的信息部分-->
                 <div class="monitoring-message">
@@ -47,42 +47,41 @@
             <div class="monitoring-button">
                 <div class="monitoring-button1">
                     <div>
-                        <span class="icon iconfont icon-kaiguan" id="kaiguan"></span>
+                        <span class="icon iconfont icon-kaiguan" id="switchBtn"></span>
+
                         <p>开关</p>
                     </div>
                     <div>
-                        <span class="icon iconfont icon-autodq" id="auto"></span>
+                        <span class="icon iconfont icon-autodq" id="autoBtn"></span>
+
                         <p>模式</p>
                     </div>
                     <div>
-                        <span class="icon iconfont icon-fengsushezhi" id="fengsu"></span>
+                        <span class="icon iconfont icon-fengsushezhi" id="speedBtn"></span>
                         <p>风速</p>
                     </div>
                     <div>
-                        <span class="icon iconfont icon-shizhong" id="clock"></span>
+                        <span class="icon iconfont icon-shizhong" id="clockBtn"></span>
                         <p>定时</p>
                     </div>
                 </div>
                 <div class="monitoring-button2">
                     <div>
-                            <span class='icon iconfont icon-caozuo_denglizi' id='icon-denglizi'>
-                            </span>
+                        <span class='icon iconfont icon-caozuo_denglizi' id='plasmaBtn'></span>
                         <p>等离子</p>
                     </div>
                     <div>
-                        <span class='icon iconfont icon-dengpao-copy' id='icon-deng'></span>
+                        <span class='icon iconfont icon-dengpao-copy' id='lampBtn'></span>
                         <p>氛围灯</p>
                     </div>
                     <div>
-                        <span class='icon iconfont icon-kongqilvwang' id='wang'></span>
+                        <span class='icon iconfont icon-kongqilvwang' id='filterBtn'></span>
                         <p>重置滤网</p>
                     </div>
-                    <a href='javascript:;' id="moreBtn">
                         <div>
-                            <span class='icon iconfont icon-sandian' id="more"></span>
+                            <span class='icon iconfont icon-sandian' id="moreBtn"></span>
                             <p>更多</p>
                         </div>
-                    </a>
                 </div>
             </div>
         </div>
