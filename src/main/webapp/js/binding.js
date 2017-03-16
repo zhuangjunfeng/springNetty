@@ -11,7 +11,7 @@ function add() {
         },
         data: $("#add-form").serialize(),
         success: function(data) {
-            $.toast("绑定成功");
+            window.location.href="http://air.semsplus.com/rest/wx/go";
         }
     })
 }

@@ -13,14 +13,13 @@ function GetQueryString(name)
 //点击更多
 $("#removeBtn").click(function(){
 	var uid=GetQueryString("uid");
-    $.toast(uid);
     $.ajax({
         type: "POST",
         dataType: "json",
         url: "http://air.semsplus.com/rest/device/del",
         data: {uid: uid},
         success: function (data) {
-            $.toast("解除绑定成功");
+            window.location.href="http://air.semsplus.com/rest/wx/go";
         }
     })
 });
