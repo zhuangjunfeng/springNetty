@@ -5,6 +5,8 @@ import com.air.netty.websocket.protocol.WebSocketMsg;
 import com.air.util.StringUtils;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletContext;
@@ -16,6 +18,8 @@ import java.util.Map;
  */
 @Component("80")
 public class ReciveActor {
+    protected static final Logger logger = LoggerFactory.getLogger(ReciveActor.class);
+
     private Modbus modbus;
     private Channel channel;
     private ServletContext servletContext;
@@ -42,7 +46,7 @@ public class ReciveActor {
         webSocketMsg.setCmd(modbus.getCODE());
         webSocketMsg.setData(modbus.getDATA());
         String rs= StringUtils.ObjectToJson(webSocketMsg);
-
+        logger.info("收到设备指令："+rs);
         //遍历wsUIDMap获取所有监听UID的ws通道
         for(Map.Entry<String,String> entry:wsUIDMap.entrySet()){
             if(entry.getValue().equals(UID)){
