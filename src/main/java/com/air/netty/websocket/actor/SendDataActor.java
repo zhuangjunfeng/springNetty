@@ -52,9 +52,10 @@ public class SendDataActor {
                     modbus.setCODE(webSocketMsg.getCode());
                     modbus.setDATA(webSocketMsg.getData());
                     incoming.writeAndFlush(modbus);
-                    channel.writeAndFlush(new TextWebSocketFrame("发送命令"+modbus.getCODE()+"和数据"+modbus.getDATA()+"到设备：" + uid));
                 }else {
-                    webSocketMsg.setData("设备不在线！");
+                    webSocketMsg.setCmd("webLoginActor");
+                    webSocketMsg.setUid(uid);
+                    webSocketMsg.setData("noActive");
                     String rs= StringUtils.ObjectToJson(webSocketMsg);
                     logger.info("发送ws信息："+rs);
                     channel.writeAndFlush(new TextWebSocketFrame(rs));

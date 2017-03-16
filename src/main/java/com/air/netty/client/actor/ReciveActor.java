@@ -1,6 +1,8 @@
 package com.air.netty.client.actor;
 
 import com.air.netty.client.protocol.Modbus;
+import com.air.netty.websocket.protocol.WebSocketMsg;
+import com.air.util.StringUtils;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.springframework.stereotype.Component;
@@ -35,13 +37,18 @@ public class ReciveActor {
         webSocketClient=(Map) servletContext.getAttribute("websocketMap");
         wsUIDMap=(Map) servletContext.getAttribute("wsUIDMap");
         String UID = modbus.getUID();
+        WebSocketMsg webSocketMsg = new WebSocketMsg();
+        webSocketMsg.setUid(UID);
+        webSocketMsg.setCmd(modbus.getCODE());
+        webSocketMsg.setData(modbus.getDATA());
+        String rs= StringUtils.ObjectToJson(webSocketMsg);
 
         //遍历wsUIDMap获取所有监听UID的ws通道
         for(Map.Entry<String,String> entry:wsUIDMap.entrySet()){
             if(entry.getValue().equals(UID)){
                 Channel incoming = (Channel)webSocketClient.get(entry.getKey());
                 if(incoming!=null) {
-                    incoming.writeAndFlush(new TextWebSocketFrame(new Date().toString()+"-收到终端" + modbus.getUID() + "的数据："+modbus.getDATA()));
+                    incoming.writeAndFlush(new TextWebSocketFrame(rs));
                 }
             }
         }

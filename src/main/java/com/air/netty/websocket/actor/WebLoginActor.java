@@ -1,6 +1,7 @@
 package com.air.netty.websocket.actor;
 
 import com.air.netty.websocket.protocol.WebSocketMsg;
+import com.air.util.StringUtils;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.slf4j.Logger;
@@ -22,6 +23,8 @@ public class WebLoginActor {
     private ServletContext servletContext;
     private Map<String,Channel> webSocketClient;
     private Map<String,String> wsUIDMap;
+    private Map clientSocket;
+
 
 
 
@@ -45,11 +48,34 @@ public class WebLoginActor {
         //缓存IP-WS关系
         webSocketClient.put(wsIP,channel);
         servletContext.setAttribute("websocketMap", webSocketClient);
+
+        //查询设备在线状态
+        clientSocket=(Map) servletContext.getAttribute("clientMap");
+        Channel incoming = (Channel)clientSocket.get(UID);
         logger.info("监听设备："+webSocketMsg.getUid());
-        channel.writeAndFlush(new TextWebSocketFrame("监听设备："+webSocketMsg.getUid()));
+
+        WebSocketMsg webSocketMsg = new WebSocketMsg();
+        webSocketMsg.setUid(UID);
+        webSocketMsg.setCmd("webLoginActor");
+        if(incoming!=null) {
+            webSocketMsg.setData("active");
+            String rs= StringUtils.ObjectToJson(webSocketMsg);
+            channel.writeAndFlush(new TextWebSocketFrame(rs));
+        }else{
+            webSocketMsg.setData("noActive");
+            String rs= StringUtils.ObjectToJson(webSocketMsg);
+            channel.writeAndFlush(new TextWebSocketFrame(rs));
+        }
     }
 
 
+    public Map getClientSocket() {
+        return clientSocket;
+    }
+
+    public void setClientSocket(Map clientSocket) {
+        this.clientSocket = clientSocket;
+    }
 
     public Map<String, String> getWsUIDMap() {
         return wsUIDMap;

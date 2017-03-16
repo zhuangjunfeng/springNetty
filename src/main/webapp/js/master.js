@@ -28,7 +28,7 @@ function initWebSocket(){
     if (window.WebSocket) {
         socket = new WebSocket("ws://"+window.location.hostname+":5888/ws");
         socket.onmessage = function(event) {
-
+            $.toast(event.cmd);
         };
         socket.onopen = function(event) {
            uid=GetQueryString("uid");
@@ -93,6 +93,9 @@ $("#switchBtn").click(function() {
 });
 //AUTO按钮
 $("#autoBtn").click(function() {
+    $.alert("暂不支持该功能！");
+});
+$("#lampBtn").click(function() {
     $.alert("暂不支持该功能！");
 });
 //风速按钮
