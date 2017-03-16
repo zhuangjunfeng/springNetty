@@ -17,6 +17,23 @@ $.fn.serializeObject = function()
     });
     return o;
 };
+function cmdSet(data){
+    if(data.cmd=="webLoginActor"){
+        if(data.data=="active"){
+            $(".auto-title").text("手动运行");
+            $(".auto-title").attr("status","active");
+            $(".state-card").css("background-color", "#1ba365");
+        }else{
+            $(".auto-title").text("不在线");
+            $(".auto-title").attr("status","noActive");
+            $(".state-card").css("background-color", "#999999");
+        }
+    }else{
+        $.alert(data.cmd);
+    }
+
+
+}
 
 /**
  * 初始化页面
@@ -28,11 +45,14 @@ function initWebSocket(){
     if (window.WebSocket) {
         socket = new WebSocket("ws://"+window.location.hostname+":5888/ws");
         socket.onmessage = function(event) {
-            $.toast(event.data.cmd);
+            var data =JSON.parse(event.data);
+            cmdSet(data)
         };
         socket.onopen = function(event) {
            uid=GetQueryString("uid");
             sendWS("webLoginActor",uid,"","");
+            sendWS("sendDataActor",uid,"29","01");
+            sendWS("sendDataActor",uid,"28","01");
         };
         socket.onclose = function(event) {
             initWebSocket();

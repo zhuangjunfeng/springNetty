@@ -15,7 +15,15 @@ $.fn.serializeObject = function()
     });
     return o;
 };
-
+function cmdSet(data){
+    if(data.cmd=="webLoginActor"){
+        if(data.data=="active"){
+            $("#"+data.uid).children().find(".item-after").html("在线")
+        }else{
+            $("#"+data.uid).children().find(".item-after").html("不在线")
+        }
+    }
+}
 
 function initWebSocket(){
     if (!window.WebSocket) {
@@ -24,7 +32,8 @@ function initWebSocket(){
     if (window.WebSocket) {
         socket = new WebSocket("ws://"+window.location.hostname+":5888/ws");
         socket.onmessage = function(event) {
-            $.toast(event.data.cmd);
+            var data =JSON.parse(event.data);
+            cmdSet(data)
         };
         socket.onopen = function(event) {
             query();
@@ -102,9 +111,8 @@ function query() {
             var typeList = data.data.list;
             var listHtml = "";
             $.each(typeList, function(i, n) {
-                sendWS("webLoginActor",n.device_uid,"","");
                 listHtml += "<div class='list-block media-list'><ul><li>" +
-                    "<a href='#' class='item-link item-content d-detail' data-uid='"+ n.device_uid+"'>" +
+                    "<a href='#' class='item-link item-content d-detail' id='"+ n.device_uid+"'>" +
                     "<div class='item-media'>" +
                     "<img src='http://air.semsplus.com/img/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg' style='width: 4rem;'>" +
                     "</div>" +
@@ -113,7 +121,7 @@ function query() {
                     "<div class='item-title'>" +
                     n.device_name +
                     "</div>" +
-                    "<div class='item-after'>不在线</div>" +
+                    "<div class='item-after'></div>" +
                     "</div>" +
                     "<div class='item-subtitle'></div>" +
                     "<div class='item-text'></div> " +
@@ -121,8 +129,11 @@ function query() {
             })
 
             $("#devices").html(listHtml);
+            $.each(typeList, function(i, n) {
+                sendWS("webLoginActor",n.device_uid,"","");
+            });
             $(".d-detail").click(function(){
-                var uid = $(this).attr("data-uid");
+                var uid = $(this).attr("id");
                 window.location.href="http://air.semsplus.com/rest/wx/monitoring?uid="+uid;
             });
         }
@@ -130,6 +141,7 @@ function query() {
 }
 
 $(function() {
-    initWebSocket();
     $.init();
+    initWebSocket();
+
 });
