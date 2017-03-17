@@ -2,7 +2,7 @@
  * 添加设备
  */
 function add() {
-    if($('obj[name="device_name"]').val()==""||$('obj[name="device_uid"]').val()==""){
+    if($('input[name="device_name"]').val()==""||$('input[name="device_uid"]').val()==""){
         $.alert('设备名称或UID不能为空！');
     }else{
         $.ajax({
