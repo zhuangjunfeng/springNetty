@@ -6,14 +6,15 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>设备绑定</title>
-    <script type="text/javascript" src="<%=basePath %>/js/lib/flexible.js"></script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" href="<%=basePath %>/css/sm-55da968180.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath %>/css/layout-ef68b4fb4e.css">
-    <link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_30orapuilrgm0a4i.css">
+    <link rel="stylesheet" href="<%=basePath %>/css/sm.css">
+    <link rel="stylesheet" href="<%=basePath %>/css/sm-extend.css">
+    <link rel="stylesheet" type="text/css" href="<%=basePath %>/css/global.css?170122002">
 </head>
 
 <body>
