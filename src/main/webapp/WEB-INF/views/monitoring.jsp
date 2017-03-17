@@ -7,11 +7,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>监控页面</title>
-    <script type="text/javascript" src="<%=basePath %>/js/lib/flexible.js"></script>
+    <script type="text/javascript" src="<%=basePath %>js/lib/flexible.js"></script>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" href="<%=basePath %>/css/sm-55da968180.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath %>/css/columns-89dd69d4d6.css">
+    <link rel="stylesheet" href="<%=basePath %>css/sm-55da968180.css">
+    <link rel="stylesheet" type="text/css" href="<%=basePath %>css/columns-89dd69d4d6.css">
     <link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_30orapuilrgm0a4i.css">
 </head>
 
@@ -86,9 +86,9 @@
         </div>
     </div>
 </div>
-<script type='text/javascript' src='<%=basePath %>/js/lib/zepto.js' charset='utf-8'></script>
-<script type='text/javascript' src='<%=basePath %>/js/lib/sm.js' charset='utf-8'></script>
-<script type="text/javascript" src="<%=basePath %>/js/master.js"></script>
+<script type='text/javascript' src='<%=basePath %>js/lib/zepto.js' charset='utf-8'></script>
+<script type='text/javascript' src='<%=basePath %>js/lib/sm.js' charset='utf-8'></script>
+<script type="text/javascript" src="<%=basePath %>js/master.js"></script>
 </body>
 
 </html>

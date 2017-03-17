@@ -8,11 +8,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>信息设置</title>
-    <script type="text/javascript" src="<%=basePath %>/js/lib/flexible.js"></script>
+    <script type="text/javascript" src="<%=basePath %>js/lib/flexible.js"></script>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" href="<%=basePath %>/css/sm-55da968180.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath %>/css/master-467270fac4.css">
+    <link rel="stylesheet" href="<%=basePath %>css/sm-55da968180.css">
+    <link rel="stylesheet" type="text/css" href="<%=basePath %>css/master-467270fac4.css">
 </head>
 
 <body>
@@ -89,8 +89,8 @@
         </div>
     </div>
 </div>
-<script type='text/javascript' src='<%=basePath %>/js/lib/zepto.js' charset='utf-8'></script>
-<script type='text/javascript' src='<%=basePath %>/js/lib/sm.js' charset='utf-8'></script>
+<script type='text/javascript' src='<%=basePath %>js/lib/zepto.js' charset='utf-8'></script>
+<script type='text/javascript' src='<%=basePath %>js/lib/sm.js' charset='utf-8'></script>
 </body>
 
 </html>

@@ -12,9 +12,9 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" href="<%=basePath %>/css/sm.css">
-    <link rel="stylesheet" href="<%=basePath %>/css/sm-extend.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath %>/css/global.css?170122002">
+    <link rel="stylesheet" href="<%=basePath %>css/sm.css">
+    <link rel="stylesheet" href="<%=basePath %>css/sm-extend.css">
+    <link rel="stylesheet" type="text/css" href="<%=basePath %>css/global.css?170122002">
 </head>
 
 <body>
@@ -60,9 +60,9 @@
         </div>
     </div>
 </div>
-<script type='text/javascript' src='<%=basePath %>/js/lib/zepto.js' charset='utf-8'></script>
-<script type='text/javascript' src='<%=basePath %>/js/lib/sm.js' charset='utf-8'></script>
-<script type="text/javascript" src="<%=basePath %>/js/binding.js"></script>
+<script type='text/javascript' src='<%=basePath %>js/lib/zepto.js' charset='utf-8'></script>
+<script type='text/javascript' src='<%=basePath %>js/lib/sm.js' charset='utf-8'></script>
+<script type="text/javascript" src="<%=basePath %>js/binding.js"></script>
 
 </body>
 
