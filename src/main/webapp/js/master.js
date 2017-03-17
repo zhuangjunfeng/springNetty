@@ -30,6 +30,7 @@ function cmdSet(data){
         }
     }else{
         $.alert(data.cmd);
+        $.alert(data.data);
     }
 
 
@@ -52,7 +53,7 @@ function initWebSocket(){
            uid=GetQueryString("uid");
             sendWS("webLoginActor",uid,"","");
             sendWS("sendDataActor",uid,"29","01");
-            sendWS("sendDataActor",uid,"28","01");
+            // sendWS("sendDataActor",uid,"28","01");
         };
         socket.onclose = function(event) {
             initWebSocket();
