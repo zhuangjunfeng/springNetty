@@ -28,8 +28,16 @@ function cmdSet(data){
             $(".auto-title").attr("status","noActive");
             $(".state-card").css("background-color", "#999999");
         }
-    }else{
-        $.alert(data.cmd);
+    }
+    if(data.cmd=="80"){
+
+    }
+    if(data.cmd=="01"){
+        var rsData= data.data;
+        if(rsData.substring(0,2)=="29"){
+            $("#switchBtn").attr("status",rsData.substring(6,8))
+            $("#plasmaBtn").attr("status",rsData.substring(8,10))
+        }
         $.alert(data.data);
     }
 
@@ -53,7 +61,6 @@ function initWebSocket(){
            uid=GetQueryString("uid");
             sendWS("webLoginActor",uid,"","");
             sendWS("sendDataActor",uid,"29","01");
-            // sendWS("sendDataActor",uid,"28","01");
         };
         socket.onclose = function(event) {
             initWebSocket();
@@ -98,18 +105,18 @@ initWebSocket();
 /*监控页面按钮部分*/
 //开关按钮
 $("#switchBtn").click(function() {
-    if ($(this).attr("status") == "open") {
+    if ($(this).attr("status") == "01") {
         $(".auto-title").text("已关机");
         $(".state-card").css("background-color", "#999999");
         var  data= "010300";
         sendWS("sendDataActor",uid,data,"f5");
-        $(this).attr("status","close")
+        $(this).attr("status","00")
     } else {
         $(".auto-title").text("手动运行");
         $(".state-card").css("background-color", "#1ba365");
         var  data= "013000";
         sendWS("sendDataActor",uid,data,"f5");
-        $(this).attr("status","open")
+        $(this).attr("status","01")
     }
 });
 //AUTO按钮
@@ -139,14 +146,14 @@ $("#speedBtn").click(function() {
 });
 
 $("#plasmaBtn").click(function() {
-    if ($(this).attr("status") == "open") {
+    if ($(this).attr("status") == "01") {
         var  data= "04";
         sendWS("sendDataActor",uid,data,"f5");
-        $(this).attr("status","close")
+        $(this).attr("status","00")
     } else {
         var  data= "030300";
         sendWS("sendDataActor",uid,data,"f5");
-        $(this).attr("status","open")
+        $(this).attr("status","01")
     }
 });
 
@@ -156,11 +163,9 @@ $("#clockBtn").datetimePicker({
 
 //重置过滤网
 $("#filterBtn").click(function() {
-    $.alert('<div>重置滤网已经完成</div>');
+   sendWS("sendDataActor",uid,"28","01");
 });
 //点击更多
 $("#moreBtn").click(function(){
     window.location.href="http://air.semsplus.com/rest/wx/remove?uid="+uid;
 });
-
-
