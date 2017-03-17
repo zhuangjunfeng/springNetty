@@ -39,7 +39,7 @@
                         <p>湿度&nbsp;80%</p>
                     </div>
                     <div class='message' id="filterInfo">
-                        <p>滤网&nbsp;50%</p>
+                        <p>等离子&nbsp;开</p>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                     </div>
                     <div>
                         <span class='icon iconfont icon-kongqilvwang' id='filterBtn'></span>
-                        <p>重置滤网</p>
+                        <p>查询状态</p>
                     </div>
                         <div>
                             <span class='icon iconfont icon-sandian' id="moreBtn"></span>
