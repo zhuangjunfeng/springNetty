@@ -140,27 +140,6 @@ public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
 
     }
 
-    @Override
-    public void userEventTriggered(ChannelHandlerContext ctx, Object evt)
-            throws Exception {
-
-        if (evt instanceof IdleStateEvent) {  // 2
-            IdleStateEvent event = (IdleStateEvent) evt;
-            String type = "";
-            if (event.state() == IdleState.READER_IDLE) {
-                type = "read idle";
-            } else if (event.state() == IdleState.WRITER_IDLE) {
-                type = "write idle";
-            } else if (event.state() == IdleState.ALL_IDLE) {
-                type = "all idle";
-            }
-
-            logger.info(ctx.channel().remoteAddress() + "超时类型：" + type);
-        } else {
-            super.userEventTriggered(ctx, evt);
-        }
-    }
-
 
     /**
      * 根据UID查询相关的openId发送设备上线提醒模版消息
@@ -205,6 +184,12 @@ public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         ctx.flush();
     }
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        logger.error("捕获异常");
+        super.channelInactive(ctx);
+    }
+
 
 
     public ServletContext getServletContext() {
