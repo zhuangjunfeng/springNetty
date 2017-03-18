@@ -201,6 +201,7 @@ public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
                 ctx.close();
 
             }
+            logger.info("异常事件"+event.state().toString());
 
         }
     }
