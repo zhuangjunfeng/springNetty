@@ -38,8 +38,8 @@ public class JobListerner implements ApplicationContextAware,ServletContextAware
 
         Map<String,Channel> websocketMap=(Map)servletContext.getAttribute("websocketMap");
         Map<String,Channel> clientMap=(Map)servletContext.getAttribute("clientMap");
-        logger.info("当前客户端在线人数为："+websocketMap.size());
-        logger.info("当前设备端在线人数为："+clientMap.size());
+        logger.info("当前客户端在线数为："+websocketMap.size());
+        logger.info("当前设备端在线数为："+clientMap.size());
     }
 
     @Scheduled(cron = "0 0/30 * * * ?")
