@@ -44,9 +44,6 @@ import java.util.regex.Pattern;
 @ChannelHandler.Sharable
 public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
     protected static final Logger logger = LoggerFactory.getLogger(ModbusHandler.class);
-    private static final ByteBuf HEARTBEAT_SEQUENCE = Unpooled
-            .unreleasableBuffer(Unpooled.copiedBuffer("Heartbeat",
-                    CharsetUtil.UTF_8));
 
     private ServletContext servletContext;
     @Resource
@@ -157,9 +154,6 @@ public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
             } else if (event.state() == IdleState.ALL_IDLE) {
                 type = "all idle";
             }
-
-            ctx.writeAndFlush(HEARTBEAT_SEQUENCE.duplicate()).addListener(
-                    ChannelFutureListener.CLOSE_ON_FAILURE);  // 3
 
             logger.info(ctx.channel().remoteAddress() + "超时类型：" + type);
         } else {
