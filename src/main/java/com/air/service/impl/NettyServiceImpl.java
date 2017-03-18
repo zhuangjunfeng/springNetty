@@ -52,7 +52,7 @@ public class NettyServiceImpl  implements NettyService{
                     .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast("ping", new IdleStateHandler(25, 15, 10,TimeUnit.SECONDS));
+                            ch.pipeline().addLast("ping", new IdleStateHandler(180, 15, 10,TimeUnit.SECONDS));
                             ch.pipeline().addLast("decoder",
                                     new ModbusDecoder(MAX_FRAME_LENGTH, LENGTH_FIELD_OFFSET,LENGTH_FIELD_LENGTH,LENGTH_ADJUSTMENT, INITIAL_BYTES_TO_STRIP));
                             ch.pipeline().addLast("encoder", new ModbusEncoder());
