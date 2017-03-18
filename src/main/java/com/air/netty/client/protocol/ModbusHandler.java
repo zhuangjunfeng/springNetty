@@ -161,7 +161,7 @@ public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
             ctx.writeAndFlush(HEARTBEAT_SEQUENCE.duplicate()).addListener(
                     ChannelFutureListener.CLOSE_ON_FAILURE);  // 3
 
-            System.out.println(ctx.channel().remoteAddress() + "超时类型：" + type);
+            logger.info(ctx.channel().remoteAddress() + "超时类型：" + type);
         } else {
             super.userEventTriggered(ctx, evt);
         }
