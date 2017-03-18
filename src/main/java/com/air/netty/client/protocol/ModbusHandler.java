@@ -185,6 +185,26 @@ public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
         ctx.flush();
     }
     @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt)
+            throws Exception {
+        // TODO Auto-generated method stub
+        super.userEventTriggered(ctx, evt);
+
+        if (evt instanceof IdleStateEvent) {
+
+            IdleStateEvent event = (IdleStateEvent) evt;
+
+            if (event.state().equals(IdleState.READER_IDLE)) {
+                //未进行读操作
+                logger.info("客户端心跳超时");
+                // 超时关闭channel
+                ctx.close();
+
+            }
+
+        }
+    }
+    @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         logger.info("捕获异常");
         super.channelInactive(ctx);
