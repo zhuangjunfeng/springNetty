@@ -12,11 +12,13 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.timeout.IdleStateHandler;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletContext;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Description
@@ -35,6 +37,9 @@ public class NettyServiceImpl  implements NettyService{
     private static final int LENGTH_FIELD_OFFSET =9;
     private static final int LENGTH_ADJUSTMENT = 2;
     private static final int INITIAL_BYTES_TO_STRIP = 0;
+    private static final int READ_IDEL_TIME_OUT = 4; // 读超时
+    private static final int WRITE_IDEL_TIME_OUT = 5;// 写超时
+    private static final int ALL_IDEL_TIME_OUT = 7; // 所有超时
 
 
     @Override
@@ -49,6 +54,8 @@ public class NettyServiceImpl  implements NettyService{
                     .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
+                            ch.pipeline().addLast(new IdleStateHandler(READ_IDEL_TIME_OUT,
+                                    WRITE_IDEL_TIME_OUT, ALL_IDEL_TIME_OUT, TimeUnit.SECONDS));
                             ch.pipeline().addLast("decoder",
                                     new ModbusDecoder(MAX_FRAME_LENGTH, LENGTH_FIELD_OFFSET,LENGTH_FIELD_LENGTH,LENGTH_ADJUSTMENT, INITIAL_BYTES_TO_STRIP));
                             ch.pipeline().addLast("encoder", new ModbusEncoder());

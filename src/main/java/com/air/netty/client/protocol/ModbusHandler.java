@@ -10,10 +10,12 @@ import com.air.service.AirDeviceService;
 import com.air.service.ConnectionRecordService;
 import com.air.util.StringUtils;
 import com.air.util.WxUtil;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.*;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
+import io.netty.util.CharsetUtil;
 import org.apache.http.entity.StringEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +44,9 @@ import java.util.regex.Pattern;
 @ChannelHandler.Sharable
 public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
     protected static final Logger logger = LoggerFactory.getLogger(ModbusHandler.class);
+    private static final ByteBuf HEARTBEAT_SEQUENCE = Unpooled
+            .unreleasableBuffer(Unpooled.copiedBuffer("Heartbeat",
+                    CharsetUtil.UTF_8));
 
     private ServletContext servletContext;
     @Resource
@@ -99,6 +104,7 @@ public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {  // (2)
         Channel incoming = ctx.channel();
     }
+
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {  // (3)
         Channel incoming = ctx.channel();
@@ -137,6 +143,29 @@ public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
 
     }
 
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt)
+            throws Exception {
+
+        if (evt instanceof IdleStateEvent) {  // 2
+            IdleStateEvent event = (IdleStateEvent) evt;
+            String type = "";
+            if (event.state() == IdleState.READER_IDLE) {
+                type = "read idle";
+            } else if (event.state() == IdleState.WRITER_IDLE) {
+                type = "write idle";
+            } else if (event.state() == IdleState.ALL_IDLE) {
+                type = "all idle";
+            }
+
+            ctx.writeAndFlush(HEARTBEAT_SEQUENCE.duplicate()).addListener(
+                    ChannelFutureListener.CLOSE_ON_FAILURE);  // 3
+
+            System.out.println(ctx.channel().remoteAddress() + "超时类型：" + type);
+        } else {
+            super.userEventTriggered(ctx, evt);
+        }
+    }
 
 
     /**
