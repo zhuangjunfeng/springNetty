@@ -186,7 +186,7 @@ public class ModbusHandler extends SimpleChannelInboundHandler<Object> {
     }
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        logger.error("捕获异常");
+        logger.info("捕获异常");
         super.channelInactive(ctx);
     }
 
